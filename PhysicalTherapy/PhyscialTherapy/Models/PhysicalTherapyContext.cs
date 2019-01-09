@@ -11,7 +11,7 @@ namespace PhysicalTherapy.Models
     {
 
         public DbSet<AccountType> AccountTypes { get; set; }
-        public DbSet<Administration> Administrations { get; set; }
+        public DbSet<Administrator> Administrations { get; set; }
         public DbSet<Credential> Credentials { get; set; }
         public DbSet<Excercise> Excercises { get; set; }
         public DbSet<MessageLog> MessageLogs { get; set; }

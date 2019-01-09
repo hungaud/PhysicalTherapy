@@ -8,10 +8,6 @@ namespace PhysicalTherapy.Models
 {
     public class Credential
     {
-        public int AccountTypeId { get; set; }
-
-        public AccountType AccountType { get; set; }
-
         public int CredentialId { get; set; }
 
         [Required]
