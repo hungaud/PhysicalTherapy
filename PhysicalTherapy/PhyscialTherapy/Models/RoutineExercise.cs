@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PhyscialTherapy.Models
+namespace PhysicalTherapy.Models
 {
     public class RoutineExercise
     {
         public Excercise Excersise { get; set; }
+
         public string ExerciseId { get; set; }
 
         public decimal? HoldLength { get; set; }

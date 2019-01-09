@@ -14,7 +14,7 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using PhysicalTherapy.Models;
 
-namespace PhyscialTherapy
+namespace PhysicalTherapy
 {
     public class Startup
     {

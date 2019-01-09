@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PhyscialTherapy.Models;
+using PhysicalTherapy.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
