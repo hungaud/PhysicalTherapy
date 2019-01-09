@@ -9,6 +9,11 @@ namespace PhysicalTherapy.Models
 {
     public class PhysicalTherapyContext : DbContext
     {
+        public PhysicalTherapyContext(DbContextOptions<PhysicalTherapyContext> options)
+            : base(options)
+        {
+
+        }
 
         public DbSet<AccountType> AccountTypes { get; set; }
         public DbSet<Administrator> Administrations { get; set; }

@@ -11,20 +11,20 @@ namespace PhysicalTherapy.Models
         public bool Completed { get; set; }
 
         [Range(1, 10)]
-        public decimal LevelOfDifficulty { get; set; }
+        public int LevelOfDifficulty { get; set; }
 
         [Range(1, 10)]
-        public decimal LevelOfPain { get; set; }
+        public int LevelOfPain { get; set; }
 
         [Range(1, 10)]
-        public decimal LevelOfTiredness { get; set; }
+        public int LevelOfTiredness { get; set; }
 
         public string Note { get; set; }
 
         public int PostRoutineSurveyId { get; set; }
 
-        public Routine Routine { get; set; }
+        //public Routine Routine { get; set; }
 
-        public int RoutineId { get; set; }
+        //public int RoutineId { get; set; }
     }
 }
