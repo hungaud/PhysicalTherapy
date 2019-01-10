@@ -23,6 +23,6 @@ namespace PhysicalTherapy.Models
 
         public PostRoutineSurvey PostRoutineSurvey { get; set; }
 
-        public int? PostRoutineSurveyId { get; set; }
+        public int PostRoutineSurveyId { get; set; }
     }
 }

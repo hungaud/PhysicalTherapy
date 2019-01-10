@@ -21,7 +21,7 @@ namespace PhysicalTherapy.Models
 
         public string LastName { get; set; }
 
-        public ICollection<Patient> Patients { get; set; }
+        public ICollection<Patient> ListOfPatients { get; set; }
 
         public string PhoneNumber { get; set; }
 

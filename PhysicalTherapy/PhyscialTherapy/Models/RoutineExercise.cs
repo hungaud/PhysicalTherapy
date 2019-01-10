@@ -8,7 +8,7 @@ namespace PhysicalTherapy.Models
 {
     public class RoutineExercise
     {
-        public Excercise Excersise { get; set; }
+        public Exercise Exercise { get; set; }
 
         public string ExerciseId { get; set; }
 

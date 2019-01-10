@@ -30,7 +30,7 @@ namespace PhysicalTherapy.Models
 
         public Therapist Therapist { get; set; }
 
-        public int TherapistId { get; set; }
+        public int? TherapistId { get; set; }
 
     }
 }
