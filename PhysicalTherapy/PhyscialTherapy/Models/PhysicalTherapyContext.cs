@@ -36,37 +36,26 @@ namespace PhysicalTherapy.Models
             modelBuilder.Entity<Patient>(entity =>
             {
                 entity.HasOne(a => a.AccountType);
-                entity.HasOne(p => p.Therapist)
-                    .WithMany(t => t.ListOfPatients)
-                    .HasForeignKey(fk => fk.TherapistId)
-                    .OnDelete(DeleteBehavior.SetNull)
-                    .IsRequired(false);
             });
 
             modelBuilder.Entity<MessageLog>(entity =>
             {
                 entity.HasOne(p => p.Patient);
-                entity.HasOne(r => r.Routine);
-                entity.HasOne(t => t.Therapist);
-            });
-
-            modelBuilder.Entity<PostRoutineSurvey>(entity =>
-            {
                 entity.HasOne(r => r.Routine)
-                    .WithOne(prs => prs.PostRoutineSurvey)
-                    .HasForeignKey<Routine>(fk => fk.RoutineId);
-                    
+                    .WithMany(ml => ml.ListOfMessageLogs)
+                    .OnDelete(DeleteBehavior.ClientSetNull);
+                entity.HasOne(t => t.Therapist);
             });
 
             modelBuilder.Entity<Routine>(entity =>
             {
                 entity.HasOne(p => p.Patient);
-                entity.HasOne(p => p.PostRoutineSurvey)
-                    .WithOne(r => r.Routine)
-                    .HasForeignKey<PostRoutineSurvey>(fk => fk.PostRoutineSurveyId);
+                entity.HasOne(prs => prs.PostRoutineSurvey)
+                    .WithOne()
+                    .HasForeignKey<Routine>(fk => fk.PostRoutineSurveyId);
                 entity.HasMany(re => re.RoutineExercises)
                     .WithOne(r => r.Routine);
-
+                entity.HasMany(ml => ml.ListOfMessageLogs);
             });
 
             modelBuilder.Entity<RoutineExercise>(entity =>
@@ -80,10 +69,42 @@ namespace PhysicalTherapy.Models
             modelBuilder.Entity<Therapist>(entity =>
             {
                 entity.HasOne(a => a.AccountType);
-                entity.HasMany(p => p.ListOfPatients)
-                    .WithOne(t => t.Therapist)
-                    .OnDelete(DeleteBehavior.SetNull);
+            });
+
+            SeedAccountType(modelBuilder);
+            SeedExercise(modelBuilder);
+        }
+
+        private void SeedAccountType(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<AccountType>(a =>
+            {
+                a.HasData
+                (
+                    new { AccountTypeId = 1, Name = "Admin" },
+                    new { AccountTypeId = 2, Name = "Therapist" },
+                    new { AccountTypeId = 3, Name = "Patient" }
+                );
+            });
+        }
+
+        private void SeedExercise(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Exercise>(e =>
+            {
+                e.HasData
+                (
+                    new { ExerciseId = 1, Name = "Quad Sets", Description = "", Area = "Knee" },
+                    new { ExerciseId = 2, Name = "Knee Slides with Towel", Description = "", Area = "Knee" },
+                    new { ExerciseId = 3, Name = "Prone Knee Hang", Description = "", Area = "Knee" },
+                    new { ExerciseId = 4, Name = "Step Knee Flexion", Description = "", Area = "Knee" },
+                    new { ExerciseId = 5, Name = "Calf Stretch", Description = "", Area = "Knee" },
+                    new { ExerciseId = 6, Name = "Hamstring Stretch", Description = "", Area = "Knee" },
+                    new { ExerciseId = 7, Name = "Ice to Knee with Elevation", Description = "", Area = "Knee" }
+                );
             });
         }
     }
+
+
 }

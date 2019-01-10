@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -22,9 +23,5 @@ namespace PhysicalTherapy.Models
         public string Note { get; set; }
 
         public int PostRoutineSurveyId { get; set; }
-
-        public Routine Routine { get; set; }
-
-        public int RoutineId { get; set; }
     }
 }

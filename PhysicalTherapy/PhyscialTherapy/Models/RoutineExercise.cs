@@ -10,13 +10,13 @@ namespace PhysicalTherapy.Models
     {
         public Exercise Exercise { get; set; }
 
-        public string ExerciseId { get; set; }
+        public int ExerciseId { get; set; }
 
         [Column(TypeName = "decimal(18,2)")]
         public decimal? HoldLength { get; set; }
 
         public int? FrequencyPerDay { get; set; }
-
+        
         public string Notes { get; set; }
 
         public int? Rep { get; set; }
