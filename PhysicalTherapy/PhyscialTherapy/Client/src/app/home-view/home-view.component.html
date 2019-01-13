@@ -1,0 +1,21 @@
+<div>
+  <p>
+    This is the therapist home screen!
+  </p>
+</div>
+<div id="recentFeedbackDiv">
+  <h2>Recent Feedback</h2>
+  <ul class="home-view">
+      <li *ngFor="let patient of feedbackPatients">
+        <span class="badge">ID:{{patient.id}}</span>Name:{{patient.name}}
+      </li>
+    </ul>
+</div>
+<div id="latePatientsDiv">
+  <h2>Late Patients</h2>
+  <ul class="home-view">
+      <li *ngFor="let patient of latePatients">
+        <span class="badge">ID:{{patient.id}}</span>Name:{{patient.name}}
+      </li>
+    </ul>
+</div>
