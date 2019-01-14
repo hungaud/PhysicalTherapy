@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PhysicalTherap.Models.Enum;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -15,5 +16,7 @@ namespace PhysicalTherapy.Models
 
         [Required]
         public string Password { get; set; }
+
+        public AccountType AccountType { get; set; }
     }
 }

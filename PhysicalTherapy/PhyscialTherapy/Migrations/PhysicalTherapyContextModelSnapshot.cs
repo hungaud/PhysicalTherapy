@@ -19,30 +19,13 @@ namespace PhysicalTherapy.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("PhysicalTherapy.Models.AccountType", b =>
-                {
-                    b.Property<int>("AccountTypeId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("AccountTypeId");
-
-                    b.ToTable("AccountTypes");
-
-                    b.HasData(
-                        new { AccountTypeId = 1, Name = "Admin" },
-                        new { AccountTypeId = 2, Name = "Therapist" },
-                        new { AccountTypeId = 3, Name = "Patient" }
-                    );
-                });
-
             modelBuilder.Entity("PhysicalTherapy.Models.Administrator", b =>
                 {
                     b.Property<int>("AdministratorId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AccountType");
 
                     b.Property<int>("AccountTypeId");
 
@@ -60,8 +43,6 @@ namespace PhysicalTherapy.Migrations
 
                     b.HasKey("AdministratorId");
 
-                    b.HasIndex("AccountTypeId");
-
                     b.ToTable("Administrators");
                 });
 
@@ -70,6 +51,8 @@ namespace PhysicalTherapy.Migrations
                     b.Property<int>("CredentialId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AccountType");
 
                     b.Property<string>("Password")
                         .IsRequired();
@@ -143,6 +126,8 @@ namespace PhysicalTherapy.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("AccountType");
+
                     b.Property<int>("AccountTypeId");
 
                     b.Property<string>("Bio");
@@ -160,8 +145,6 @@ namespace PhysicalTherapy.Migrations
                     b.Property<int?>("TherapistId");
 
                     b.HasKey("PatientId");
-
-                    b.HasIndex("AccountTypeId");
 
                     b.HasIndex("TherapistId");
 
@@ -252,6 +235,8 @@ namespace PhysicalTherapy.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("AccountType");
+
                     b.Property<int>("AccountTypeId");
 
                     b.Property<string>("Bio");
@@ -268,17 +253,7 @@ namespace PhysicalTherapy.Migrations
 
                     b.HasKey("TherapistId");
 
-                    b.HasIndex("AccountTypeId");
-
                     b.ToTable("Therapists");
-                });
-
-            modelBuilder.Entity("PhysicalTherapy.Models.Administrator", b =>
-                {
-                    b.HasOne("PhysicalTherapy.Models.AccountType", "AccountType")
-                        .WithMany()
-                        .HasForeignKey("AccountTypeId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("PhysicalTherapy.Models.MessageLog", b =>
@@ -298,11 +273,6 @@ namespace PhysicalTherapy.Migrations
 
             modelBuilder.Entity("PhysicalTherapy.Models.Patient", b =>
                 {
-                    b.HasOne("PhysicalTherapy.Models.AccountType", "AccountType")
-                        .WithMany()
-                        .HasForeignKey("AccountTypeId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("PhysicalTherapy.Models.Therapist", "Therapist")
                         .WithMany("ListOfPatients")
                         .HasForeignKey("TherapistId");
@@ -330,14 +300,6 @@ namespace PhysicalTherapy.Migrations
                     b.HasOne("PhysicalTherapy.Models.Routine", "Routine")
                         .WithMany("RoutineExercises")
                         .HasForeignKey("RoutineId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("PhysicalTherapy.Models.Therapist", b =>
-                {
-                    b.HasOne("PhysicalTherapy.Models.AccountType", "AccountType")
-                        .WithMany()
-                        .HasForeignKey("AccountTypeId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

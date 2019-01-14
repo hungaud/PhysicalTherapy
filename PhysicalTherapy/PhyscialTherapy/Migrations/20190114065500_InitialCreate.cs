@@ -9,16 +9,23 @@ namespace PhysicalTherapy.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "AccountTypes",
+                name: "Administrators",
                 columns: table => new
                 {
-                    AccountTypeId = table.Column<int>(nullable: false)
+                    AccountType = table.Column<int>(nullable: false),
+                    AccountTypeId = table.Column<int>(nullable: false),
+                    AdministratorId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true)
+                    Bio = table.Column<string>(nullable: true),
+                    DateOfBirth = table.Column<DateTime>(nullable: false),
+                    Email = table.Column<string>(nullable: true),
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
+                    PhoneNumber = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AccountTypes", x => x.AccountTypeId);
+                    table.PrimaryKey("PK_Administrators", x => x.AdministratorId);
                 });
 
             migrationBuilder.CreateTable(
@@ -28,7 +35,8 @@ namespace PhysicalTherapy.Migrations
                     CredentialId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Username = table.Column<string>(nullable: false),
-                    Password = table.Column<string>(nullable: false)
+                    Password = table.Column<string>(nullable: false),
+                    AccountType = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -68,34 +76,10 @@ namespace PhysicalTherapy.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Administrators",
-                columns: table => new
-                {
-                    AccountTypeId = table.Column<int>(nullable: false),
-                    AdministratorId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Bio = table.Column<string>(nullable: true),
-                    DateOfBirth = table.Column<DateTime>(nullable: false),
-                    Email = table.Column<string>(nullable: true),
-                    FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true),
-                    PhoneNumber = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Administrators", x => x.AdministratorId);
-                    table.ForeignKey(
-                        name: "FK_Administrators_AccountTypes_AccountTypeId",
-                        column: x => x.AccountTypeId,
-                        principalTable: "AccountTypes",
-                        principalColumn: "AccountTypeId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Therapists",
                 columns: table => new
                 {
+                    AccountType = table.Column<int>(nullable: false),
                     AccountTypeId = table.Column<int>(nullable: false),
                     Bio = table.Column<string>(nullable: true),
                     DateOfBirth = table.Column<DateTime>(nullable: false),
@@ -109,18 +93,13 @@ namespace PhysicalTherapy.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Therapists", x => x.TherapistId);
-                    table.ForeignKey(
-                        name: "FK_Therapists_AccountTypes_AccountTypeId",
-                        column: x => x.AccountTypeId,
-                        principalTable: "AccountTypes",
-                        principalColumn: "AccountTypeId",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Patients",
                 columns: table => new
                 {
+                    AccountType = table.Column<int>(nullable: false),
                     AccountTypeId = table.Column<int>(nullable: false),
                     Bio = table.Column<string>(nullable: true),
                     DateOfBirth = table.Column<DateTime>(nullable: false),
@@ -135,12 +114,6 @@ namespace PhysicalTherapy.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Patients", x => x.PatientId);
-                    table.ForeignKey(
-                        name: "FK_Patients_AccountTypes_AccountTypeId",
-                        column: x => x.AccountTypeId,
-                        principalTable: "AccountTypes",
-                        principalColumn: "AccountTypeId",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Patients_Therapists_TherapistId",
                         column: x => x.TherapistId,
@@ -245,16 +218,6 @@ namespace PhysicalTherapy.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "AccountTypes",
-                columns: new[] { "AccountTypeId", "Name" },
-                values: new object[,]
-                {
-                    { 1, "Admin" },
-                    { 2, "Therapist" },
-                    { 3, "Patient" }
-                });
-
-            migrationBuilder.InsertData(
                 table: "Excercises",
                 columns: new[] { "ExerciseId", "Area", "Description", "Name" },
                 values: new object[,]
@@ -267,11 +230,6 @@ namespace PhysicalTherapy.Migrations
                     { 6, "Knee", "", "Hamstring Stretch" },
                     { 7, "Knee", "", "Ice to Knee with Elevation" }
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Administrators_AccountTypeId",
-                table: "Administrators",
-                column: "AccountTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MessageLogs_PatientId",
@@ -287,11 +245,6 @@ namespace PhysicalTherapy.Migrations
                 name: "IX_MessageLogs_TherapistId",
                 table: "MessageLogs",
                 column: "TherapistId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Patients_AccountTypeId",
-                table: "Patients",
-                column: "AccountTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Patients_TherapistId",
@@ -319,11 +272,6 @@ namespace PhysicalTherapy.Migrations
                 column: "PostRoutineSurveyId",
                 unique: true,
                 filter: "[PostRoutineSurveyId] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Therapists_AccountTypeId",
-                table: "Therapists",
-                column: "AccountTypeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -354,9 +302,6 @@ namespace PhysicalTherapy.Migrations
 
             migrationBuilder.DropTable(
                 name: "Therapists");
-
-            migrationBuilder.DropTable(
-                name: "AccountTypes");
         }
     }
 }

@@ -61,12 +61,3 @@ GO
 DROP TABLE [dbo].[Therapists]
 GO
 
-
-USE [DB_A38F0D_hungaud]
-GO
-
-/****** Object:  Table [dbo].[AccountTypes]    Script Date: 1/9/2019 7:21:44 PM ******/
-DROP TABLE [dbo].[AccountTypes]
-GO
-
-

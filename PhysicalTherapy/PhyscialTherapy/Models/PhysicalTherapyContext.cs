@@ -15,7 +15,6 @@ namespace PhysicalTherapy.Models
 
         }
 
-        public DbSet<AccountType> AccountTypes { get; set; }
         public DbSet<Administrator> Administrators { get; set; }
         public DbSet<Credential> Credentials { get; set; }
         public DbSet<Exercise> Excercises { get; set; }
@@ -28,15 +27,6 @@ namespace PhysicalTherapy.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Administrator>(entity =>
-            {
-                entity.HasOne(a => a.AccountType);
-            });
-
-            modelBuilder.Entity<Patient>(entity =>
-            {
-                entity.HasOne(a => a.AccountType);
-            });
 
             modelBuilder.Entity<MessageLog>(entity =>
             {
@@ -65,27 +55,7 @@ namespace PhysicalTherapy.Models
                     .WithMany(re => re.RoutineExercises)
                     .HasForeignKey(fk => fk.RoutineId);
             });
-
-            modelBuilder.Entity<Therapist>(entity =>
-            {
-                entity.HasOne(a => a.AccountType);
-            });
-
-            SeedAccountType(modelBuilder);
             SeedExercise(modelBuilder);
-        }
-
-        private void SeedAccountType(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<AccountType>(a =>
-            {
-                a.HasData
-                (
-                    new { AccountTypeId = 1, Name = "Admin" },
-                    new { AccountTypeId = 2, Name = "Therapist" },
-                    new { AccountTypeId = 3, Name = "Patient" }
-                );
-            });
         }
 
         private void SeedExercise(ModelBuilder modelBuilder)
