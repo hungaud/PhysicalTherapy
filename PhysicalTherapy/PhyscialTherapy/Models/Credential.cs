@@ -9,6 +9,8 @@ namespace PhysicalTherapy.Models
 {
     public class Credential
     {
+        public AccountType AccountType { get; set; }
+
         public int CredentialId { get; set; }
 
         [Required]
@@ -17,6 +19,5 @@ namespace PhysicalTherapy.Models
         [Required]
         public string Password { get; set; }
 
-        public AccountType AccountType { get; set; }
     }
 }

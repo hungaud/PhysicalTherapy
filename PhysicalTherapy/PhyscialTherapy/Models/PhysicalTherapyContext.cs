@@ -27,7 +27,6 @@ namespace PhysicalTherapy.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
             modelBuilder.Entity<MessageLog>(entity =>
             {
                 entity.HasOne(p => p.Patient);

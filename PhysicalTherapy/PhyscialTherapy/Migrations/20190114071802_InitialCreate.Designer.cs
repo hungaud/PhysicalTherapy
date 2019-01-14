@@ -10,7 +10,7 @@ using PhysicalTherapy.Models;
 namespace PhysicalTherapy.Migrations
 {
     [DbContext(typeof(PhysicalTherapyContext))]
-    [Migration("20190114065500_InitialCreate")]
+    [Migration("20190114071802_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,6 +42,9 @@ namespace PhysicalTherapy.Migrations
                     b.Property<string>("LastName");
 
                     b.Property<string>("PhoneNumber");
+
+                    b.Property<string>("Username")
+                        .IsRequired();
 
                     b.HasKey("AdministratorId");
 
@@ -145,6 +148,9 @@ namespace PhysicalTherapy.Migrations
                     b.Property<string>("PhoneNumber");
 
                     b.Property<int?>("TherapistId");
+
+                    b.Property<string>("Username")
+                        .IsRequired();
 
                     b.HasKey("PatientId");
 
@@ -252,6 +258,9 @@ namespace PhysicalTherapy.Migrations
                     b.Property<string>("LastName");
 
                     b.Property<string>("PhoneNumber");
+
+                    b.Property<string>("Username")
+                        .IsRequired();
 
                     b.HasKey("TherapistId");
 

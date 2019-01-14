@@ -41,6 +41,9 @@ namespace PhysicalTherapy.Migrations
 
                     b.Property<string>("PhoneNumber");
 
+                    b.Property<string>("Username")
+                        .IsRequired();
+
                     b.HasKey("AdministratorId");
 
                     b.ToTable("Administrators");
@@ -143,6 +146,9 @@ namespace PhysicalTherapy.Migrations
                     b.Property<string>("PhoneNumber");
 
                     b.Property<int?>("TherapistId");
+
+                    b.Property<string>("Username")
+                        .IsRequired();
 
                     b.HasKey("PatientId");
 
@@ -250,6 +256,9 @@ namespace PhysicalTherapy.Migrations
                     b.Property<string>("LastName");
 
                     b.Property<string>("PhoneNumber");
+
+                    b.Property<string>("Username")
+                        .IsRequired();
 
                     b.HasKey("TherapistId");
 

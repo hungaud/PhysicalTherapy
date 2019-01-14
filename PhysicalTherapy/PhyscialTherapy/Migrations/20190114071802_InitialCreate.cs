@@ -21,7 +21,8 @@ namespace PhysicalTherapy.Migrations
                     Email = table.Column<string>(nullable: true),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
-                    PhoneNumber = table.Column<string>(nullable: true)
+                    PhoneNumber = table.Column<string>(nullable: true),
+                    Username = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -32,11 +33,11 @@ namespace PhysicalTherapy.Migrations
                 name: "Credentials",
                 columns: table => new
                 {
+                    AccountType = table.Column<int>(nullable: false),
                     CredentialId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Username = table.Column<string>(nullable: false),
-                    Password = table.Column<string>(nullable: false),
-                    AccountType = table.Column<int>(nullable: false)
+                    Password = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -88,7 +89,8 @@ namespace PhysicalTherapy.Migrations
                     LastName = table.Column<string>(nullable: true),
                     PhoneNumber = table.Column<string>(nullable: true),
                     TherapistId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Username = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -109,7 +111,8 @@ namespace PhysicalTherapy.Migrations
                     PatientId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     PhoneNumber = table.Column<string>(nullable: true),
-                    TherapistId = table.Column<int>(nullable: true)
+                    TherapistId = table.Column<int>(nullable: true),
+                    Username = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
