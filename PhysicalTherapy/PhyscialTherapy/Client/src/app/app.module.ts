@@ -3,10 +3,14 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { TherapistHomeScreenComponent } from './therapist-home-screen/therapist-home-screen.component';
+import { TherapistRosterComponent } from './therapist-roster/therapist-roster.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TherapistHomeScreenComponent,
+    TherapistRosterComponent
   ],
   imports: [
     BrowserModule,
