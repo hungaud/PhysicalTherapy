@@ -74,13 +74,13 @@ namespace PhysicalTherapy.Models
             {
                 e.HasData
                 (
-                    new { ExerciseId = 1, Name = "Quad Sets", Description = "", Area = "Knee" },
-                    new { ExerciseId = 2, Name = "Knee Slides with Towel", Description = "", Area = "Knee" },
-                    new { ExerciseId = 3, Name = "Prone Knee Hang", Description = "", Area = "Knee" },
-                    new { ExerciseId = 4, Name = "Step Knee Flexion", Description = "", Area = "Knee" },
-                    new { ExerciseId = 5, Name = "Calf Stretch", Description = "", Area = "Knee" },
-                    new { ExerciseId = 6, Name = "Hamstring Stretch", Description = "", Area = "Knee" },
-                    new { ExerciseId = 7, Name = "Ice to Knee with Elevation", Description = "", Area = "Knee" }
+                    //new { ExerciseId = 1, Name = "Quad Sets", Description = "", Area = "Knee" },
+                    //new { ExerciseId = 2, Name = "Knee Slides with Towel", Description = "", Area = "Knee" },
+                    //new { ExerciseId = 3, Name = "Prone Knee Hang", Description = "", Area = "Knee" },
+                    //new { ExerciseId = 4, Name = "Step Knee Flexion", Description = "", Area = "Knee" },
+                    //new { ExerciseId = 5, Name = "Calf Stretch", Description = "", Area = "Knee" },
+                    //new { ExerciseId = 6, Name = "Hamstring Stretch", Description = "", Area = "Knee" },
+                    //new { ExerciseId = 7, Name = "Ice to Knee with Elevation", Description = "", Area = "Knee" }
                 );
             });
         }
