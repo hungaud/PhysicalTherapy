@@ -11,8 +11,6 @@ namespace PhysicalTherapy.Models
     {
         public AccountType AccountType { get; set; }
 
-        public int AccountTypeId { get; set; }
-
         public string Bio { get; set; }
 
         public DateTime DateOfBirth { get; set; }

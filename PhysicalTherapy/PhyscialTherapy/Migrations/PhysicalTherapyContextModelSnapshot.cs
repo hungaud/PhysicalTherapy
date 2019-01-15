@@ -27,8 +27,6 @@ namespace PhysicalTherapy.Migrations
 
                     b.Property<int>("AccountType");
 
-                    b.Property<int>("AccountTypeId");
-
                     b.Property<string>("Bio");
 
                     b.Property<DateTime>("DateOfBirth");
@@ -64,6 +62,9 @@ namespace PhysicalTherapy.Migrations
                         .IsRequired();
 
                     b.HasKey("CredentialId");
+
+                    b.HasIndex("Username")
+                        .IsUnique();
 
                     b.ToTable("Credentials");
                 });
@@ -130,8 +131,6 @@ namespace PhysicalTherapy.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("AccountType");
-
-                    b.Property<int>("AccountTypeId");
 
                     b.Property<string>("Bio");
 
@@ -242,8 +241,6 @@ namespace PhysicalTherapy.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("AccountType");
-
-                    b.Property<int>("AccountTypeId");
 
                     b.Property<string>("Bio");
 

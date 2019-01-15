@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PhysicalTherapy.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class InitialCreation : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,7 +13,6 @@ namespace PhysicalTherapy.Migrations
                 columns: table => new
                 {
                     AccountType = table.Column<int>(nullable: false),
-                    AccountTypeId = table.Column<int>(nullable: false),
                     AdministratorId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Bio = table.Column<string>(nullable: true),
@@ -81,7 +80,6 @@ namespace PhysicalTherapy.Migrations
                 columns: table => new
                 {
                     AccountType = table.Column<int>(nullable: false),
-                    AccountTypeId = table.Column<int>(nullable: false),
                     Bio = table.Column<string>(nullable: true),
                     DateOfBirth = table.Column<DateTime>(nullable: false),
                     Email = table.Column<string>(nullable: true),
@@ -102,7 +100,6 @@ namespace PhysicalTherapy.Migrations
                 columns: table => new
                 {
                     AccountType = table.Column<int>(nullable: false),
-                    AccountTypeId = table.Column<int>(nullable: false),
                     Bio = table.Column<string>(nullable: true),
                     DateOfBirth = table.Column<DateTime>(nullable: false),
                     Email = table.Column<string>(nullable: true),
@@ -233,6 +230,12 @@ namespace PhysicalTherapy.Migrations
                     { 6, "Knee", "", "Hamstring Stretch" },
                     { 7, "Knee", "", "Ice to Knee with Elevation" }
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Credentials_Username",
+                table: "Credentials",
+                column: "Username",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_MessageLogs_PatientId",

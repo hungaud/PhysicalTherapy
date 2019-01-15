@@ -10,8 +10,8 @@ using PhysicalTherapy.Models;
 namespace PhysicalTherapy.Migrations
 {
     [DbContext(typeof(PhysicalTherapyContext))]
-    [Migration("20190114071802_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20190115050027_InitialCreation")]
+    partial class InitialCreation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,8 +28,6 @@ namespace PhysicalTherapy.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("AccountType");
-
-                    b.Property<int>("AccountTypeId");
 
                     b.Property<string>("Bio");
 
@@ -66,6 +64,9 @@ namespace PhysicalTherapy.Migrations
                         .IsRequired();
 
                     b.HasKey("CredentialId");
+
+                    b.HasIndex("Username")
+                        .IsUnique();
 
                     b.ToTable("Credentials");
                 });
@@ -132,8 +133,6 @@ namespace PhysicalTherapy.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("AccountType");
-
-                    b.Property<int>("AccountTypeId");
 
                     b.Property<string>("Bio");
 
@@ -244,8 +243,6 @@ namespace PhysicalTherapy.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("AccountType");
-
-                    b.Property<int>("AccountTypeId");
 
                     b.Property<string>("Bio");
 

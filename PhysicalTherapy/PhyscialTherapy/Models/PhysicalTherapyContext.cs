@@ -27,6 +27,11 @@ namespace PhysicalTherapy.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Credential>(entity =>
+            {
+                entity.HasIndex(e => e.Username).IsUnique();
+            });
+
             modelBuilder.Entity<MessageLog>(entity =>
             {
                 entity.HasOne(p => p.Patient);
@@ -55,6 +60,12 @@ namespace PhysicalTherapy.Models
                     .HasForeignKey(fk => fk.RoutineId);
             });
             SeedExercise(modelBuilder);
+            SeedTherapistAndTestData(modelBuilder);
+        }
+
+        private void SeedTherapistAndTestData(ModelBuilder modelBuilder)
+        {
+            //throw new NotImplementedException();
         }
 
         private void SeedExercise(ModelBuilder modelBuilder)
