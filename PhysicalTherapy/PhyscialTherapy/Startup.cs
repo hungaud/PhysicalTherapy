@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using PhysicalTherapy.Models;
+using PhysicalTherapy.Repositories;
 
 namespace PhysicalTherapy
 {
@@ -28,8 +29,8 @@ namespace PhysicalTherapy
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IPatientRepository, PatientRepository>();
             services.AddMvc().AddJsonOptions(option => option.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
-            //services.AddScoped<I>
 
 
             //look in appsettings.json then exclude it from each commits.
