@@ -12,7 +12,7 @@ namespace PhysicalTherapy.Models
 
         public bool IsComplete { get; set; }
 
-        public bool isNew { get; set; }
+        public bool IsNew { get; set; }
 
         public ICollection<MessageLog> ListOfMessageLogs { get; set; }
 

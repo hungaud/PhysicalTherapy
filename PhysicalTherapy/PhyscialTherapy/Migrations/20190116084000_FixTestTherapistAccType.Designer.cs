@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PhysicalTherapy.Models;
 
 namespace PhysicalTherapy.Migrations
 {
     [DbContext(typeof(PhysicalTherapyContext))]
-    partial class PhysicalTherapyContextModelSnapshot : ModelSnapshot
+    [Migration("20190116084000_FixTestTherapistAccType")]
+    partial class FixTestTherapistAccType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

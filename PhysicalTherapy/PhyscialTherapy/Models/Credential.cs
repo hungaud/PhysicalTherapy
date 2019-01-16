@@ -1,4 +1,4 @@
-﻿using PhysicalTherap.Models.Enum;
+﻿using PhysicalTherapy.Models.Enum;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

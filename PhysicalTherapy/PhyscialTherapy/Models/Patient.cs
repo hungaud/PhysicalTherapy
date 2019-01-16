@@ -1,4 +1,4 @@
-﻿using PhysicalTherap.Models.Enum;
+﻿using PhysicalTherapy.Models.Enum;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -16,7 +16,7 @@ namespace PhysicalTherapy.Models
 
         public string Bio { get; set; }
 
-        public DateTime DateOfBirth { get; set; }
+        public DateTime? DateOfBirth { get; set; }
 
         public string Email { get; set; }
 
