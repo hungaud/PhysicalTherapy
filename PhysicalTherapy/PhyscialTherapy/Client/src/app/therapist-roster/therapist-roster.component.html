@@ -1,0 +1,6 @@
+<h2>Patient Roster</h2>
+<ul>
+    <li *ngFor="let patient of allPatients">
+      <span class="badge">{{patient.id}}</span> {{patient.name}}
+    </li>
+  </ul>
