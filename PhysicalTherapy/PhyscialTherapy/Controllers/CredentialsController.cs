@@ -12,11 +12,11 @@ namespace PhysicalTherapy.Controllers
 {
     [Produces("application/json")]
     [Route("api/Credentials")]
-    public class CredentialController: Controller 
+    public class CredentialsController: Controller 
     {
         private readonly ICredentialRepository _credentialRepository;
 
-        public CredentialController(ICredentialRepository credentialRepository) {
+        public CredentialsController(ICredentialRepository credentialRepository) {
             _credentialRepository = credentialRepository;
         }
 

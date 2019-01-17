@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using PhysicalTherapy.Models;
+using PhysicalTherapy.Repositories;
 
 namespace PhysicalTherapy
 {
@@ -29,6 +30,7 @@ namespace PhysicalTherapy
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().AddJsonOptions(option => option.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
+            services.AddScoped<ICredentialRepository, CredentialRepository>();
             //services.AddScoped<I>
 
 
