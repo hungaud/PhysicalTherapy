@@ -4,13 +4,16 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using PhysicalTherap.Models;
+using PhysicalTherapy.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace PhysicalTherapy.Repositories
 {
     public interface ICredentialRepository
     {
         Task<Credential> Find(string username);
+
+        IEnumerable<Credential> GetAll();
     }
 
     public class CredentialRepository : ICredentialRepository
@@ -24,7 +27,12 @@ namespace PhysicalTherapy.Repositories
 
         public async Task<Credential> Find(string username)
         {
-            return await _context.Credential.SingleOrDefaultAsync(cred => cred.Username == username);
+            return await _context.Credentials.SingleOrDefaultAsync(cred => cred.Username == username);
+        }
+
+        public IEnumerable<Credential> GetAll()
+        {
+            return _context.Credentials;
         }
     }
 }

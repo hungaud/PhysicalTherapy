@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PhysicalTherapy.Models;
 using PhysicalTherapy.Repositories;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
 
 namespace PhysicalTherapy.Controllers
 {
@@ -14,12 +16,12 @@ namespace PhysicalTherapy.Controllers
     {
         private readonly ICredentialRepository _credentialRepository;
 
-        public CredentialController(ICredentialRepository credentailRepository) {
-            _credentialRepository = credentailRepository;
+        public CredentialController(ICredentialRepository credentialRepository) {
+            _credentialRepository = credentialRepository;
         }
 
         [HttpGet]
-        [Produces(typeof(Credential))]
+        [Produces(typeof(DbSet<Credential>))]
         public async Task<IActionResult> GetCredential([FromBody] string username) 
         {
             if (!ModelState.IsValid)
@@ -27,13 +29,20 @@ namespace PhysicalTherapy.Controllers
                 return BadRequest(ModelState);
             }
 
-            const credential = await _credentialRepository.Find(username);
+            var credential = await _credentialRepository.Find(username);
 
-            if (customer == null)
+            if (credential == null)
             {
                 return NotFound();
             }
-            return ok(credential);
+            return Ok(credential);
+        }
+
+        [HttpGet]
+        [Produces(typeof(DbSet<Credential>))]
+        public IActionResult GetCredentials()
+        {
+            return new ObjectResult(_credentialRepository.GetAll());
         }
     }
 }
