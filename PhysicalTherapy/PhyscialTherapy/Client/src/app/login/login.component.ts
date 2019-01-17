@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router'
+import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'app-login',
@@ -7,11 +8,17 @@ import { Router } from '@angular/router'
     styleUrls: ['./login.component.scss']
 })
 export class Login { 
-    constructor(private router: Router){
+    constructor(private router: Router){ }
 
-    }
-
-    checkInput(username, password) {
-        this.router.navigateByUrl('./therapist-home-screen');
+    loginClick(username, password) {
+        // console.log(username.value + ' ' + password.value);
+        // Check the username and password
+        /* constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+            http.get<WeatherForecast[]>(baseUrl + 'api/Credential').subscribe(result => {
+              this.forecasts = result;
+            }, error => console.error(error));
+          }*/
+        // Navigate to the correct home screen
+        this.router.navigate(['./therapist-home-screen']);
     }
 }
