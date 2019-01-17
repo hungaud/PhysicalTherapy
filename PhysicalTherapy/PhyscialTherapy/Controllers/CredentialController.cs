@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Http;
 namespace PhysicalTherapy.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Credential")]
+    [Route("api/Credentials")]
     public class CredentialController: Controller 
     {
         private readonly ICredentialRepository _credentialRepository;
@@ -20,7 +20,7 @@ namespace PhysicalTherapy.Controllers
             _credentialRepository = credentialRepository;
         }
 
-        [HttpGet]
+        /*[HttpGet]
         [Produces(typeof(DbSet<Credential>))]
         public async Task<IActionResult> GetCredential([FromBody] string username) 
         {
@@ -36,7 +36,7 @@ namespace PhysicalTherapy.Controllers
                 return NotFound();
             }
             return Ok(credential);
-        }
+        }*/
 
         [HttpGet]
         [Produces(typeof(DbSet<Credential>))]
