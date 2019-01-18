@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { TherapistHomeScreenComponent } from './therapist-home-screen/therapist-home-screen.component';
 import { TherapistRosterComponent } from './therapist-roster/therapist-roster.component';
 import { Login } from './login/login.component'
+import { CredentialService } from './login/Credential.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -16,9 +18,12 @@ import { Login } from './login/login.component'
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    CredentialService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

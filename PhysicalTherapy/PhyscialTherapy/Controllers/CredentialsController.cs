@@ -12,17 +12,18 @@ namespace PhysicalTherapy.Controllers
 {
     [Produces("application/json")]
     [Route("api/Credentials")]
-    public class CredentialsController: Controller 
+    public class CredentialsController : Controller
     {
         private readonly ICredentialRepository _credentialRepository;
 
-        public CredentialsController(ICredentialRepository credentialRepository) {
+        public CredentialsController(ICredentialRepository credentialRepository)
+        {
             _credentialRepository = credentialRepository;
         }
 
-        /*[HttpGet]
+        [HttpGet("{username}")]
         [Produces(typeof(DbSet<Credential>))]
-        public async Task<IActionResult> GetCredential([FromBody] string username) 
+        public async Task<IActionResult> GetCredential([FromRoute] string username) 
         {
             if (!ModelState.IsValid)
             {
@@ -36,7 +37,7 @@ namespace PhysicalTherapy.Controllers
                 return NotFound();
             }
             return Ok(credential);
-        }*/
+        }
 
         [HttpGet]
         [Produces(typeof(DbSet<Credential>))]
