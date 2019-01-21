@@ -7,7 +7,7 @@
         placeholder="Password" #thePassword/>
     <br>
     <button id="login" 
-        (click)="loginClick(theUsername, thePassword);">
+        (click)="loginClick(theUsername, thePassword, theError);">
         LOGIN
     </button>
     <button id="signup">
@@ -15,4 +15,6 @@
     </button>
     <br>
     <div id="forgotPass" onclick="">Forgot your password?</div>
+    <br>
+    <label id="error" #theError></label>
 </div>

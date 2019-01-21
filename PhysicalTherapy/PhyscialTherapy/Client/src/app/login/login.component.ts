@@ -1,6 +1,6 @@
-import { Component, Injectable } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { CredentialService } from './Credential.service'
+import { HttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'app-login',
@@ -8,14 +8,24 @@ import { CredentialService } from './Credential.service'
     styleUrls: ['./login.component.scss']
 })
 export class Login { 
-    constructor(private router: Router, private credServ: CredentialService){ }
+    constructor(private router: Router, private http: HttpClient){ }
 
-    loginClick(username, password) {
-        //console.log(username.value + ' ' + password.value);
-        // Check the username and password
-        const result = this.credServ.getUser(username.value);
-        console.log(JSON.stringify(result.source));
-        // Navigate to the correct home screen
-        this.router.navigate(['./therapist-home-screen']);
+    // TODO: Add routing to patient homepage
+    loginClick(username, password, error) {
+        error.innerText = '';
+        this.http.get(`http://localhost:64496/api/Credentials/${username.value}`)
+            .subscribe((response) => {
+                if (response['password'] !== password.value) {
+                    error.innerText = 'INCORRECT USERNAME OR PASSWORD';
+                }
+
+                if (response['accountType'] === 1) {
+                    this.router.navigate(['./therapist-home-screen']);
+                } else if (response['accountType'] === 2) {
+                    // Navigate to patient homepage
+                } else if (response['accountType'] === 0) {
+                    // Navigate to admin homepage
+                }
+            });
     }
 }
