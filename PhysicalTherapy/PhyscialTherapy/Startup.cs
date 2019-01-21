@@ -39,14 +39,11 @@ namespace PhysicalTherapy
             });
 
             services.AddMvc().AddJsonOptions(option => option.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
-            services.AddScoped<ITherapistPatientRepository, TherapistPatientRepository>();
+            services.AddScoped<IPatientRepository, PatientRepository>();
 
 
             //look in appsettings.json then exclude it from each commits.
             services.AddDbContext<PhysicalTherapyContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Development")));
-
-            services.AddDbContext<TherapistPatientContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("TherapistPatientContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

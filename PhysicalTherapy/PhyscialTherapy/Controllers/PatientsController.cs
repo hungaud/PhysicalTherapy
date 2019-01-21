@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PhysicalTherapy.Models;
+using PhysicalTherapy.Repositories;
 
 namespace PhysicalTherapy.Controllers
 {
@@ -14,9 +15,14 @@ namespace PhysicalTherapy.Controllers
     [ApiController]
     public class PatientsController : ControllerBase
     {
-        private readonly TherapistPatientContext _context;
+        private readonly IPatientRepository _context;
 
-        public PatientsController(TherapistPatientContext context)
+        //public PatientsController(TherapistPatientContext context)
+        //{
+        //    _context = context;
+        //}
+
+        public PatientsController(IPatientRepository context)
         {
             _context = context;
         }
@@ -26,7 +32,7 @@ namespace PhysicalTherapy.Controllers
         [Produces(typeof(DbSet<Patient>))]
         public IEnumerable<Patient> GetPatient()
         {
-            return _context.Patient;
+            return _context.GetAll();
         }
 
         // GET: api/Patients/5
@@ -37,8 +43,8 @@ namespace PhysicalTherapy.Controllers
             {
                 return BadRequest(ModelState);
             }
-
-            var patient = await _context.Patient.FindAsync(id);
+            
+            //var patient = await _context.Patient.FindAsync(id);
 
             if (patient == null)
             {
@@ -66,7 +72,7 @@ namespace PhysicalTherapy.Controllers
 
             try
             {
-                await _context.SaveChangesAsync();
+                //await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -92,8 +98,8 @@ namespace PhysicalTherapy.Controllers
                 return BadRequest(ModelState);
             }
 
-            _context.Patient.Add(patient);
-            await _context.SaveChangesAsync();
+            //_context.Patient.Add(patient);
+            //await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetPatient", new { id = patient.PatientId }, patient);
         }
@@ -113,15 +119,15 @@ namespace PhysicalTherapy.Controllers
                 return NotFound();
             }
 
-            _context.Patient.Remove(patient);
-            await _context.SaveChangesAsync();
+            //_context.Patient.Remove(patient);
+            //await _context.SaveChangesAsync();
 
             return Ok(patient);
         }
 
         private bool PatientExists(int id)
         {
-            return _context.Patient.Any(e => e.PatientId == id);
+            //return _context.Patient.Any(e => e.PatientId == id);
         }
     }
 }

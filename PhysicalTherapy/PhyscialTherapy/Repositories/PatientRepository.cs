@@ -9,18 +9,18 @@ using PhysicalTherapy.Controllers;
 
 namespace PhysicalTherapy.Repositories
 {
-    public interface ITherapistPatientRepository
+    public interface IPatientRepository
     {
         Task<Patient> Find(string username);
 
         IEnumerable<Patient> GetAll();
     }
 
-    public class TherapistPatientRepository : ITherapistPatientRepository
+    public class PatientRepository : IPatientRepository
     {
         private PhysicalTherapyContext _context;
 
-        public TherapistPatientRepository(PhysicalTherapyContext context)
+        public PatientRepository(PhysicalTherapyContext context)
         {
             _context = context;
         }
