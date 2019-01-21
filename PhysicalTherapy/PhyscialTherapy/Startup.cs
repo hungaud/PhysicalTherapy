@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using PhysicalTherapy.Models;
+using PhysicalTherapy.Repositories;
 
 namespace PhysicalTherapy
 {
@@ -28,12 +29,24 @@ namespace PhysicalTherapy
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+            });
+
             services.AddMvc().AddJsonOptions(option => option.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
-            //services.AddScoped<I>
+            services.AddScoped<ITherapistPatientRepository, TherapistPatientRepository>();
 
 
             //look in appsettings.json then exclude it from each commits.
             services.AddDbContext<PhysicalTherapyContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Development")));
+
+            services.AddDbContext<TherapistPatientContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("TherapistPatientContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,6 +62,7 @@ namespace PhysicalTherapy
             }
 
             app.UseHttpsRedirection();
+            app.UseCors("CorsPolicy");
             app.UseMvc();
         }
     }
