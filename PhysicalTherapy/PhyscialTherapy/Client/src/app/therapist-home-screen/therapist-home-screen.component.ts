@@ -13,8 +13,8 @@ export class TherapistHomeScreenComponent implements OnInit {
   constructor(private patientService: PatientService) { }
 
   ngOnInit() {
-    this.feedback = this.patientService.getFeedback();
-    this.late = this.patientService.getLate();
+    // this.feedback = null;//this.patientService.getFeedback();
+    // this.late = null;//this.patientService.getLate();
   }
 
 }
