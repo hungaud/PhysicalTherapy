@@ -29,8 +29,18 @@ namespace PhysicalTherapy
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IPatientRepository, PatientRepository>();
+            services.AddCors(options =>
+            {
+            options.AddPolicy("CorsPolicy",
+                builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+             });
+
             services.AddMvc().AddJsonOptions(option => option.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
+            services.AddScoped<ICredentialRepository, CredentialRepository>();
+            //services.AddScoped<I>
 
 
             //look in appsettings.json then exclude it from each commits.
@@ -50,6 +60,7 @@ namespace PhysicalTherapy
             }
 
             app.UseHttpsRedirection();
+            app.UseCors("CorsPolicy");
             app.UseMvc();
         }
     }

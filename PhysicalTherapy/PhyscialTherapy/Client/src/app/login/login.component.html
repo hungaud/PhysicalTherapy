@@ -1,0 +1,20 @@
+<h1>LOGIN</h1>
+<div>
+    <input id="username" type="text"
+        placeholder="Username" #theUsername/>
+    <br>
+    <input id="password" type="password"
+        placeholder="Password" #thePassword/>
+    <br>
+    <button id="login" 
+        (click)="loginClick(theUsername, thePassword, theError);">
+        LOGIN
+    </button>
+    <button id="signup">
+        Sign Up
+    </button>
+    <br>
+    <div id="forgotPass" onclick="">Forgot your password?</div>
+    <br>
+    <label id="error" #theError></label>
+</div>
