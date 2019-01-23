@@ -78,6 +78,7 @@ namespace PhysicalTherapy.Models
 
             SeedExercise(modelBuilder);
             SeedTherapistAndTestData(modelBuilder);
+            SeedRoutinesTestData(modelBuilder);
         }
 
         #region "Seed Test Data"
@@ -101,6 +102,11 @@ namespace PhysicalTherapy.Models
                     new { AccountType = AccountType.PATIENT, Bio = "accident prone", DateOfBirth = DateTime.Today, Email = "three@email.com", FirstName = "Sike", LastName = "Still-Hung", PatientId = 3, PhoneNumber = "411", TherapistId = 1, Username = "Tyger" }
                 );
             });
+
+        }
+
+        private void SeedRoutinesTestData(ModelBuilder modelBuilder)
+        {
 
         }
 

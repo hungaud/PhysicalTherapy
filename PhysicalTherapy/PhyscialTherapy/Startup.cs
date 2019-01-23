@@ -39,6 +39,8 @@ namespace PhysicalTherapy
              });
 
             services.AddMvc().AddJsonOptions(option => option.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
+
+            services.AddScoped<IPatientRepository, PatientRepository>();
             services.AddScoped<ICredentialRepository, CredentialRepository>();
             //services.AddScoped<I>
 
