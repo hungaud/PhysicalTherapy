@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PhysicalTherapy.Models;
 
 namespace PhysicalTherapy.Migrations
 {
     [DbContext(typeof(PhysicalTherapyContext))]
-    partial class PhysicalTherapyContextModelSnapshot : ModelSnapshot
+    [Migration("20190124021842_SeedRoutineData")]
+    partial class SeedRoutineData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -404,7 +406,7 @@ namespace PhysicalTherapy.Migrations
                     b.HasData(
                         new { RoutineId = 1, Description = "Routine number 1 not Active", IsComplete = true, IsNew = false, PatientId = 1 },
                         new { RoutineId = 2, Description = "Routine number 2 Active", IsComplete = false, IsNew = true, PatientId = 1 },
-                        new { RoutineId = 3, Description = "Routine number 3 Active", IsComplete = false, IsNew = true, PatientId = 2 }
+                        new { RoutineId = 3, Description = "Routine number 1 Active", IsComplete = false, IsNew = true, PatientId = 2 }
                     );
                 });
 
