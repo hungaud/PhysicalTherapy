@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { TherapistHomeScreenComponent } from './therapist-home-screen/therapist-home-screen.component';
 import { TherapistRosterComponent } from './therapist-roster/therapist-roster.component';
 import { MessagesComponent } from './messages/messages.component';
+import { Login } from './login/login.component'
+
 
 @NgModule({
   declarations: [
@@ -14,13 +16,16 @@ import { MessagesComponent } from './messages/messages.component';
     TherapistHomeScreenComponent,
     TherapistRosterComponent,
     MessagesComponent
+    Login
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

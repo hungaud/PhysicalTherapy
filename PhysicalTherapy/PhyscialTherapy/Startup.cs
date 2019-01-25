@@ -31,15 +31,16 @@ namespace PhysicalTherapy
         {
             services.AddCors(options =>
             {
-                options.AddPolicy("CorsPolicy",
-                    builder => builder.AllowAnyOrigin()
+            options.AddPolicy("CorsPolicy",
+                builder => builder.AllowAnyOrigin()
                     .AllowAnyMethod()
                     .AllowAnyHeader()
                     .AllowCredentials());
-            });
+             });
 
             services.AddMvc().AddJsonOptions(option => option.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
-            services.AddScoped<IPatientRepository, PatientRepository>();
+            services.AddScoped<ICredentialRepository, CredentialRepository>();
+            //services.AddScoped<I>
 
 
             //look in appsettings.json then exclude it from each commits.
