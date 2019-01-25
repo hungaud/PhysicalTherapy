@@ -79,6 +79,7 @@ namespace PhysicalTherapy.Models
             SeedExercise(modelBuilder);
             SeedTherapistAndTestData(modelBuilder);
             SeedRoutinesTestData(modelBuilder);
+            SeedCredentialsTestData(modelBuilder);
         }
 
         #region "Seed Test Data"
@@ -134,6 +135,20 @@ namespace PhysicalTherapy.Models
                 );
             });
         }
+
+        private void SeedCredentialsTestData(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Credential>(e =>
+            {
+                e.HasData(
+                    new { AccountType = AccountType.THERAPIST, CredentialId = 1, Username = "TygerHugh", Password = "admin" },
+                    new { AccountType = AccountType.THERAPIST, CredentialId = 2, Username = "Alex", Password = "password" },
+                    new { AccountType = AccountType.PATIENT, CredentialId = 3, Username= "hung", Password = "abc" }
+                );
+            });
+        }
+
+
 
         #endregion
 

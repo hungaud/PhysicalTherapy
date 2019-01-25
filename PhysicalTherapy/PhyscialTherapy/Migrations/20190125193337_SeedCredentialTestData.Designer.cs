@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PhysicalTherapy.Models;
 
 namespace PhysicalTherapy.Migrations
 {
     [DbContext(typeof(PhysicalTherapyContext))]
-    partial class PhysicalTherapyContextModelSnapshot : ModelSnapshot
+    [Migration("20190125193337_SeedCredentialTestData")]
+    partial class SeedCredentialTestData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -72,7 +74,7 @@ namespace PhysicalTherapy.Migrations
                     b.ToTable("Credentials");
 
                     b.HasData(
-                        new { CredentialId = 1, AccountType = 1, Password = "admin", Username = "TygerHugh" },
+                        new { CredentialId = 1, AccountType = 0, Password = "admin", Username = "TygerHugh" },
                         new { CredentialId = 2, AccountType = 1, Password = "password", Username = "Alex" },
                         new { CredentialId = 3, AccountType = 2, Password = "abc", Username = "hung" }
                     );
