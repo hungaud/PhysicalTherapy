@@ -9,20 +9,25 @@ import { MessageService } from '../message.service';
   styleUrls: ['./therapist-roster.component.scss']
 })
 export class TherapistRosterComponent implements OnInit {
-  allPatients : Patient[];
+  allPatients : Patient[] = [];
   
 
   constructor(private patientService: PatientService, private messageService : MessageService ) { }
 
   ngOnInit() {
+    this.allPatients = [];
     this.messageService.add("Initiating Roster");
     this.setRoster();
+    console.log("Finishing setRoster ngOnInit");
+    this.messageService.add("Roster has been set!");
   }
 
   setRoster() : void {
-    this.patientService.getAllPatients()
-    .subscribe(allPatients => this.allPatients = allPatients);
-    
+    this.messageService.add("Inside setRoster");
+    console.log("Calling set roster")
+    this.patientService.getAllPatients().subscribe(allPatients => this.allPatients = allPatients);
+    console.log("Finishing setRoster")
+    this.messageService.add("Finished subscribing to the service");
   }
 
 }

@@ -1,4 +1,4 @@
-export class Patient {
+export interface Patient {
   accountType: number;
   bio: string;
   dateOfBirth: Date;

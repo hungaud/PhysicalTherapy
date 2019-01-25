@@ -11,6 +11,7 @@ import { MessageService } from '../message.service';
 export class TherapistHomeScreenComponent implements OnInit {
   feedback : Patient[];
   late : Patient[];
+  
   constructor(private patientService: PatientService, private messageService : MessageService) { }
 
   ngOnInit() {

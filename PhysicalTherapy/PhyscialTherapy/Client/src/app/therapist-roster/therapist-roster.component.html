@@ -1,7 +1,7 @@
 <h2>Patient Roster</h2>
 <h2>Test Patient ID =</h2>
-<ul class="therapist-roster">
+<ul>
   <li *ngFor="let patient of allPatients">
-      <span class="badge">{{patient.PatientId}}</span> {{patient.firstName}} {{patient.lastName}}
+      <span class="badge">{{patient.patientId}}</span> {{patient.firstName}} {{patient.lastName}}
   </li>
 </ul>

@@ -1,12 +1,12 @@
 <h2>Patient Feedback</h2>
-<ul class="therapist-home-screen">
+<ul>
   <li *ngFor="let patient of feedback">
-    <span class="badge">{{patient.id}}</span> {{patient.name}}
+    <span class="badge">{{patient.patientId}}</span> {{patient.firstName}}
   </li>
 </ul>
 <h2>Late Patients</h2>
-<ul class="therapist-home-screen">
+<ul>
   <li *ngFor="let patient of late">
-    <span class="badge">{{patient.id}}</span> {{patient.name}}
+    <span class="badge">{{patient.patientId}}</span> {{patient.firstName}}
   </li>
 </ul>

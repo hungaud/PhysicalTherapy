@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Patient } from './patient';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { MessageService } from './message.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +9,7 @@ import { MessageService } from './message.service';
 export class PatientService {
 
     //TODO message service?
-    constructor(private http: HttpClient, private messageService : MessageService) { }
+    constructor(private http: HttpClient) { }
 
     getFeedback(): Patient[] {
       //TODO actually retrieve patients with feedback
@@ -23,7 +22,7 @@ export class PatientService {
     }
   
     getAllPatients(): Observable<Patient[]> {
-      this.messageService.add('Retrieving all patients');
-      return this.http.get<Patient[]>('https://localhost:44379/api/patients');
+      console.log("Entering getAllPatients in the server.");
+      return this.http.get<Patient[]>('https://localhost:44379/api/patients');;      
     }
 }
