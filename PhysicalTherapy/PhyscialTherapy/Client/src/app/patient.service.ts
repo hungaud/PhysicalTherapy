@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Patient } from './patient';
-import { FEEDBACK, LATE, ALL_PATIENTS } from './mock-patients';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { apiEndpoint} from './globals';
 
 @Injectable({
   providedIn: 'root'
@@ -8,20 +10,25 @@ import { FEEDBACK, LATE, ALL_PATIENTS } from './mock-patients';
 export class PatientService {
 
     //TODO message service?
-    constructor() { }
+    constructor(private http: HttpClient) { }
 
     getFeedback(): Patient[] {
       //TODO actually retrieve patients with feedback
-      return FEEDBACK;
+      return null;
     }
   
     getLate(): Patient[] {
       //TODO actually retrieve late patients
-      return LATE;
+      return null;
     }
   
-    getAllPatients(): Patient[] {
-      //TODO Actually retrieve patients
-      return ALL_PATIENTS;
+    getAllPatients(): Observable<Patient[]> {
+      console.log("Entering getAllPatients in the server.");
+      return this.http.get<Patient[]>(apiEndpoint + '/patients');     
+    }
+
+    getPatientsByTherapistId(therapistId : number): Observable<Patient[]> {
+      console.log("Entering getPatientsByTherapistId in the server.");
+      return this.http.get<Patient[]>(apiEndpoint + '/patients/tid/' + therapistId);     
     }
 }
