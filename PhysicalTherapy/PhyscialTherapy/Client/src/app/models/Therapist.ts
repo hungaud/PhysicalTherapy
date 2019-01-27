@@ -1,16 +1,14 @@
-import { Therapist } from "./Therapist";
+import { Patient } from "./Patient";
 
-export interface Patient {
-  [x: string]: any;
+export interface Therapist {
     AccountType : number,
     Bio : string,
     DateOfBirth : Date,
     Email : string,
     FirstName : string,
     LastName : string,
-    PatientId : number,
+    ListOfPatients : Patient[],
     PhoneNumber : string,
-    Therapist : Therapist,
     TherapistId : number,
     Username : string
 }

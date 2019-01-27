@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { PatientService } from '../patient.service';
-import { Patient } from '../patient';
+import { PatientService } from '../services/patient.service';
+import { Patient } from '../models/Patient';
 
 @Component({
   selector: 'app-therapist-roster',
@@ -13,7 +13,7 @@ export class TherapistRosterComponent implements OnInit {
   constructor(private patientService: PatientService) { }
 
   ngOnInit() {
-    this.allPatients = this.patientService.getAllPatients();
+    //this.allPatients = this.patientService.getAllPatients();
   }
 
 }

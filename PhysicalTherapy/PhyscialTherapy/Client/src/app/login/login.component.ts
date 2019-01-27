@@ -23,7 +23,7 @@ export class Login {
                     if (response['accountType'] === 1) {
                         this.router.navigate(['./therapist-home-screen']);
                     } else if (response['accountType'] === 2) {
-                        this.router.navigate(['./patient-home-screen']);
+                        this.router.navigate(['./patient-home-screen'], username.value);
                     } else if (response['accountType'] === 0) {
                         // Navigate to admin homepage
                     }
