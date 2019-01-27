@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { TherapistHomeScreenComponent } from './therapist-home-screen/therapist-home-screen.component';
 import { TherapistRosterComponent } from './therapist-roster/therapist-roster.component';
 import { MessagesComponent } from './messages/messages.component';
-import { Login } from './login/login.component'
+import { Login } from './login/login.component';
 
 
 @NgModule({
@@ -15,7 +15,7 @@ import { Login } from './login/login.component'
     AppComponent,
     TherapistHomeScreenComponent,
     TherapistRosterComponent,
-    MessagesComponent
+    MessagesComponent,
     Login
   ],
   imports: [

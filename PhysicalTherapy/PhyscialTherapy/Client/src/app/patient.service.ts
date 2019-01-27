@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Patient } from './patient';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
+import { apiEndpoint } from './globals';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,6 @@ export class PatientService {
   
     getAllPatients(): Observable<Patient[]> {
       console.log("Entering getAllPatients in the server.");
-      return this.http.get<Patient[]>('https://localhost:44379/api/patients');;      
+      return this.http.get<Patient[]>(apiEndpoint + '/patients');     
     }
 }
