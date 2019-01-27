@@ -4,14 +4,14 @@ import { PostRoutineSurvey } from "./PostRoutineSurvey"
 import { RoutineExercise } from "./RoutineExercise";
 
 export interface Routine {
-    Description : string,
-    IsComplete : boolean,
-    IsNew : boolean,
-    ListOfMessageLogs : MessageLog[],
-    Patient : Patient
-    PatientId : number,
-    RoutineExercises : RoutineExercise[],
-    RoutineId : number,
-    PostRoutineSurvey : PostRoutineSurvey,
-    PostRoutineSurveyId : number
+    description : string,
+    isComplete : boolean,
+    isNew : boolean,
+    listOfMessageLogs : MessageLog[],
+    patient : Patient
+    patientId : number,
+    routineExercises : RoutineExercise[],
+    routineId : number,
+    postRoutineSurvey : PostRoutineSurvey,
+    postRoutineSurveyId : number
 }

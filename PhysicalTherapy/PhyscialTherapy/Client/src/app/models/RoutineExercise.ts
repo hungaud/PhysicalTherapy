@@ -1,13 +1,13 @@
 import { Routine } from "./routine";
 
 export interface RoutineExercise {
-    ExerciseId : number,
-    HoldLength : number,
-    FrequencyPerDay : number,
-    Notes : string,
-    Rep : number,
-    RoutineExerciseId : number,
-    Routine : Routine,
-    RoutineId : number,
-    Sets : number
+    exerciseId : number,
+    holdLength : number,
+    frequencyPerDay : number,
+    notes : string,
+    rep : number,
+    routineExerciseId : number,
+    routine : Routine,
+    routineId : number,
+    sets : number
 }

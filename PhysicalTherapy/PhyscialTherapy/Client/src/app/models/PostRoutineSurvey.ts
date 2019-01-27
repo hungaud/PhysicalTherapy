@@ -1,8 +1,8 @@
 export interface PostRoutineSurvey {
-    Completed : boolean,
-    LevelOfDifficulty : number,
-    LevelOfPain : number,
-    LevelOfTiredness : number,
-    Note : string,
-    PostRoutineSurveyId : number
+    completed : boolean,
+    levelOfDifficulty : number,
+    levelOfPain : number,
+    levelOfTiredness : number,
+    note : string,
+    postRoutineSurveyId : number
 }
