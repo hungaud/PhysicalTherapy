@@ -14,6 +14,8 @@ namespace PhysicalTherapy.Repositories
         Task<Patient> Find(string username);
 
         IEnumerable<Patient> GetAll();
+
+        IEnumerable<Patient> GetByTherapistId(int id);
     }
 
     public class PatientRepository : IPatientRepository
@@ -33,6 +35,11 @@ namespace PhysicalTherapy.Repositories
         public IEnumerable<Patient> GetAll()
         {
             return _context.Patients;
+        }
+
+        public IEnumerable<Patient> GetByTherapistId(int id)
+        {
+            return _context.Patients.Where(b => b.TherapistId.Equals(id));
         }
     }
 }

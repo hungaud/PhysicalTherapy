@@ -2,6 +2,7 @@ import { Component, OnInit, SystemJsNgModuleLoader, ElementRef } from '@angular/
 import { PatientService } from '../patient.service';
 import { Patient } from '../patient';
 import { MessageService } from '../message.service';
+import { therapistId } from '../globals';
 
 @Component({
   selector: 'app-therapist-roster',
@@ -10,24 +11,19 @@ import { MessageService } from '../message.service';
 })
 export class TherapistRosterComponent implements OnInit {
   allPatients : Patient[] = [];
-  
 
   constructor(private patientService: PatientService, private messageService : MessageService ) { }
 
   ngOnInit() {
     this.allPatients = [];
-    this.messageService.add("Initiating Roster");
-    this.setRoster();
+    this.setRosterByTherapistId(therapistId);
     console.log("Finishing setRoster ngOnInit");
-    this.messageService.add("Roster has been set!");
   }
 
-  setRoster() : void {
-    this.messageService.add("Inside setRoster");
-    console.log("Calling set roster")
-    this.patientService.getAllPatients().subscribe(allPatients => this.allPatients = allPatients);
-    console.log("Finishing setRoster")
-    this.messageService.add("Finished subscribing to the service");
+  setRosterByTherapistId(therapistId: number) : void {
+    this.patientService.getPatientsByTherapistId(therapistId)
+      .subscribe(allPatients => this.allPatients = allPatients)
   }
+
 
 }

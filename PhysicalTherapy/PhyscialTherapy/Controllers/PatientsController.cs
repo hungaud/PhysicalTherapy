@@ -35,7 +35,22 @@ namespace PhysicalTherapy.Controllers
             return new ObjectResult(_context.GetAll());
         }
 
-        // GET: api/Patients/5
+        // GET: api/Patients/tid5
+        [HttpGet("tid/{id}")]
+        [Produces(typeof(DbSet<Patient>))]
+        public IActionResult GetPatientByTherapistId([FromRoute] int id)
+        {
+            return new ObjectResult(_context.GetByTherapistId(id));
+        }
+
+        [HttpGet("/tid/")]
+        [Produces(typeof(DbSet<Patient>))]
+        public ActionResult<IEnumerable<string>> tidTest()
+        {
+            return new string[] { "value1", "value2" };
+        }
+
+        //GET: api/Patients/5
         //[HttpGet("{id}")]
         //public async Task<IActionResult> GetPatient([FromRoute] int id)
         //{
@@ -43,7 +58,7 @@ namespace PhysicalTherapy.Controllers
         //    {
         //        return BadRequest(ModelState);
         //    }
-            
+
         //    var patient = await _context.Patient.FindAsync(id);
 
         //    if (patient == null)
