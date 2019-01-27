@@ -1,2 +1,2 @@
-export const apiEndpoint = 'https://localhost:44379/api';
+export const apiEndpoint = 'http://localhost:64496/api';
 export const therapistId = 1;

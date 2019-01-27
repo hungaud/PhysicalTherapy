@@ -4,11 +4,11 @@
     <a routerLink="/add-patient-screen"> Add Patient</a>
 </div>
 <div>
+    <br>
     <input id="search" type="text"
         placeholder="Search for patient" #theSearch/>
-    <br>
     <button id="searchButton"
-        (click)="search()">
+        (click)="search(theSearch)">
         Search
     </button>
 </div>
