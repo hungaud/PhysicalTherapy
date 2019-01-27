@@ -27,5 +27,20 @@ namespace PhysicalTherapy.Controllers
         {
             return new ObjectResult(_patients.GetAll());
         }
+
+        [HttpGet("{username:alpha}")]
+        [Produces(typeof(DbSet<Patient>))]
+        public async Task<IActionResult> GetPatient([FromRoute] string username)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var patient = await _patients.Get(username);
+
+            if (patient == null)
+                return NotFound();
+
+            return Ok(patient);
+        }
     }
 }

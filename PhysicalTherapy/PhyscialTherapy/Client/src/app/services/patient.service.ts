@@ -2,7 +2,8 @@ import { apiEndpoint } from '../globals'
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Patient } from '../models/Patient';
-import { Observable } from 'rxjs';
+import { Observable, observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 
 @Injectable()
@@ -32,7 +33,7 @@ export class PatientService {
     // }
 
     public getPatient(username : string) : Observable<Patient> {
-      console.log("Entering getAllPatients in the server.");
-      return this.http.get<Patient>(this.accessPointUrl + "/" + username);
+      console.log("Entering getAllPatients in the server. " + username );
+       return this.http.get<Patient>(this.accessPointUrl + "/" + username);
     }
 }

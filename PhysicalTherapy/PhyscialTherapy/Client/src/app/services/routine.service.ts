@@ -8,7 +8,7 @@ import { Routine } from '../models/Routine';
 @Injectable()
 export class RoutineService {
   private headers: HttpHeaders;
-  private accessPointUrl: string = `${apiEndpoint}/Routines`;
+  private accessPointUrl: string = `${apiEndpoint}/routines`;
 
   constructor(private http: HttpClient) {
     this.headers = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
@@ -22,7 +22,7 @@ export class RoutineService {
     // test method 
   public getAll() : Observable<Routine[]> {
     console.log("Entering getAll from Routine to in the server.");
-    return this.http.get<Routine[]>('http://localhost:55818/api/routines/');
+    return this.http.get<Routine[]>(this.accessPointUrl);
   }
 
   // public add(payload) {

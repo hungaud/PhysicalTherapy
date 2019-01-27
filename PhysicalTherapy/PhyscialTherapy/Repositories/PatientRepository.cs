@@ -1,4 +1,5 @@
-﻿using PhysicalTherapy.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using PhysicalTherapy.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,9 +39,12 @@ namespace PhysicalTherapy.Repositories
             return null;
         }
 
-        public Task<Patient> Get(string username)
+        public async Task<Patient> Get(string username)
         {
-            return null;
+            return await _context.Patients.Where(p => p.Username == username)
+                .Include(p => p.Therapist)
+                .FirstOrDefaultAsync();
+
         }
 
         public Task<Patient> Get(int id)

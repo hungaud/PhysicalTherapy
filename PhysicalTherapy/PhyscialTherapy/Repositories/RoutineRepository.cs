@@ -46,7 +46,11 @@ namespace PhysicalTherapy.Repositories
 
         public IEnumerable<Routine> GetAll()
         {
-            return _context.Routines;
+            return _context.Routines
+                .Include(r => r.ListOfMessageLogs)
+                .Include(r => r.Patient.Therapist)
+                .Include(r => r.RoutineExercises)
+                .Include(r => r.PostRoutineSurvey);
         }
     }
 }

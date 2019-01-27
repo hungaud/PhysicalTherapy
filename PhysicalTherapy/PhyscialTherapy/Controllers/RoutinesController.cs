@@ -36,12 +36,12 @@ namespace PhysicalTherapy.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var credential = await _routineRepository.Get(username);
+            var routine = await _routineRepository.Get(username);
 
-            if (credential == null)
+            if (routine == null)
                 return NotFound();
 
-            return Ok(credential);
+            return Ok(routine);
         }
 
 
@@ -52,12 +52,12 @@ namespace PhysicalTherapy.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var credential = await _routineRepository.Get(id);
+            var routine = await _routineRepository.Get(id);
 
-            if (credential == null)
+            if (routine == null)
                 return NotFound();
 
-            return Ok(credential);
+            return Ok(routine);
         }
 
     }
