@@ -4,11 +4,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { Login } from './login/login.component'
-import { NgModule } from '@angular/core';
+import { NgModule, InjectionToken } from '@angular/core';
 import { PatientHomeScreenComponent } from './patient-home-screen/patient-home-screen.component';
 import { RoutineService } from './services/routine.service';
 import { TherapistHomeScreenComponent } from './therapist-home-screen/therapist-home-screen.component';
 import { TherapistRosterComponent } from './therapist-roster/therapist-roster.component';
+import { PatientService } from './services/patient.service';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,8 @@ import { TherapistRosterComponent } from './therapist-roster/therapist-roster.co
   ],
   providers: [
     RoutineService,
+    PatientService,
+    
   ],
   bootstrap: [AppComponent]
 })

@@ -24,6 +24,7 @@ export class PatientHomeScreenComponent implements OnInit {
   ngOnInit() {
     //this.patientService.getPatient('hung').subscribe(patient => this.patient = patient)
     this.routineService.getAll().subscribe(routines => this.routines = routines)
+
   }
 
 }

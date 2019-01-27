@@ -14,15 +14,15 @@ export class RoutineService {
     this.headers = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
   }
 
-  public get(username : string) : Observable<Routine> {
-    console.log("Entering getAllPatients in the server.");
-    return this.http.get<Routine>(this.accessPointUrl);
-  }
+  // public get(username : string) : Observable<Routine> {
+  //   console.log("Entering getAllPatients in the server.");
+  //   return this.http.get<Routine>(this.accessPointUrl);
+  // }
 
     // test method 
   public getAll() : Observable<Routine[]> {
     console.log("Entering getAll from Routine to in the server.");
-    return this.http.get<Routine[]>(this.accessPointUrl);
+    return this.http.get<Routine[]>('http://localhost:55818/api/routines/');
   }
 
   // public add(payload) {
