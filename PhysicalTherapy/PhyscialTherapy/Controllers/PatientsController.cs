@@ -64,7 +64,7 @@ namespace PhysicalTherapy.Controllers
                 return BadRequest(ModelState);
             }
 
-            var patient = await _context.FindById(id);
+            var patient = await _patients.FindById(id);
 
             if (patient == null)
             {
@@ -90,7 +90,7 @@ namespace PhysicalTherapy.Controllers
 
             try
             {
-                await _context.UpdateTherapist(patient);
+                await _patients.UpdateTherapist(patient);
                 return Ok(id);
             }
             catch (DbUpdateConcurrencyException)
