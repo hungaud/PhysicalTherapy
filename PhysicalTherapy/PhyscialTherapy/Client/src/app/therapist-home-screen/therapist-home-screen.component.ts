@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Patient } from '../models/Patient';
-import { PatientService } from '../services/patient.service';
+import { Patient } from '../patient';
+import { PatientService } from '../patient.service';
+import { MessageService } from '../message.service';
 
 @Component({
   selector: 'app-therapist-home-screen',
@@ -10,11 +11,13 @@ import { PatientService } from '../services/patient.service';
 export class TherapistHomeScreenComponent implements OnInit {
   feedback : Patient[];
   late : Patient[];
-  constructor(private patientService: PatientService) { }
+  
+  constructor(private patientService: PatientService, private messageService : MessageService) { }
 
   ngOnInit() {
-    // this.feedback = this.patientService.getFeedback();
-    // this.late = this.patientService.getLate();
+    this.messageService.add("Initiating Therapist Home Screen");
+    // this.feedback = null;//this.patientService.getFeedback();
+    // this.late = null;//this.patientService.getLate();
   }
 
 }

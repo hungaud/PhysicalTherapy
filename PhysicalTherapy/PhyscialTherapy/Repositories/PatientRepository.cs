@@ -1,55 +1,42 @@
-﻿using Microsoft.EntityFrameworkCore;
-using PhysicalTherapy.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using PhysicalTherapy.Models;
+using Microsoft.EntityFrameworkCore;
+using PhysicalTherapy.Controllers;
 
 namespace PhysicalTherapy.Repositories
 {
-
     public interface IPatientRepository
     {
-        Task<Patient> Add(Patient patient);
-        Task<bool> Exists(string username);
-        Task<Patient> Get(string username);
-        Task<Patient> Get(int id);
+        Task<Patient> Find(string username);
+
         IEnumerable<Patient> GetAll();
-        Task<Patient> Remove(int id);
-        Task<Patient> Update(string username);
+
+        //Returns all patients associated with therapist ID
+        IEnumerable<Patient> GetByTherapistId(int id);
+
+        //Returns all patients associated with therapist ID where Routine.isNew == true
+        IEnumerable<Patient> GetPatientsWithNewFeedbackByTherapistId(int id);
+
+        //Returns all patients who don't have a new routine
+        IEnumerable<Patient> GetLatePatientsByTherapistId(int id);
     }
 
     public class PatientRepository : IPatientRepository
     {
-
         private PhysicalTherapyContext _context;
 
         public PatientRepository(PhysicalTherapyContext context)
         {
             _context = context;
         }
-        
-        public Task<Patient> Add(Patient patient)
-        {
-            return null;
-        }
 
-        public Task<bool> Exists(string username)
+        public async Task<Patient> Find(string username)
         {
-            return null;
-        }
-
-        public async Task<Patient> Get(string username)
-        {
-            return await _context.Patients.Where(p => p.Username == username)
-                .Include(p => p.Therapist)
-                .FirstOrDefaultAsync();
-
-        }
-
-        public Task<Patient> Get(int id)
-        {
-            return null;
+            return await _context.Patients.SingleOrDefaultAsync(cred => cred.Username == username);
         }
 
         public IEnumerable<Patient> GetAll()
@@ -57,14 +44,20 @@ namespace PhysicalTherapy.Repositories
             return _context.Patients;
         }
 
-        public Task<Patient> Remove(int id)
+        public IEnumerable<Patient> GetByTherapistId(int id)
         {
-            return null;
+            return _context.Patients
+                .Where(b => b.TherapistId.Equals(id));
         }
 
-        public Task<Patient> Update(string username)
+        public IEnumerable<Patient> GetLatePatientsByTherapistId(int id)
         {
-            return null;
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Patient> GetPatientsWithNewFeedbackByTherapistId(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }
