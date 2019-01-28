@@ -1,39 +1,40 @@
-import { apiEndpoint } from '../globals'
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Patient } from '../models/Patient';
-import { Observable, observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Patient } from '../models/patient';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { apiEndpoint } from '../globals';
 
-
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class PatientService {
-  private headers: HttpHeaders;
-  private accessPointUrl: string = `${apiEndpoint}/Patients`;
 
-  constructor(private http: HttpClient) {
-    this.headers = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
+    //TODO message service?
+    constructor(private http: HttpClient) { }
+
+    getFeedback(): Patient[] {
+      //TODO actually retrieve patients with feedback
+      return null;
+    }
+  
+    getLate(): Patient[] {
+      //TODO actually retrieve late patients
+      return null;
   }
 
-    // //TODO message service?
 
-    // getFeedback(): Patient[] {
-    //   //TODO actually retrieve patients with feedback
-    //   return FEEDBACK;
-    // }
+    public getPatient(username: string): Observable<Patient> {
+      console.log("Entering getAllPatients in the server. " + username);
+      return this.http.get<Patient>(apiEndpoint + "/Patients/" + username);
+    }
   
-    // getLate(): Patient[] {
-    //   //TODO actually retrieve late patients
-    //   return LATE;
-    // }
-  
-    // getAllPatients(): Patient[] {
-    //   //TODO Actually retrieve patients
-    //   return ALL_PATIENTS;
-    // }
+    getAllPatients(): Observable<Patient[]> {
+      console.log("Entering getAllPatients in the server.");
+      return this.http.get<Patient[]>(apiEndpoint + '/patients');     
+    }
 
-    public getPatient(username : string) : Observable<Patient> {
-      console.log("Entering getAllPatients in the server. " + username );
-       return this.http.get<Patient>(this.accessPointUrl + "/" + username);
+    getPatientsByTherapistId(therapistId : number): Observable<Patient[]> {
+      console.log("Entering getPatientsByTherapistId in the server.");
+      return this.http.get<Patient[]>(apiEndpoint + '/patients/tid/' + therapistId);     
     }
 }

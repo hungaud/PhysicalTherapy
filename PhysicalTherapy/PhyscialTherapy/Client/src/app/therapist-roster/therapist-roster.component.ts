@@ -1,7 +1,7 @@
 import { Component, OnInit, SystemJsNgModuleLoader, ElementRef } from '@angular/core';
-import { PatientService } from '../patient.service';
-import { Patient } from '../patient';
-import { MessageService } from '../message.service';
+import { PatientService } from '../services/patient.service';
+import { Patient } from '../models/patient';
+import { MessageService } from '../services/message.service';
 import { therapistId } from '../globals';
 
 @Component({
