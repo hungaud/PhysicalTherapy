@@ -10,7 +10,7 @@ import { therapistId, therapistId2, apiEndpoint } from '../globals';
     templateUrl: './add-patient.component.html',
     styleUrls: ['./add-patient.component.scss']
 })
-export class AddPatientComponent {
+export class AddPatientComponent implements OnInit {
     thePatients : Patient[] = [];
 
     constructor(private patientService: PatientService) { }
