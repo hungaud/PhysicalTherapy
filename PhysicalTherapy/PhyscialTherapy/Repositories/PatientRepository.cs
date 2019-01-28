@@ -15,7 +15,14 @@ namespace PhysicalTherapy.Repositories
 
         IEnumerable<Patient> GetAll();
 
+        //Returns all patients associated with therapist ID
         IEnumerable<Patient> GetByTherapistId(int id);
+
+        //Returns all patients associated with therapist ID where Routine.isNew == true
+        IEnumerable<Patient> GetPatientsWithNewFeedbackByTherapistId(int id);
+
+        //Returns all patients who don't have a new routine
+        IEnumerable<Patient> GetLatePatientsByTherapistId(int id);
     }
 
     public class PatientRepository : IPatientRepository
@@ -39,7 +46,18 @@ namespace PhysicalTherapy.Repositories
 
         public IEnumerable<Patient> GetByTherapistId(int id)
         {
-            return _context.Patients.Where(b => b.TherapistId.Equals(id));
+            return _context.Patients
+                .Where(b => b.TherapistId.Equals(id));
+        }
+
+        public IEnumerable<Patient> GetLatePatientsByTherapistId(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Patient> GetPatientsWithNewFeedbackByTherapistId(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }
