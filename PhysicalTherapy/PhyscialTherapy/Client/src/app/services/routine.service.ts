@@ -14,12 +14,12 @@ export class RoutineService {
     this.headers = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
   }
 
-  // public get(username : string) : Observable<Routine> {
-  //   console.log("Entering getAllPatients in the server.");
-  //   return this.http.get<Routine>(this.accessPointUrl);
-  // }
+  public get(username : string) : Observable<Routine[]> {
+    console.log("Entering getAllPatients in the server.");
+    return this.http.get<Routine[]>(this.accessPointUrl + '/'+ username);
+  }
 
-    // test method 
+  
   public getAll() : Observable<Routine[]> {
     console.log("Entering getAll from Routine to in the server.");
     return this.http.get<Routine[]>(this.accessPointUrl);

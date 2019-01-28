@@ -26,7 +26,8 @@ namespace PhysicalTherapy.Controllers
         [Produces(typeof(DbSet<Routine>))]
         public IActionResult GetRoutines()
         {
-            return new ObjectResult(_routineRepository.GetAll());
+            var test = new ObjectResult(_routineRepository.GetAll());
+            return test;
         }
 
         [HttpGet("{username:alpha}")]

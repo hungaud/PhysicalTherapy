@@ -10,11 +10,15 @@ namespace PhysicalTherapy.Models
     {
         public string Description { get; set; }
 
+        public DateTime Date { get; set; }
+
         public bool IsComplete { get; set; }
 
         public bool IsNew { get; set; }
 
         public ICollection<MessageLog> ListOfMessageLogs { get; set; }
+
+        public string Name { get; set; }
 
         public Patient Patient { get; set; }
 

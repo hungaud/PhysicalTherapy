@@ -16,27 +16,18 @@ import { Observable } from 'rxjs';
 export class PatientHomeScreenComponent implements OnInit {
 
   public patient :  Patient;
-  public routines : Routine[] = [];
+  public routines : Routine[];
   public username : string = '';
 
   constructor(private route : ActivatedRoute, private patientService : PatientService, private routineService : RoutineService) {
-    this.routines = [];
-    this.username = '';
+      this.routines = [];
     console.log(this.route.snapshot.paramMap.get('username') + ' is the name');
   }
 
-
   ngOnInit() {
     this.username = this.route.snapshot.paramMap.get('username');
-    console.log(this.username + "     USER NAME");
-
-    this.patientService.getPatient(this.username).subscribe(res => {
-      this.patient = res;
-      this.username = res.firstName;
-    });
-
-    //this.routineService.getAll().subscribe(routines => this.routines = routines)
-
+    this.patientService.getPatient(this.username).subscribe(res => this.patient = res);
+    this.routineService.get(this.username).subscribe(routines => this.routines = routines);
   }
 
 }

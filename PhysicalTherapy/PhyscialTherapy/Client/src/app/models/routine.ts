@@ -8,6 +8,7 @@ export interface Routine {
     isComplete : boolean,
     isNew : boolean,
     listOfMessageLogs : MessageLog[],
+    name : string;
     patient : Patient
     patientId : number,
     routineExercises : RoutineExercise[],

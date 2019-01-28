@@ -20,7 +20,7 @@ export class PatientService {
     getLate(): Patient[] {
       //TODO actually retrieve late patients
       return null;
-  }
+    }
 
 
     public getPatient(username: string): Observable<Patient> {

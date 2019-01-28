@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PhysicalTherapy.Models;
 
 namespace PhysicalTherapy.Migrations
 {
     [DbContext(typeof(PhysicalTherapyContext))]
-    partial class PhysicalTherapyContextModelSnapshot : ModelSnapshot
+    [Migration("20190128202520_Add-Name-To-Routine")]
+    partial class AddNameToRoutine
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -73,7 +75,7 @@ namespace PhysicalTherapy.Migrations
 
                     b.HasData(
                         new { CredentialId = 1, AccountType = 1, Password = "admin", Username = "TygerHugh" },
-                        new { CredentialId = 2, AccountType = 2, Password = "password", Username = "Alex" },
+                        new { CredentialId = 2, AccountType = 1, Password = "password", Username = "Alex" },
                         new { CredentialId = 3, AccountType = 2, Password = "abc", Username = "hung" }
                     );
                 });
@@ -355,7 +357,7 @@ namespace PhysicalTherapy.Migrations
 
                     b.HasData(
                         new { PatientId = 1, AccountType = 2, Bio = "bad back", DateOfBirth = new DateTime(2019, 1, 28, 0, 0, 0, 0, DateTimeKind.Local), Email = "one@email.com", FirstName = "Hung", LastName = "thats-me", PhoneNumber = "911", TherapistId = 1, Username = "Alex" },
-                        new { PatientId = 2, AccountType = 2, Bio = "bad knees", DateOfBirth = new DateTime(2019, 1, 28, 0, 0, 0, 0, DateTimeKind.Local), Email = "two@email.com", FirstName = "Also Hung", LastName = "2nd", PhoneNumber = "1800", TherapistId = 1, Username = "hung" },
+                        new { PatientId = 2, AccountType = 2, Bio = "bad knees", DateOfBirth = new DateTime(2019, 1, 28, 0, 0, 0, 0, DateTimeKind.Local), Email = "two@email.com", FirstName = "Also Hung", LastName = "2nd", PhoneNumber = "1800", TherapistId = 1, Username = "Hung" },
                         new { PatientId = 3, AccountType = 2, Bio = "accident prone", DateOfBirth = new DateTime(2019, 1, 28, 0, 0, 0, 0, DateTimeKind.Local), Email = "three@email.com", FirstName = "Sike", LastName = "Still-Hung", PhoneNumber = "411", TherapistId = 1, Username = "Tyger" }
                     );
                 });
@@ -387,8 +389,6 @@ namespace PhysicalTherapy.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Date");
-
                     b.Property<string>("Description");
 
                     b.Property<bool>("IsComplete");
@@ -412,9 +412,9 @@ namespace PhysicalTherapy.Migrations
                     b.ToTable("Routines");
 
                     b.HasData(
-                        new { RoutineId = 1, Date = new DateTime(2019, 1, 28, 0, 0, 0, 0, DateTimeKind.Local), Description = "Routine number 1 not Active", IsComplete = true, IsNew = false, Name = "Routine number 1", PatientId = 1 },
-                        new { RoutineId = 2, Date = new DateTime(2019, 1, 28, 0, 0, 0, 0, DateTimeKind.Local), Description = "Routine number 2 Active", IsComplete = false, IsNew = true, Name = "Routine number 2", PatientId = 1 },
-                        new { RoutineId = 3, Date = new DateTime(2019, 1, 28, 0, 0, 0, 0, DateTimeKind.Local), Description = "Routine number 3 Active", IsComplete = false, IsNew = true, Name = "Routine number 3", PatientId = 2 }
+                        new { RoutineId = 1, Description = "Routine number 1 not Active", IsComplete = true, IsNew = false, Name = "Routine number 1", PatientId = 1 },
+                        new { RoutineId = 2, Description = "Routine number 2 Active", IsComplete = false, IsNew = true, Name = "Routine number 2", PatientId = 1 },
+                        new { RoutineId = 3, Description = "Routine number 3 Active", IsComplete = false, IsNew = true, Name = "Routine number 3", PatientId = 2 }
                     );
                 });
 

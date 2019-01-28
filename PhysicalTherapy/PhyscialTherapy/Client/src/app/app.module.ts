@@ -7,11 +7,14 @@ import { Login } from './login/login.component'
 import { MessagesComponent } from './messages/messages.component';
 import { NgModule, InjectionToken } from '@angular/core';
 import { PatientHomeScreenComponent } from './patient-home-screen/patient-home-screen.component';
+import { PatientService } from './services/patient.service';
+import { RoutinePageComponent } from './routine-page/routine-page.component';
 import { RoutineService } from './services/routine.service';
+import { RouterModule } from '@angular/router';
 import { TherapistHomeScreenComponent } from './therapist-home-screen/therapist-home-screen.component';
 import { TherapistRosterComponent } from './therapist-roster/therapist-roster.component';
-import { PatientService } from './services/patient.service';
-import { RouterModule } from '@angular/router';
+
+
 
 @NgModule({
   declarations: [
@@ -19,9 +22,9 @@ import { RouterModule } from '@angular/router';
     TherapistHomeScreenComponent,
     TherapistRosterComponent,
     Login,
-    //TesttestComponent,
     PatientHomeScreenComponent,
-    MessagesComponent
+    MessagesComponent,
+    RoutinePageComponent,
   ],
   imports: [
     BrowserModule,
