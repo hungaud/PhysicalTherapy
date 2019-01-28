@@ -43,12 +43,50 @@ namespace PhysicalTherapy.Controllers
             return new ObjectResult(_context.GetByTherapistId(id));
         }
 
-        [HttpGet("/tid/")]
+        [HttpGet("{id}")]
         [Produces(typeof(DbSet<Patient>))]
-        public ActionResult<IEnumerable<string>> tidTest()
+        public async Task<IActionResult> getById([FromRoute] int id)
         {
-            return new string[] { "value1", "value2" };
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var patient = await _context.FindById(id);
+
+            if (patient == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(patient);
         }
+
+        [HttpPut("{id}")]
+        [Produces(typeof(Patient))]
+        public async Task<IActionResult> PutPatientId([FromRoute] int id, [FromBody] Patient patient)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (id != patient.PatientId)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                await _context.UpdateTherapist(patient);
+                return Ok(id);
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                return BadRequest();
+            }
+        }
+
 
         //GET: api/Patients/5
         //[HttpGet("{id}")]
