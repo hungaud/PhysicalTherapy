@@ -39,7 +39,9 @@ namespace PhysicalTherapy.Repositories
 
         public async Task<Patient> Find(string username)
         {
-            return await _context.Patients.SingleOrDefaultAsync(cred => cred.Username == username);
+            return await _context.Patients.Where(p => p.Username == username)
+                .Include(p => p.Therapist)
+                .FirstOrDefaultAsync();
         }
 
         public IEnumerable<Patient> GetAll()

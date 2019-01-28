@@ -41,6 +41,7 @@ namespace PhysicalTherapy
             services.AddMvc().AddJsonOptions(option => option.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
             services.AddScoped<ICredentialRepository, CredentialRepository>();
             services.AddScoped<IPatientRepository, PatientRepository>();
+            services.AddScoped<IRoutineRepository, RoutineRepository>();
             //services.AddScoped<I>
 
 

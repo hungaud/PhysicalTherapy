@@ -1,0 +1,17 @@
+import { MessageLog } from "./MessageLog";
+import { Patient } from "./Patient";
+import { PostRoutineSurvey } from "./PostRoutineSurvey"
+import { RoutineExercise } from "./RoutineExercise";
+
+export interface Routine {
+    description : string,
+    isComplete : boolean,
+    isNew : boolean,
+    listOfMessageLogs : MessageLog[],
+    patient : Patient
+    patientId : number,
+    routineExercises : RoutineExercise[],
+    routineId : number,
+    postRoutineSurvey : PostRoutineSurvey,
+    postRoutineSurveyId : number
+}

@@ -15,11 +15,11 @@ namespace PhysicalTherapy.Controllers
     [ApiController]
     public class PatientsController : ControllerBase
     {
-        private readonly IPatientRepository _context;
+        private readonly IPatientRepository _patients;
 
         public PatientsController(IPatientRepository context)
         {
-            _context = context;
+            _patients = context;
         }
 
         // GET: api/Patients
@@ -27,15 +27,32 @@ namespace PhysicalTherapy.Controllers
         [Produces(typeof(DbSet<Patient>))]
         public IActionResult GetPatient()
         {
-            return new ObjectResult(_context.GetAll());
+            return new ObjectResult(_patients.GetAll());
         }
+
+
+        [HttpGet("{username:alpha}")]
+        [Produces(typeof(DbSet<Patient>))]
+        public async Task<IActionResult> GetPatient([FromRoute] string username)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var patient = await _patients.Find(username);
+
+            if (patient == null)
+                return NotFound();
+
+            return Ok(patient);
+        }
+
 
         // GET: api/Patients/tid/5
         [HttpGet("tid/{id}")]
         [Produces(typeof(DbSet<Patient>))]
         public IActionResult GetPatientByTherapistId([FromRoute] int id)
         {
-            return new ObjectResult(_context.GetByTherapistId(id));
+            return new ObjectResult(_patients.GetByTherapistId(id));
         }
 
         [HttpGet("{id}")]
@@ -86,7 +103,7 @@ namespace PhysicalTherapy.Controllers
         [Produces(typeof(DbSet<Patient>))]
         public IActionResult GetPatientsWithNewRoutines([FromRoute] int id)
         {
-            return new ObjectResult(_context.GetByTherapistId(id));
+            return new ObjectResult(_patients.GetByTherapistId(id));
         }
 
         //GET: api/Patients/new_routines
@@ -94,7 +111,7 @@ namespace PhysicalTherapy.Controllers
         [Produces(typeof(DbSet<Patient>))]
         public IActionResult GetLatePatients([FromRoute] int id)
         {
-            return new ObjectResult(_context.GetByTherapistId(id));
+            return new ObjectResult(_patients.GetByTherapistId(id));
         }
     }
 }

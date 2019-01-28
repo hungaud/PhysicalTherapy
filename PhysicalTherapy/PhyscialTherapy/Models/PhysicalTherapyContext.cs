@@ -78,6 +78,8 @@ namespace PhysicalTherapy.Models
 
             SeedExercise(modelBuilder);
             SeedTherapistAndTestData(modelBuilder);
+            SeedRoutinesTestData(modelBuilder);
+            SeedCredentialsTestData(modelBuilder);
         }
 
         #region "Seed Test Data"
@@ -103,6 +105,50 @@ namespace PhysicalTherapy.Models
             });
 
         }
+
+        private void SeedRoutinesTestData(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Routine>(e =>
+            {
+                e.HasData(
+                    new { Description = "Routine number 1 not Active", IsComplete = true, IsNew = false, PatientId = 1, RoutineId = 1 },
+                    new { Description = "Routine number 2 Active", IsComplete = false, IsNew = true, PatientId = 1, RoutineId = 2 },
+                    new { Description = "Routine number 3 Active", IsComplete = false, IsNew = true, PatientId = 2, RoutineId = 3 }
+                );
+            });
+
+            modelBuilder.Entity<RoutineExercise>(e =>
+            {
+                e.HasData(
+                    new { ExerciseId = 1, HoldLength = (decimal?) 30, FrequencyPerDay = 1, Notes = "holding for 30 seconds", RoutineExerciseId = 1, RoutineId = 1, Sets = 3 },
+                    new { ExerciseId = 5, HoldLength = (decimal?) 45, FrequencyPerDay = 1, Notes = "holding for 45 seconds", RoutineExerciseId = 2, RoutineId = 1, Sets = 3 },
+                    new { ExerciseId = 15, FrequencyPerDay = 1, Notes = "holding for 30 seconds", Reps = 10, RoutineExerciseId = 3, RoutineId = 1, Sets = 3 },
+                    
+                    new { ExerciseId = 1, HoldLength = (decimal?) 30, FrequencyPerDay = 1, Notes = "2nd routine holding for 30 seconds", RoutineExerciseId = 4, RoutineId = 2, Sets = 3 },
+                    new { ExerciseId = 5, HoldLength = (decimal?) 45, FrequencyPerDay = 1, Notes = "2nd routine holding for 45 seconds", RoutineExerciseId = 5, RoutineId = 2, Sets = 3 },
+                    new { ExerciseId = 15, FrequencyPerDay = 1, Notes = "2nd routine holding for 30 seconds", Reps = 10, RoutineExerciseId = 6, RoutineId = 2, Sets = 3 },
+                   
+                    new { ExerciseId = 1, HoldLength = (decimal?) 30, FrequencyPerDay = 1, Notes = "3rd routine holding for 30 seconds", RoutineExerciseId = 7, RoutineId = 3, Sets = 3 },
+                    new { ExerciseId = 5, HoldLength = (decimal?) 45, FrequencyPerDay = 1, Notes = "3rd routine holding for 45 seconds", RoutineExerciseId = 8, RoutineId = 3, Sets = 3 },
+                    new { ExerciseId = 15, FrequencyPerDay = 1, Notes = "3rd routine holding for 30 seconds", Reps = 10, RoutineExerciseId = 9, RoutineId = 3, Sets = 3 }
+
+                );
+            });
+        }
+
+        private void SeedCredentialsTestData(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Credential>(e =>
+            {
+                e.HasData(
+                    new { AccountType = AccountType.THERAPIST, CredentialId = 1, Username = "TygerHugh", Password = "admin" },
+                    new { AccountType = AccountType.THERAPIST, CredentialId = 2, Username = "Alex", Password = "password" },
+                    new { AccountType = AccountType.PATIENT, CredentialId = 3, Username= "hung", Password = "abc" }
+                );
+            });
+        }
+
+
 
         #endregion
 

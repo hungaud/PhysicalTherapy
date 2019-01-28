@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PhysicalTherapy.Models;
 
 namespace PhysicalTherapy.Migrations
 {
     [DbContext(typeof(PhysicalTherapyContext))]
-    partial class PhysicalTherapyContextModelSnapshot : ModelSnapshot
+    [Migration("20190124021842_SeedRoutineData")]
+    partial class SeedRoutineData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,12 +72,6 @@ namespace PhysicalTherapy.Migrations
                         .IsUnique();
 
                     b.ToTable("Credentials");
-
-                    b.HasData(
-                        new { CredentialId = 1, AccountType = 1, Password = "admin", Username = "TygerHugh" },
-                        new { CredentialId = 2, AccountType = 1, Password = "password", Username = "Alex" },
-                        new { CredentialId = 3, AccountType = 2, Password = "abc", Username = "hung" }
-                    );
                 });
 
             modelBuilder.Entity("PhysicalTherapy.Models.Exercise", b =>
@@ -354,9 +350,9 @@ namespace PhysicalTherapy.Migrations
                     b.ToTable("Patients");
 
                     b.HasData(
-                        new { PatientId = 1, AccountType = 2, Bio = "bad back", DateOfBirth = new DateTime(2019, 1, 25, 0, 0, 0, 0, DateTimeKind.Local), Email = "one@email.com", FirstName = "Hung", LastName = "thats-me", PhoneNumber = "911", TherapistId = 1, Username = "Alex" },
-                        new { PatientId = 2, AccountType = 2, Bio = "bad knees", DateOfBirth = new DateTime(2019, 1, 25, 0, 0, 0, 0, DateTimeKind.Local), Email = "two@email.com", FirstName = "Also Hung", LastName = "2nd", PhoneNumber = "1800", TherapistId = 1, Username = "Hung" },
-                        new { PatientId = 3, AccountType = 2, Bio = "accident prone", DateOfBirth = new DateTime(2019, 1, 25, 0, 0, 0, 0, DateTimeKind.Local), Email = "three@email.com", FirstName = "Sike", LastName = "Still-Hung", PhoneNumber = "411", TherapistId = 1, Username = "Tyger" }
+                        new { PatientId = 1, AccountType = 2, Bio = "bad back", DateOfBirth = new DateTime(2019, 1, 23, 0, 0, 0, 0, DateTimeKind.Local), Email = "one@email.com", FirstName = "Hung", LastName = "thats-me", PhoneNumber = "911", TherapistId = 1, Username = "Alex" },
+                        new { PatientId = 2, AccountType = 2, Bio = "bad knees", DateOfBirth = new DateTime(2019, 1, 23, 0, 0, 0, 0, DateTimeKind.Local), Email = "two@email.com", FirstName = "Also Hung", LastName = "2nd", PhoneNumber = "1800", TherapistId = 1, Username = "Hung" },
+                        new { PatientId = 3, AccountType = 2, Bio = "accident prone", DateOfBirth = new DateTime(2019, 1, 23, 0, 0, 0, 0, DateTimeKind.Local), Email = "three@email.com", FirstName = "Sike", LastName = "Still-Hung", PhoneNumber = "411", TherapistId = 1, Username = "Tyger" }
                     );
                 });
 
@@ -410,7 +406,7 @@ namespace PhysicalTherapy.Migrations
                     b.HasData(
                         new { RoutineId = 1, Description = "Routine number 1 not Active", IsComplete = true, IsNew = false, PatientId = 1 },
                         new { RoutineId = 2, Description = "Routine number 2 Active", IsComplete = false, IsNew = true, PatientId = 1 },
-                        new { RoutineId = 3, Description = "Routine number 3 Active", IsComplete = false, IsNew = true, PatientId = 2 }
+                        new { RoutineId = 3, Description = "Routine number 1 Active", IsComplete = false, IsNew = true, PatientId = 2 }
                     );
                 });
 
@@ -487,7 +483,7 @@ namespace PhysicalTherapy.Migrations
                     b.ToTable("Therapists");
 
                     b.HasData(
-                        new { TherapistId = 1, AccountType = 1, Bio = "New Dr.", DateOfBirth = new DateTime(2019, 1, 25, 0, 0, 0, 0, DateTimeKind.Local), Email = "Test@email.com", FirstName = "DR.", LastName = "Doctor", PhoneNumber = "911", Username = "TygerHugh" }
+                        new { TherapistId = 1, AccountType = 1, Bio = "New Dr.", DateOfBirth = new DateTime(2019, 1, 23, 0, 0, 0, 0, DateTimeKind.Local), Email = "Test@email.com", FirstName = "DR.", LastName = "Doctor", PhoneNumber = "911", Username = "TygerHugh" }
                     );
                 });
 
