@@ -12,7 +12,6 @@ namespace PhysicalTherapy.Controllers
 {
     [Produces("application/json")]
     [Route("api/patients")]
-    [ApiController]
     public class PatientsController : ControllerBase
     {
         private readonly IPatientRepository _patients;
@@ -27,10 +26,11 @@ namespace PhysicalTherapy.Controllers
         [Produces(typeof(DbSet<Patient>))]
         public IActionResult GetPatient()
         {
-            return new ObjectResult(_patients.GetAll());
+            var test = new ObjectResult(_patients.GetAll());
+            return test;
         }
 
-
+        // GET: api/Patients/username
         [HttpGet("{username:alpha}")]
         [Produces(typeof(DbSet<Patient>))]
         public async Task<IActionResult> GetPatient([FromRoute] string username)

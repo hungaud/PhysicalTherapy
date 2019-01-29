@@ -99,7 +99,7 @@ namespace PhysicalTherapy.Models
                 e.HasData
                 (
                     new { AccountType = AccountType.PATIENT, Bio = "bad back", DateOfBirth = DateTime.Today, Email = "one@email.com", FirstName = "Hung", LastName = "thats-me", PatientId = 1, PhoneNumber = "911", TherapistId = 1, Username = "Alex" },
-                    new { AccountType = AccountType.PATIENT, Bio = "bad knees", DateOfBirth = DateTime.Today, Email = "two@email.com", FirstName = "Also Hung", LastName = "2nd", PatientId = 2, PhoneNumber = "1800", TherapistId = 1, Username = "Hung" },
+                    new { AccountType = AccountType.PATIENT, Bio = "bad knees", DateOfBirth = DateTime.Today, Email = "two@email.com", FirstName = "Also Hung", LastName = "2nd", PatientId = 2, PhoneNumber = "1800", TherapistId = 1, Username = "hung" },
                     new { AccountType = AccountType.PATIENT, Bio = "accident prone", DateOfBirth = DateTime.Today, Email = "three@email.com", FirstName = "Sike", LastName = "Still-Hung", PatientId = 3, PhoneNumber = "411", TherapistId = 1, Username = "Tyger" }
                 );
             });
@@ -111,9 +111,9 @@ namespace PhysicalTherapy.Models
             modelBuilder.Entity<Routine>(e =>
             {
                 e.HasData(
-                    new { Description = "Routine number 1 not Active", IsComplete = true, IsNew = false, PatientId = 1, RoutineId = 1 },
-                    new { Description = "Routine number 2 Active", IsComplete = false, IsNew = true, PatientId = 1, RoutineId = 2 },
-                    new { Description = "Routine number 3 Active", IsComplete = false, IsNew = true, PatientId = 2, RoutineId = 3 }
+                    new { Date = DateTime.Today, Description = "Routine number 1 not Active", IsComplete = true, IsNew = false, Name = "Routine number 1", PatientId = 1, RoutineId = 1 },
+                    new { Date = DateTime.Today, Description = "Routine number 2 Active", IsComplete = false, IsNew = true, Name = "Routine number 2", PatientId = 1, RoutineId = 2 },
+                    new { Date = DateTime.Today, Description = "Routine number 3 Active", IsComplete = false, IsNew = true, Name = "Routine number 3", PatientId = 2, RoutineId = 3 }
                 );
             });
 
@@ -142,7 +142,7 @@ namespace PhysicalTherapy.Models
             {
                 e.HasData(
                     new { AccountType = AccountType.THERAPIST, CredentialId = 1, Username = "TygerHugh", Password = "admin" },
-                    new { AccountType = AccountType.THERAPIST, CredentialId = 2, Username = "Alex", Password = "password" },
+                    new { AccountType = AccountType.PATIENT, CredentialId = 2, Username = "Alex", Password = "password" },
                     new { AccountType = AccountType.PATIENT, CredentialId = 3, Username= "hung", Password = "abc" }
                 );
             });

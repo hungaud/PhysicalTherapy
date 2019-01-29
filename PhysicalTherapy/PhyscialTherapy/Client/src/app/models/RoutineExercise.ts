@@ -1,4 +1,4 @@
-import { Routine } from "./routine";
+import { Routine } from "./Routine";
 
 export interface RoutineExercise {
     exerciseId : number,
