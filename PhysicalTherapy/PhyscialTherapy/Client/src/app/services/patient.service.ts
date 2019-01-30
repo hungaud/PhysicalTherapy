@@ -37,4 +37,12 @@ export class PatientService {
       console.log("Entering getPatientsByTherapistId in the server.");
       return this.http.get<Patient[]>(apiEndpoint + '/patients/tid/' + therapistId);     
     }
+
+    getPatientById(patientId) {
+      return this.http.get<Patient>(`${apiEndpoint}/patients/${patientId}`);
+    }
+
+    putPatient(id, body) {
+      return this.http.put<Patient>(`${apiEndpoint}/patients/${id}`, body);
+    }
 }

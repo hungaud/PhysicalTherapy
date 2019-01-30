@@ -1,0 +1,20 @@
+<div>
+    <a routerLink="/therapist-home-screen">Home</a>
+    <a routerLink="/therapist-roster-screen"> Patient Roster</a>
+    <a routerLink="/add-patient-screen"> Add Patient</a>
+</div>
+<div>
+    <br>
+    <input id="search" type="text"
+        placeholder="Search for patient" #theSearch/>
+    <button id="searchButton"
+        (click)="search(theSearch)">
+        Search
+    </button>
+</div>
+<div id="patients">
+
+</div>
+<div>
+    <button id="addButton" (click)="addPatient()" #addButton>ADD</button>
+</div>
