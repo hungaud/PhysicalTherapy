@@ -14,6 +14,7 @@ namespace PhysicalTherapy.Repositories
         Task<IEnumerable<Routine>> Get(int patientId);
         Task<IEnumerable<Routine>> Get(string patientUsername);
         Task<IEnumerable<Routine>> GetRecentFeedback(int therapistId);
+        Task<IEnumerable<Routine>> GetLatePatients(int therapistId);
     }
 
     public class RoutineRepository : IRoutineRepository
@@ -37,11 +38,22 @@ namespace PhysicalTherapy.Repositories
 
         public async Task<IEnumerable<Routine>> GetRecentFeedback(int therapistId)
         {
-            return await _context.Routines.Where(r => r.Patient.Therapist.TherapistId == therapistId)
-                .Include(r => r.ListOfMessageLogs)
+            DateTime cutoff = DateTime.Now;
+            return await _context.Routines.Where(r => r.Patient.Therapist.TherapistId == therapistId
+                && r.PostRoutineSurvey.Date.AddYears(1).CompareTo(cutoff) > 0)
                 .Include(r => r.Patient.Therapist)
-                //.Include(r => r.RoutineExercises)
-                //.Include(r => r.PostRoutineSurvey)
+                .Include(r => r.PostRoutineSurvey)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Routine>> GetLatePatients(int therapistId)
+        {
+            DateTime cutoff = DateTime.Now;
+            return await _context.Routines.Where(r => r.Patient.Therapist.TherapistId == therapistId
+                && r.IsComplete == false
+                && r.Date.AddYears(1).CompareTo(cutoff) < 0)
+                .Include(r => r.Patient.Therapist)
+                .Include(r => r.PostRoutineSurvey)
                 .ToListAsync();
         }
 

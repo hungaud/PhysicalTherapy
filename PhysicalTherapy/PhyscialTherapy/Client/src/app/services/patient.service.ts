@@ -9,19 +9,7 @@ import { apiEndpoint } from '../globals';
 })
 export class PatientService {
 
-    //TODO message service?
     constructor(private http: HttpClient) { }
-
-    getFeedback(): Patient[] {
-      //TODO actually retrieve patients with feedback
-      return null;
-    }
-  
-    getLate(): Patient[] {
-      //TODO actually retrieve late patients
-      return null;
-    }
-
 
     public getPatient(username: string): Observable<Patient> {
       console.log("Entering getAllPatients in the server. " + username);

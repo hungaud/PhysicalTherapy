@@ -4,13 +4,13 @@
 </div>
 <h2>Patient Feedback</h2>
 <ul>
-  <li *ngFor="let patient of feedback">
-    <span class="badge">{{patient.patientId}}</span> {{patient.firstName}}
+  <li *ngFor="let response of feedback | slice:0:5;">
+    <span class="badge">{{response.patientId}}</span> {{response.patient.firstName}} <span>{{response.patient.lastName}}</span>
   </li>
 </ul>
 <h2>Late Patients</h2>
 <ul>
-  <li *ngFor="let patient of late">
-    <span class="badge">{{patient.patientId}}</span> {{patient.firstName}}
+  <li *ngFor="let response of late | slice:0:5;">
+    <span class="badge">{{response.patientId}}</span> {{response.patient.firstName}} <span>{{response.patient.lastName}}</span>
   </li>
 </ul>
