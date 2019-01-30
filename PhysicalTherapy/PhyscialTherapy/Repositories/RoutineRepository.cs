@@ -13,6 +13,7 @@ namespace PhysicalTherapy.Repositories
         IEnumerable<Routine> GetAll();
         Task<IEnumerable<Routine>> Get(int patientId);
         Task<IEnumerable<Routine>> Get(string patientUsername);
+        Task<IEnumerable<Routine>> GetRecentFeedback(int therapistId);
     }
 
     public class RoutineRepository : IRoutineRepository
@@ -31,6 +32,16 @@ namespace PhysicalTherapy.Repositories
                 .Include(r => r.Patient.Therapist)
                 .Include(r => r.RoutineExercises)
                 .Include(r => r.PostRoutineSurvey)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Routine>> GetRecentFeedback(int therapistId)
+        {
+            return await _context.Routines.Where(r => r.Patient.Therapist.TherapistId == therapistId)
+                .Include(r => r.ListOfMessageLogs)
+                .Include(r => r.Patient.Therapist)
+                //.Include(r => r.RoutineExercises)
+                //.Include(r => r.PostRoutineSurvey)
                 .ToListAsync();
         }
 

@@ -61,6 +61,22 @@ namespace PhysicalTherapy.Controllers
             return Ok(routine);
         }
 
+        [HttpGet("recent_feedback/{id:int}")]
+        [Produces(typeof(DbSet<Routine>))]
+        public async Task<IActionResult> GetRoutines([FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var routine = await _routineRepository.GetRecentFeedback(id);
+
+            if (routine == null)
+                return NotFound();
+
+            return Ok(routine);
+        }
+
+
     }
 }
 
