@@ -57,7 +57,7 @@ namespace PhysicalTherapy.Controllers
 
         [HttpGet("{id}")]
         [Produces(typeof(DbSet<Patient>))]
-        public async Task<IActionResult> getById([FromRoute] int id)
+        public async Task<IActionResult> GetById([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
