@@ -12,7 +12,6 @@ import { apiEndpoint } from '../globals'
 export class Login { 
     constructor(private router: Router, private http: HttpClient){ }
 
-    // TODO: Add routing to patient homepage
     loginClick(username, password, error) {
         error.innerText = '';
         this.http.get(`${apiEndpoint}/Credentials/${username.value}`)

@@ -13,15 +13,15 @@ import { RoutineService } from './services/routine.service';
 import { RouterModule } from '@angular/router';
 import { TherapistHomeScreenComponent } from './therapist-home-screen/therapist-home-screen.component';
 import { TherapistRosterComponent } from './therapist-roster/therapist-roster.component';
-
-
-
+import { AddPatientComponent } from './add-patient/add-patient.component';
 @NgModule({
   declarations: [
     AppComponent,
     TherapistHomeScreenComponent,
     TherapistRosterComponent,
     Login,
+    AddPatientComponent,
+    //TesttestComponent,
     PatientHomeScreenComponent,
     MessagesComponent,
     RoutinePageComponent,

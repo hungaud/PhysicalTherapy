@@ -18,6 +18,9 @@ namespace PhysicalTherapy.Repositories
         //Returns all patients associated with therapist ID
         IEnumerable<Patient> GetByTherapistId(int id);
 
+        Task<Patient> UpdateTherapist(Patient patient);
+
+        Task<Patient> FindById(int id);
         //Returns all patients associated with therapist ID where Routine.isNew == true
         IEnumerable<Patient> GetPatientsWithNewFeedbackByTherapistId(int id);
 
@@ -60,6 +63,18 @@ namespace PhysicalTherapy.Repositories
         public IEnumerable<Patient> GetPatientsWithNewFeedbackByTherapistId(int id)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<Patient> UpdateTherapist(Patient patient)
+        {
+            _context.Patients.Update(patient);
+            await _context.SaveChangesAsync();
+            return patient;
+        }
+
+        public async Task<Patient> FindById(int id)
+        {
+            return await _context.Patients.SingleOrDefaultAsync(pat => pat.PatientId == id);
         }
     }
 }
