@@ -25,6 +25,16 @@ export class RoutineService {
     return this.http.get<Routine[]>(this.accessPointUrl);
   }
 
+  public getRecentRoutineCompletionsByTherapistId(therapistId : number) : Observable<Routine[]> {
+    console.log("Entering getRecentFeedback in Routine Service");
+    return this.http.get<Routine[]>(this.accessPointUrl + '/recent_feedback/' + therapistId);
+  }
+
+  public getLateRoutinesByTherapistId(therapistId : number) : Observable<Routine[]> {
+    console.log("Entering getLatePatients in Routine Service");
+    return this.http.get<Routine[]>(this.accessPointUrl + '/late_patients/' + therapistId);
+  }
+
   // public add(payload) {
   //   return this.http.post(this.accessPointUrl, payload, {headers: this.headers});
   // }

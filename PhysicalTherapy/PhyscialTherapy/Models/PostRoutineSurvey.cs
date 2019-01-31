@@ -11,6 +11,8 @@ namespace PhysicalTherapy.Models
     {
         public bool Completed { get; set; }
 
+        public DateTime Date { get; set; }
+
         [Range(1, 10)]
         public int LevelOfDifficulty { get; set; }
 

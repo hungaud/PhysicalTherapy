@@ -61,6 +61,37 @@ namespace PhysicalTherapy.Controllers
             return Ok(routine);
         }
 
+        [HttpGet("recent_feedback/{id:int}")]
+        [Produces(typeof(DbSet<Routine>))]
+        public async Task<IActionResult> GetRecentRoutineCompletionsWithFeedback([FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var routine = await _routineRepository.GetRecentRoutineCompletionsWithFeedback(id);
+
+            if (routine == null)
+                return NotFound();
+
+            return Ok(routine);
+        }
+
+        [HttpGet("late_patients/{id:int}")]
+        [Produces(typeof(DbSet<Routine>))]
+        public async Task<IActionResult> GetLateRoutinesByTherapistId([FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var routine = await _routineRepository.GetLateRoutinesByTherapistId(id);
+
+            if (routine == null)
+                return NotFound();
+
+            return Ok(routine);
+        }
+
+
     }
 }
 
