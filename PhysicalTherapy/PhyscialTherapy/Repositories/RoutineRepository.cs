@@ -43,6 +43,7 @@ namespace PhysicalTherapy.Repositories
                 && r.PostRoutineSurvey.Date.AddYears(1).CompareTo(cutoff) > 0)
                 .Include(r => r.Patient.Therapist)
                 .Include(r => r.PostRoutineSurvey)
+                .OrderByDescending(r => r.Date)
                 .ToListAsync();
         }
 
@@ -65,7 +66,6 @@ namespace PhysicalTherapy.Repositories
                 .Include(r => r.Patient.Therapist)
                 .Include(r => r.RoutineExercises)
                 .Include(r => r.PostRoutineSurvey)
-                .OrderByDescending(r => r.Date)
                 .ToListAsync();
         }
 

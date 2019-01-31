@@ -25,7 +25,6 @@ export class TherapistHomeScreenComponent implements OnInit {
 
   getFeedback(therapistId : number) : void {
     this.routineService.getRecentFeedback(therapistId).subscribe(feedback => this.feedback = feedback);
-    console.log("Number of tuples returned:" + this.feedback.length)
   }
 
   getLatePatients(therapistId : number) : void {
