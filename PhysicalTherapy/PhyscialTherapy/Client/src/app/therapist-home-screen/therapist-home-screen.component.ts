@@ -24,11 +24,11 @@ export class TherapistHomeScreenComponent implements OnInit {
   }
 
   getFeedback(therapistId : number) : void {
-    this.routineService.getRecentFeedback(therapistId).subscribe(feedback => this.feedback = feedback);
+    this.routineService.getRecentRoutineCompletionsByTherapistId(therapistId).subscribe(feedback => this.feedback = feedback);
   }
 
   getLatePatients(therapistId : number) : void {
-    this.routineService.getLatePatients(therapistId).subscribe(late => this.late = late);
+    this.routineService.getLateRoutinesByTherapistId(therapistId).subscribe(late => this.late = late);
   }
 
 }

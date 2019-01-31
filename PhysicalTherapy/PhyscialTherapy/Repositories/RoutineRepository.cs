@@ -13,8 +13,8 @@ namespace PhysicalTherapy.Repositories
         IEnumerable<Routine> GetAll();
         Task<IEnumerable<Routine>> Get(int patientId);
         Task<IEnumerable<Routine>> Get(string patientUsername);
-        Task<IEnumerable<Routine>> GetRecentFeedback(int therapistId);
-        Task<IEnumerable<Routine>> GetLatePatients(int therapistId);
+        Task<IEnumerable<Routine>> GetRecentRoutineCompletionsWithFeedback(int therapistId);
+        Task<IEnumerable<Routine>> GetLateRoutinesByTherapistId(int therapistId);
     }
 
     public class RoutineRepository : IRoutineRepository
@@ -36,7 +36,7 @@ namespace PhysicalTherapy.Repositories
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Routine>> GetRecentFeedback(int therapistId)
+        public async Task<IEnumerable<Routine>> GetRecentRoutineCompletionsWithFeedback(int therapistId)
         {
             DateTime cutoff = DateTime.Now;
             return await _context.Routines.Where(r => r.Patient.Therapist.TherapistId == therapistId
@@ -47,7 +47,7 @@ namespace PhysicalTherapy.Repositories
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Routine>> GetLatePatients(int therapistId)
+        public async Task<IEnumerable<Routine>> GetLateRoutinesByTherapistId(int therapistId)
         {
             DateTime cutoff = DateTime.Now;
             return await _context.Routines.Where(r => r.Patient.Therapist.TherapistId == therapistId

@@ -63,12 +63,12 @@ namespace PhysicalTherapy.Controllers
 
         [HttpGet("recent_feedback/{id:int}")]
         [Produces(typeof(DbSet<Routine>))]
-        public async Task<IActionResult> GetRecentFeedback([FromRoute] int id)
+        public async Task<IActionResult> GetRecentRoutineCompletionsWithFeedback([FromRoute] int id)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var routine = await _routineRepository.GetRecentFeedback(id);
+            var routine = await _routineRepository.GetRecentRoutineCompletionsWithFeedback(id);
 
             if (routine == null)
                 return NotFound();
@@ -78,12 +78,12 @@ namespace PhysicalTherapy.Controllers
 
         [HttpGet("late_patients/{id:int}")]
         [Produces(typeof(DbSet<Routine>))]
-        public async Task<IActionResult> GetLatePatients([FromRoute] int id)
+        public async Task<IActionResult> GetLateRoutinesByTherapistId([FromRoute] int id)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var routine = await _routineRepository.GetLatePatients(id);
+            var routine = await _routineRepository.GetLateRoutinesByTherapistId(id);
 
             if (routine == null)
                 return NotFound();

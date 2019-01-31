@@ -25,12 +25,12 @@ export class RoutineService {
     return this.http.get<Routine[]>(this.accessPointUrl);
   }
 
-  public getRecentFeedback(therapistId : number) : Observable<Routine[]> {
+  public getRecentRoutineCompletionsByTherapistId(therapistId : number) : Observable<Routine[]> {
     console.log("Entering getRecentFeedback in Routine Service");
     return this.http.get<Routine[]>(this.accessPointUrl + '/recent_feedback/' + therapistId);
   }
 
-  public getLatePatients(therapistId : number) : Observable<Routine[]> {
+  public getLateRoutinesByTherapistId(therapistId : number) : Observable<Routine[]> {
     console.log("Entering getLatePatients in Routine Service");
     return this.http.get<Routine[]>(this.accessPointUrl + '/late_patients/' + therapistId);
   }
