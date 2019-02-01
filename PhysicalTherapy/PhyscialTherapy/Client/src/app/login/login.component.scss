@@ -1,0 +1,26 @@
+button.btn-outline-primary {
+    //padding: 5px;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+button.btn-primary {
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+input.input-group-text {
+    display: flex;
+    width: 100%;
+}
+
+[class^="card text-center"] {
+    width: 33%;
+    margin-left: 33.5%;
+    margin-right: 33.5%;
+    margin-top: 12.5%;
+}
+
+username {
+    width: 255px;
+}
