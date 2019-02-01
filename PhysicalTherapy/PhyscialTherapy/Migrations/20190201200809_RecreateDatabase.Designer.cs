@@ -10,8 +10,8 @@ using PhysicalTherapy.Models;
 namespace PhysicalTherapy.Migrations
 {
     [DbContext(typeof(PhysicalTherapyContext))]
-    [Migration("20190125194553_HotfixLastMigration")]
-    partial class HotfixLastMigration
+    [Migration("20190201200809_RecreateDatabase")]
+    partial class RecreateDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -75,7 +75,7 @@ namespace PhysicalTherapy.Migrations
 
                     b.HasData(
                         new { CredentialId = 1, AccountType = 1, Password = "admin", Username = "TygerHugh" },
-                        new { CredentialId = 2, AccountType = 1, Password = "password", Username = "Alex" },
+                        new { CredentialId = 2, AccountType = 2, Password = "password", Username = "Alex" },
                         new { CredentialId = 3, AccountType = 2, Password = "abc", Username = "hung" }
                     );
                 });
@@ -356,9 +356,9 @@ namespace PhysicalTherapy.Migrations
                     b.ToTable("Patients");
 
                     b.HasData(
-                        new { PatientId = 1, AccountType = 2, Bio = "bad back", DateOfBirth = new DateTime(2019, 1, 25, 0, 0, 0, 0, DateTimeKind.Local), Email = "one@email.com", FirstName = "Hung", LastName = "thats-me", PhoneNumber = "911", TherapistId = 1, Username = "Alex" },
-                        new { PatientId = 2, AccountType = 2, Bio = "bad knees", DateOfBirth = new DateTime(2019, 1, 25, 0, 0, 0, 0, DateTimeKind.Local), Email = "two@email.com", FirstName = "Also Hung", LastName = "2nd", PhoneNumber = "1800", TherapistId = 1, Username = "Hung" },
-                        new { PatientId = 3, AccountType = 2, Bio = "accident prone", DateOfBirth = new DateTime(2019, 1, 25, 0, 0, 0, 0, DateTimeKind.Local), Email = "three@email.com", FirstName = "Sike", LastName = "Still-Hung", PhoneNumber = "411", TherapistId = 1, Username = "Tyger" }
+                        new { PatientId = 1, AccountType = 2, Bio = "bad back", DateOfBirth = new DateTime(2019, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), Email = "one@email.com", FirstName = "Hung", LastName = "thats-me", PhoneNumber = "911", TherapistId = 1, Username = "Alex" },
+                        new { PatientId = 2, AccountType = 2, Bio = "bad knees", DateOfBirth = new DateTime(2019, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), Email = "two@email.com", FirstName = "Also Hung", LastName = "2nd", PhoneNumber = "1800", TherapistId = 1, Username = "hung" },
+                        new { PatientId = 3, AccountType = 2, Bio = "accident prone", DateOfBirth = new DateTime(2019, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), Email = "three@email.com", FirstName = "Sike", LastName = "Still-Hung", PhoneNumber = "411", TherapistId = 1, Username = "Tyger" }
                     );
                 });
 
@@ -369,6 +369,8 @@ namespace PhysicalTherapy.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<bool>("Completed");
+
+                    b.Property<DateTime>("Date");
 
                     b.Property<int>("LevelOfDifficulty");
 
@@ -389,11 +391,15 @@ namespace PhysicalTherapy.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("Date");
+
                     b.Property<string>("Description");
 
                     b.Property<bool>("IsComplete");
 
                     b.Property<bool>("IsNew");
+
+                    b.Property<string>("Name");
 
                     b.Property<int>("PatientId");
 
@@ -410,9 +416,12 @@ namespace PhysicalTherapy.Migrations
                     b.ToTable("Routines");
 
                     b.HasData(
-                        new { RoutineId = 1, Description = "Routine number 1 not Active", IsComplete = true, IsNew = false, PatientId = 1 },
-                        new { RoutineId = 2, Description = "Routine number 2 Active", IsComplete = false, IsNew = true, PatientId = 1 },
-                        new { RoutineId = 3, Description = "Routine number 3 Active", IsComplete = false, IsNew = true, PatientId = 2 }
+                        new { RoutineId = 1, Date = new DateTime(2019, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), Description = "Routine number 1 not Active", IsComplete = true, IsNew = false, Name = "Routine number 1", PatientId = 1 },
+                        new { RoutineId = 2, Date = new DateTime(2019, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), Description = "Routine number 2 Active", IsComplete = false, IsNew = true, Name = "Routine number 2", PatientId = 1 },
+                        new { RoutineId = 3, Date = new DateTime(2019, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), Description = "Routine number 3 Active", IsComplete = false, IsNew = true, Name = "Routine number 3", PatientId = 2 },
+                        new { RoutineId = 9, Date = new DateTime(2019, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), Description = "Routine number 9 Active", IsComplete = false, IsNew = true, Name = "Routine number 9", PatientId = 2 },
+                        new { RoutineId = 10, Date = new DateTime(2019, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), Description = "Routine number 10 late", IsComplete = false, IsNew = false, Name = "Routine number 10", PatientId = 2 },
+                        new { RoutineId = 11, Date = new DateTime(2019, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), Description = "Routine number 11 later", IsComplete = false, IsNew = false, Name = "Routine number 11", PatientId = 2 }
                     );
                 });
 
@@ -454,7 +463,16 @@ namespace PhysicalTherapy.Migrations
                         new { RoutineExerciseId = 6, ExerciseId = 15, FrequencyPerDay = 1, Notes = "2nd routine holding for 30 seconds", RoutineId = 2, Sets = 3 },
                         new { RoutineExerciseId = 7, ExerciseId = 1, FrequencyPerDay = 1, HoldLength = 30m, Notes = "3rd routine holding for 30 seconds", RoutineId = 3, Sets = 3 },
                         new { RoutineExerciseId = 8, ExerciseId = 5, FrequencyPerDay = 1, HoldLength = 45m, Notes = "3rd routine holding for 45 seconds", RoutineId = 3, Sets = 3 },
-                        new { RoutineExerciseId = 9, ExerciseId = 15, FrequencyPerDay = 1, Notes = "3rd routine holding for 30 seconds", RoutineId = 3, Sets = 3 }
+                        new { RoutineExerciseId = 9, ExerciseId = 15, FrequencyPerDay = 1, Notes = "3rd routine holding for 30 seconds", RoutineId = 3, Sets = 3 },
+                        new { RoutineExerciseId = 10, ExerciseId = 1, FrequencyPerDay = 1, HoldLength = 30m, Notes = "3rd routine holding for 30 seconds", RoutineId = 9, Sets = 3 },
+                        new { RoutineExerciseId = 11, ExerciseId = 5, FrequencyPerDay = 1, HoldLength = 45m, Notes = "3rd routine holding for 45 seconds", RoutineId = 9, Sets = 3 },
+                        new { RoutineExerciseId = 12, ExerciseId = 15, FrequencyPerDay = 1, Notes = "3rd routine holding for 30 seconds", RoutineId = 9, Sets = 3 },
+                        new { RoutineExerciseId = 13, ExerciseId = 1, FrequencyPerDay = 1, HoldLength = 30m, Notes = "3rd routine holding for 30 seconds", RoutineId = 10, Sets = 3 },
+                        new { RoutineExerciseId = 14, ExerciseId = 5, FrequencyPerDay = 1, HoldLength = 45m, Notes = "3rd routine holding for 45 seconds", RoutineId = 10, Sets = 3 },
+                        new { RoutineExerciseId = 15, ExerciseId = 15, FrequencyPerDay = 1, Notes = "3rd routine holding for 30 seconds", RoutineId = 10, Sets = 3 },
+                        new { RoutineExerciseId = 16, ExerciseId = 1, FrequencyPerDay = 1, HoldLength = 30m, Notes = "3rd routine holding for 30 seconds", RoutineId = 11, Sets = 3 },
+                        new { RoutineExerciseId = 17, ExerciseId = 5, FrequencyPerDay = 1, HoldLength = 45m, Notes = "3rd routine holding for 45 seconds", RoutineId = 11, Sets = 3 },
+                        new { RoutineExerciseId = 18, ExerciseId = 15, FrequencyPerDay = 1, Notes = "3rd routine holding for 30 seconds", RoutineId = 11, Sets = 3 }
                     );
                 });
 
@@ -489,7 +507,7 @@ namespace PhysicalTherapy.Migrations
                     b.ToTable("Therapists");
 
                     b.HasData(
-                        new { TherapistId = 1, AccountType = 1, Bio = "New Dr.", DateOfBirth = new DateTime(2019, 1, 25, 0, 0, 0, 0, DateTimeKind.Local), Email = "Test@email.com", FirstName = "DR.", LastName = "Doctor", PhoneNumber = "911", Username = "TygerHugh" }
+                        new { TherapistId = 1, AccountType = 1, Bio = "New Dr.", DateOfBirth = new DateTime(2019, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), Email = "Test@email.com", FirstName = "DR.", LastName = "Doctor", PhoneNumber = "911", Username = "TygerHugh" }
                     );
                 });
 

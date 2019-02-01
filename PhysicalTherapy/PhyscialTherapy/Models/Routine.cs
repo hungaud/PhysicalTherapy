@@ -24,7 +24,7 @@ namespace PhysicalTherapy.Models
 
         public int PatientId { get; set; }
 
-        public ICollection<RoutineExercise> RoutineExercises { get; set; }
+        public List<RoutineExercise> RoutineExercises { get; set; }
 
         public int RoutineId { get; set; }
 
