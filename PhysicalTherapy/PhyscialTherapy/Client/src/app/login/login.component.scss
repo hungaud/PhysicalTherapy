@@ -1,0 +1,26 @@
+// sign up
+button.btn-outline-primary {
+    //padding: 5px;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+// sign in
+button.btn-primary {
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+// credentials input textbox
+input.input-group-text {
+    display: flex;
+    width: 100%;
+}
+
+// card placement
+[class^="card text-center"] {
+    width: 33%;
+    margin-left: 33.5%;
+    margin-right: 33.5%;
+    margin-top: 12.5%;
+}

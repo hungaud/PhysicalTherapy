@@ -1,20 +1,29 @@
-<h1>LOGIN</h1>
-<div>
-    <input id="username" type="text"
-        placeholder="Username" #theUsername/>
-    <br>
-    <input id="password" type="password"
-        placeholder="Password" #thePassword/>
-    <br>
-    <button id="login" 
-        (click)="loginClick(theUsername, thePassword, theError);">
-        LOGIN
-    </button>
-    <button id="signup">
-        Sign Up
-    </button>
-    <br>
-    <div id="forgotPass" onclick="">Forgot your password?</div>
-    <br>
-    <label id="error" #theError></label>
+<div id="card" class="card text-center shadow border bg-primary ">
+    <div class="card-header">
+        <h1 class="text-white rounded display-4">Physical Therapy</h1>
+    </div>
+    <div class="card-body card text-center">
+
+        <div class="input-group-lg mx-auto">
+            <div class="input-group-prepend">
+                <input id="username" type="text" class="input-group-text" placeholder="Username" #theUsername/>
+            </div>
+        </div>
+        <br>
+
+        <div class="input-group-lg mx-auto">
+            <div class="input-group-prepend">
+                <input id="password" type="password"  class="input-group-text" placeholder="Password" #thePassword/>
+            </div>
+        </div>
+
+        <div>
+            <button class="btn btn-primary" id="login" (click)="loginClick(theUsername, thePassword, theError);">Sign In</button>
+            <button  class="btn btn-outline-primary" id="signup">Sign Up</button>
+        </div>
+        <br>
+
+        <div id="forgotPass" onclick="">Forgot your password?</div>
+        <div id="error" #theError class="text-danger text-monospace"></div>
+    </div>
 </div>
