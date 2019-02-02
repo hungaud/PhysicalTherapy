@@ -4,6 +4,7 @@ import { PostRoutineSurvey } from "./PostRoutineSurvey"
 import { RoutineExercise } from "./RoutineExercise";
 
 export interface Routine {
+    date : Date;
     description : string,
     isComplete : boolean,
     isNew : boolean,

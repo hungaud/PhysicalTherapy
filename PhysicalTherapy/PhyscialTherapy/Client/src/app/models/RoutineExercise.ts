@@ -1,9 +1,11 @@
 import { Routine } from "./Routine";
+import { Exercise } from "./Exercise";
 
 export interface RoutineExercise {
+    exercise : Exercise,
     exerciseId : number,
-    holdLength : number,
     frequencyPerDay : number,
+    holdLength : number,
     notes : string,
     rep : number,
     routineExerciseId : number,

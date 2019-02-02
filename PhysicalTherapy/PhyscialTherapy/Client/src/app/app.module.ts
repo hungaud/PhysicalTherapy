@@ -1,11 +1,12 @@
 import { AppComponent } from './app.component';
-
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { Login } from './login/login.component'
 import { MessagesComponent } from './messages/messages.component';
 import { NgModule, InjectionToken } from '@angular/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PatientHomeScreenComponent } from './patient-home-screen/patient-home-screen.component';
 import { PatientService } from './services/patient.service';
 import { RoutinePageComponent } from './routine-page/routine-page.component';
@@ -15,6 +16,7 @@ import { TherapistHomeScreenComponent } from './therapist-home-screen/therapist-
 import { TherapistRosterComponent } from './therapist-roster/therapist-roster.component';
 import { AddPatientComponent } from './add-patient/add-patient.component';
 import { TherapistRoutineCreationScreenComponent } from './therapist-routine-creation-screen/therapist-routine-creation-screen.component';
+import { DecimalPipe } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,13 +33,16 @@ import { TherapistRoutineCreationScreenComponent } from './therapist-routine-cre
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
     HttpClientModule,
-    RouterModule
-  ],
+    RouterModule,
+    NgbModule,
+    ReactiveFormsModule,
+    ],
   providers: [
     RoutineService,
     PatientService,
-    
+    DecimalPipe
   ],
   bootstrap: [AppComponent]
 })

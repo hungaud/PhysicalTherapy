@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PhysicalTherapy.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class RecreateDatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -63,6 +63,7 @@ namespace PhysicalTherapy.Migrations
                 columns: table => new
                 {
                     Completed = table.Column<bool>(nullable: false),
+                    Date = table.Column<DateTime>(nullable: false),
                     LevelOfDifficulty = table.Column<int>(nullable: false),
                     LevelOfPain = table.Column<int>(nullable: false),
                     LevelOfTiredness = table.Column<int>(nullable: false),
@@ -127,8 +128,10 @@ namespace PhysicalTherapy.Migrations
                 columns: table => new
                 {
                     Description = table.Column<string>(nullable: true),
+                    Date = table.Column<DateTime>(nullable: false),
                     IsComplete = table.Column<bool>(nullable: false),
                     IsNew = table.Column<bool>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
                     PatientId = table.Column<int>(nullable: false),
                     RoutineId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
@@ -218,11 +221,20 @@ namespace PhysicalTherapy.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Credentials",
+                columns: new[] { "CredentialId", "AccountType", "Password", "Username" },
+                values: new object[,]
+                {
+                    { 1, 1, "admin", "TygerHugh" },
+                    { 2, 2, "password", "Alex" },
+                    { 3, 2, "abc", "hung" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Excercises",
                 columns: new[] { "ExerciseId", "Area", "Description", "Name" },
                 values: new object[,]
                 {
-                    { 1, "", "", "2-legged balance (Narrow Base of Support)" },
                     { 124, "", "Don’t allow hip to ER, back foot returns slow, limit trunk sway", "Theraband Standing Hip Abduction – Around Ankles" },
                     { 125, "", "Watch for knee valgus", "Step up" },
                     { 126, "", "Watch for knee valgus", "Step down" },
@@ -232,8 +244,8 @@ namespace PhysicalTherapy.Migrations
                     { 130, "", "", "Knee Extension Stretch" },
                     { 131, "", "", "Doorway Pec Stretch" },
                     { 132, "", "Towel roll between UE and trunk", "Sidelying Shoulder ER" },
-                    { 123, "", "Don’t allow hip to ER, back foot returns slow, limit trunk sway", "Theraband Standing Hip Abduction – Around Ankles" },
                     { 133, "", "", "Sidelying Lat Stretch" },
+                    { 134, "", "", "Standing Quad Stretch" },
                     { 135, "", "", "Standing Hamstring Stretch" },
                     { 136, "", "", "Standing Hamstring Stretch Legs Crossed" },
                     { 137, "", "", "Standing Calf Stretch with Foot Propped" },
@@ -243,10 +255,11 @@ namespace PhysicalTherapy.Migrations
                     { 141, "", "", "Dynamic Warm Up Gate Closer" },
                     { 142, "", "", "Dynamic Warm Up Butt Kickers" },
                     { 143, "", "", "Dynamic Warm Up Quad Pull" },
-                    { 134, "", "", "Standing Quad Stretch" },
-                    { 144, "", "", "Dynamic Warm Up Side Lunge Alternating" },
+                    { 123, "", "Don’t allow hip to ER, back foot returns slow, limit trunk sway", "Theraband Standing Hip Abduction – Around Ankles" },
                     { 122, "", "Don’t allow hip to ER, back foot returns slow, limit trunk sway", "Theraband Standing Hip Abduction – Around Feet" },
                     { 120, "", "", "TRX Back Row" },
+                    { 144, "", "", "Dynamic Warm Up Side Lunge Alternating" },
+                    { 99, "", "", "AROM Shoulder Abduction" },
                     { 100, "", "", "AROM Shoulder External Rotation" },
                     { 101, "", "Towel roll between UE and trunk", "Theraband Shoulder External Rotation (Neutral)" },
                     { 102, "", "", "Theraband Shoulder External Rotation (90/90)" },
@@ -256,8 +269,8 @@ namespace PhysicalTherapy.Migrations
                     { 106, "", "", "AROM Cervical Rotation" },
                     { 107, "", "", "AROM Cervical Flexion" },
                     { 108, "", "", "AROM Cervical Extension" },
-                    { 121, "", "", "Latissimus Dorsi Pulldown" },
                     { 109, "", "", "Chin Tucks (Supine)" },
+                    { 110, "", "", "Chin Tucks (Seated)" },
                     { 111, "", "", "Chin Tucks (Quadruped)" },
                     { 112, "", "", "Triceps Extension" },
                     { 113, "", "", "Theraband Shoulder Extension" },
@@ -267,7 +280,7 @@ namespace PhysicalTherapy.Migrations
                     { 117, "", "", "TRX Chest Press" },
                     { 118, "", "", "Back Row" },
                     { 119, "", "", "Single Arm Back Row" },
-                    { 110, "", "", "Chin Tucks (Seated)" },
+                    { 121, "", "", "Latissimus Dorsi Pulldown" },
                     { 145, "", "", "Dynamic Warm Up Lunge with In-step" },
                     { 146, "", "", "Dynamic Warm Up Inch Worm" },
                     { 147, "", "", "Dynamic Warm Frankenstein Walk" },
@@ -316,10 +329,11 @@ namespace PhysicalTherapy.Migrations
                     { 166, "", "", "Cable Pallof Press" },
                     { 167, "", "", "Cable Shoulder ER" },
                     { 168, "", "", "Cable Shoulder ER 90/90" },
-                    { 99, "", "", "AROM Shoulder Abduction" },
                     { 98, "", "Cue for elbows aligned with shoulder and push into wall", "Wall Slides" },
                     { 97, "", "", "Theraband Shoulder Flexion" },
                     { 96, "", "", "AROM Shoulder Flexion" },
+                    { 95, "", "", "Theraband Inversion - Ankle" },
+                    { 26, "", "", "90/90 Arm Swing" },
                     { 27, "", "", "90/90 Thoracic Rotation" },
                     { 28, "", "Use tactile cueing medial/inferior to ASIS as needed for TA activation", "ASLR" },
                     { 29, "", "", "Hamstring Stretch with Rope" },
@@ -328,9 +342,9 @@ namespace PhysicalTherapy.Migrations
                     { 32, "", "", "Piriformis stretch with hip flexed at 90 deg" },
                     { 33, "", "", "Reverse Plank" },
                     { 34, "", "Make sure that hips are stacked and leg is slightly in extension", "Sidelying Straight Leg Hip Abduction" },
+                    { 25, "", "", "Supine SL Knee Extension (Hamstring stretch/neuroglide)" },
                     { 35, "", "Make sure that hips are stacked", "Sidelying Hip Flexion" },
-                    { 26, "", "", "90/90 Arm Swing" },
-                    { 36, "", "Make sure that hips are stacked", "Sidelying Hip Extension" },
+                    { 37, "", "Make sure that hips are stacked", "Sidelying Hip Flexion - Extension" },
                     { 38, "", "Make sure that hips are stacked, legs are slightly bent", "Sidelying Clamshell" },
                     { 39, "", "Make sure that hips are stacked", "Sidelying Hip Bicycles (Clockwise)" },
                     { 40, "", "Make sure that hips are stacked", "Sidelying Hip Bicycles (Counterclockwise)" },
@@ -339,11 +353,11 @@ namespace PhysicalTherapy.Migrations
                     { 43, "", "Make sure that hips are stacked", "Side Plank – on elbow" },
                     { 44, "", "Make sure that hips are stacked", "Side Plank – on Hand" },
                     { 45, "", "Make sure that hips are stacked", "TRX Side Plank – on elbow" },
-                    { 46, "", "Make sure that hips are stacked", "TRX Side Plank – on hand" },
-                    { 37, "", "Make sure that hips are stacked", "Sidelying Hip Flexion - Extension" },
-                    { 25, "", "", "Supine SL Knee Extension (Hamstring stretch/neuroglide)" },
+                    { 36, "", "Make sure that hips are stacked", "Sidelying Hip Extension" },
                     { 24, "", "", "Pec Major Stretch on Foam Roll" },
                     { 23, "", "", "Glute Bridge" },
+                    { 22, "", "Manual resistance as needed", "Lumbar Multifidus Activation – Prone Contralateral UE Lift" },
+                    { 1, "", "", "2-legged balance (Narrow Base of Support)" },
                     { 2, "", "", "2-legged balance (Narrow Base of Support) – Eyes Closed" },
                     { 3, "", "", "2-legged balance (Narrow Base of Support) – Bosu Ball" },
                     { 4, "", "", "2-legged balance (Narrow Base of Support) – Airex Pad" },
@@ -364,11 +378,11 @@ namespace PhysicalTherapy.Migrations
                     { 19, "", "Pain free range", "Single Knee to Chest" },
                     { 20, "", "", "Double Knee to Chest" },
                     { 21, "", "", "Lumbar Multifidus Activation – Contralateral SL Modified Bridge" },
-                    { 22, "", "Manual resistance as needed", "Lumbar Multifidus Activation – Prone Contralateral UE Lift" },
-                    { 47, "", "Make sure that hips are stacked", "Side Plank – on elbow with leg elevated" },
+                    { 46, "", "Make sure that hips are stacked", "TRX Side Plank – on hand" },
                     { 193, "", "", "Wrist Pronation  - AROM" },
-                    { 48, "", "Put shoulder blades into back pockets", "Prone Lower Trapezius Activation" },
-                    { 50, "", "Make sure that hips are stacked", "Plank – on hands" },
+                    { 47, "", "Make sure that hips are stacked", "Side Plank – on elbow with leg elevated" },
+                    { 49, "", "Make sure that hips are stacked", "Plank – on elbows" },
+                    { 75, "", "", "KB Figure 8" },
                     { 76, "", "", "KB 1 Arm Deadlift" },
                     { 77, "", "", "Suitcase carry" },
                     { 78, "", "", "Overhead carry" },
@@ -377,9 +391,9 @@ namespace PhysicalTherapy.Migrations
                     { 81, "", "", "Heel slides" },
                     { 82, "", "", "Wall Slides UE" },
                     { 83, "", "", "Wall Slides LE" },
+                    { 74, "", "", "KB Windmill" },
                     { 84, "", "", "Seated Knee Flexion" },
-                    { 75, "", "", "KB Figure 8" },
-                    { 85, "", "", "Supine Hip Abduction" },
+                    { 86, "", "", "LAQ" },
                     { 87, "", "", "SAQ" },
                     { 88, "", "", "AROM Dorsiflexion" },
                     { 89, "", "", "Theraband Dorsiflexion" },
@@ -388,11 +402,11 @@ namespace PhysicalTherapy.Migrations
                     { 92, "", "", "AROM Eversion - Ankle" },
                     { 93, "", "", "Theraband Eversion - Ankle" },
                     { 94, "", "", "AROM Inversion - Ankle" },
-                    { 95, "", "", "Theraband Inversion - Ankle" },
-                    { 86, "", "", "LAQ" },
-                    { 74, "", "", "KB Windmill" },
+                    { 85, "", "", "Supine Hip Abduction" },
                     { 73, "", "", "KB Swing – 1 arm" },
                     { 72, "", "", "KB Swing – 2 arm" },
+                    { 71, "", "", "Lunge" },
+                    { 50, "", "Make sure that hips are stacked", "Plank – on hands" },
                     { 51, "", "Make sure that hips are stacked", "Modified Plank – on hands" },
                     { 52, "", "", "Prone Superman Lift" },
                     { 53, "", "", "Prone UE lift and contralateral LE lift" },
@@ -413,29 +427,66 @@ namespace PhysicalTherapy.Migrations
                     { 68, "", "Back leg elevated", "Kneeling Super Quad Stretch" },
                     { 69, "", "", "Sit to Stand" },
                     { 70, "", "", "Squats" },
-                    { 71, "", "", "Lunge" },
-                    { 49, "", "Make sure that hips are stacked", "Plank – on elbows" }
+                    { 48, "", "Put shoulder blades into back pockets", "Prone Lower Trapezius Activation" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Therapists",
                 columns: new[] { "TherapistId", "AccountType", "Bio", "DateOfBirth", "Email", "FirstName", "LastName", "PhoneNumber", "Username" },
-                values: new object[] { 1, 0, "New Dr.", new DateTime(2019, 1, 16, 0, 0, 0, 0, DateTimeKind.Local), "Test@email.com", "DR.", "Doctor", "911", "TygerHugh" });
+                values: new object[] { 1, 1, "New Dr.", new DateTime(2019, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), "Test@email.com", "DR.", "Doctor", "911", "TygerHugh" });
 
             migrationBuilder.InsertData(
                 table: "Patients",
                 columns: new[] { "PatientId", "AccountType", "Bio", "DateOfBirth", "Email", "FirstName", "LastName", "PhoneNumber", "TherapistId", "Username" },
-                values: new object[] { 1, 2, "bad back", new DateTime(2019, 1, 16, 0, 0, 0, 0, DateTimeKind.Local), "one@email.com", "Hung", "thats-me", "911", 1, "Alex" });
+                values: new object[] { 1, 2, "bad back", new DateTime(2019, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), "one@email.com", "Hung", "thats-me", "911", 1, "Alex" });
 
             migrationBuilder.InsertData(
                 table: "Patients",
                 columns: new[] { "PatientId", "AccountType", "Bio", "DateOfBirth", "Email", "FirstName", "LastName", "PhoneNumber", "TherapistId", "Username" },
-                values: new object[] { 2, 2, "bad knees", new DateTime(2019, 1, 16, 0, 0, 0, 0, DateTimeKind.Local), "two@email.com", "Also Hung", "2nd", "1800", 1, "Hung" });
+                values: new object[] { 2, 2, "bad knees", new DateTime(2019, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), "two@email.com", "Also Hung", "2nd", "1800", 1, "hung" });
 
             migrationBuilder.InsertData(
                 table: "Patients",
                 columns: new[] { "PatientId", "AccountType", "Bio", "DateOfBirth", "Email", "FirstName", "LastName", "PhoneNumber", "TherapistId", "Username" },
-                values: new object[] { 3, 2, "accident prone", new DateTime(2019, 1, 16, 0, 0, 0, 0, DateTimeKind.Local), "three@email.com", "Sike", "Still-Hung", "411", 1, "Tyger" });
+                values: new object[] { 3, 2, "accident prone", new DateTime(2019, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), "three@email.com", "Sike", "Still-Hung", "411", 1, "Tyger" });
+
+            migrationBuilder.InsertData(
+                table: "Routines",
+                columns: new[] { "RoutineId", "Date", "Description", "IsComplete", "IsNew", "Name", "PatientId", "PostRoutineSurveyId" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2019, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), "Routine number 1 not Active", true, false, "Routine number 1", 1, null },
+                    { 2, new DateTime(2019, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), "Routine number 2 Active", false, true, "Routine number 2", 1, null },
+                    { 3, new DateTime(2019, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), "Routine number 3 Active", false, true, "Routine number 3", 2, null },
+                    { 9, new DateTime(2019, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), "Routine number 9 Active", false, true, "Routine number 9", 2, null },
+                    { 10, new DateTime(2019, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), "Routine number 10 late", false, false, "Routine number 10", 2, null },
+                    { 11, new DateTime(2019, 2, 1, 0, 0, 0, 0, DateTimeKind.Local), "Routine number 11 later", false, false, "Routine number 11", 2, null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "RoutineExercises",
+                columns: new[] { "RoutineExerciseId", "ExerciseId", "FrequencyPerDay", "HoldLength", "Notes", "Rep", "RoutineId", "Sets" },
+                values: new object[,]
+                {
+                    { 1, 1, 1, 30m, "holding for 30 seconds", null, 1, 3 },
+                    { 16, 1, 1, 30m, "3rd routine holding for 30 seconds", null, 11, 3 },
+                    { 15, 15, 1, null, "3rd routine holding for 30 seconds", null, 10, 3 },
+                    { 14, 5, 1, 45m, "3rd routine holding for 45 seconds", null, 10, 3 },
+                    { 13, 1, 1, 30m, "3rd routine holding for 30 seconds", null, 10, 3 },
+                    { 12, 15, 1, null, "3rd routine holding for 30 seconds", null, 9, 3 },
+                    { 11, 5, 1, 45m, "3rd routine holding for 45 seconds", null, 9, 3 },
+                    { 10, 1, 1, 30m, "3rd routine holding for 30 seconds", null, 9, 3 },
+                    { 9, 15, 1, null, "3rd routine holding for 30 seconds", null, 3, 3 },
+                    { 8, 5, 1, 45m, "3rd routine holding for 45 seconds", null, 3, 3 },
+                    { 7, 1, 1, 30m, "3rd routine holding for 30 seconds", null, 3, 3 },
+                    { 6, 15, 1, null, "2nd routine holding for 30 seconds", null, 2, 3 },
+                    { 5, 5, 1, 45m, "2nd routine holding for 45 seconds", null, 2, 3 },
+                    { 4, 1, 1, 30m, "2nd routine holding for 30 seconds", null, 2, 3 },
+                    { 3, 15, 1, null, "holding for 30 seconds", null, 1, 3 },
+                    { 2, 5, 1, 45m, "holding for 45 seconds", null, 1, 3 },
+                    { 17, 5, 1, 45m, "3rd routine holding for 45 seconds", null, 11, 3 },
+                    { 18, 15, 1, null, "3rd routine holding for 30 seconds", null, 11, 3 }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Administrators_Username",

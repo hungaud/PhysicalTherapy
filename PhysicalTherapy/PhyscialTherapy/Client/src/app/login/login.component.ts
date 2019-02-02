@@ -17,16 +17,20 @@ export class Login {
         error.innerText = '';
         this.http.get(`${apiEndpoint}/Credentials/${username.value}`)
             .subscribe((response : Response) => {
-                if(response['password'] === password.value) {
+                if(response['password'] !== password.value) {
+                    error.innerText = 'INCORRECT USERNAME OR PASSWORD';
+                } else {
                     if (response['accountType'] === 1) {
                         this.router.navigate(['./therapist-home-screen']);
                     } else if (response['accountType'] === 2) {
+                        
                         this.router.navigate(['./patient-home-screen', {username : username.value}]);
                     } else if (response['accountType'] === 0) {
                         // Navigate to admin homepage
                     }
                 }
+            }, Err => {
+                error.innerText = 'INCORRECT USERNAME OR PASSWORD';
             });
-        error.innerText = 'INCORRECT USERNAME OR PASSWORD';
     }
 }

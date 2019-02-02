@@ -32,6 +32,7 @@ namespace PhysicalTherapy.Repositories
                 .Include(r => r.ListOfMessageLogs)
                 .Include(r => r.Patient.Therapist)
                 .Include(r => r.RoutineExercises)
+                .ThenInclude(re => re.Exercise)
                 .Include(r => r.PostRoutineSurvey)
                 .ToListAsync();
         }
@@ -51,7 +52,7 @@ namespace PhysicalTherapy.Repositories
         {
             DateTime cutoff = DateTime.Now;
             return await _context.Routines.Where(r => r.Patient.Therapist.TherapistId == therapistId
-                && r.IsComplete == false
+                && !r.IsComplete
                 && r.Date.AddYears(1).CompareTo(cutoff) < 0)
                 .Include(r => r.Patient.Therapist)
                 .Include(r => r.PostRoutineSurvey)
@@ -65,6 +66,7 @@ namespace PhysicalTherapy.Repositories
                 .Include(r => r.ListOfMessageLogs)
                 .Include(r => r.Patient.Therapist)
                 .Include(r => r.RoutineExercises)
+                .ThenInclude(re => re.Exercise)
                 .Include(r => r.PostRoutineSurvey)
                 .ToListAsync();
         }
@@ -75,6 +77,7 @@ namespace PhysicalTherapy.Repositories
                 .Include(r => r.ListOfMessageLogs)
                 .Include(r => r.Patient.Therapist)
                 .Include(r => r.RoutineExercises)
+                .ThenInclude(re => re.Exercise)
                 .Include(r => r.PostRoutineSurvey);
         }
     }

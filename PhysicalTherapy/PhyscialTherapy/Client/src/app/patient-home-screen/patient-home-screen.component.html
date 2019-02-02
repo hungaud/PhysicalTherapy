@@ -1,18 +1,52 @@
 <p>
   patient-home-screen works!
 </p>
-  <br>
+<br>
 
-<div *ngIf="patient">
-  patient name: {{patient?.firstName}}
-</div>
+patient name: {{patient?.firstName}}
+<br>
+<br>
+<div class>
+  <div class="form-group form-inline">
+    <span id="filterLabel" class="h3 monospace">Filter Routines: </span>
+    <input type='text' id="filterText" class="form-control font-italic" placeholder="By Id # or Name" [(ngModel)]='listFilter' />
+  </div>
 
-<div>
-    <ul>
-        <li *ngFor="let routine of routines">
-            <div *ngIf="routine">
-                <a routerLink="/routine-page">{{routine.name}}</a>
-            </div>
-        </li>
-      </ul>
+  <!-- <div>{{listFilter}}</div> -->
+
+  <form id="form" >
+    <table class="table table-striped shadow border">
+      <thead class="h3">
+        <tr>
+          <th scope="col" >Id #</th>
+          <th scope="col" >Date</th>
+          <th scope="col">Name</th>
+          <th scope="col">Description</th>
+        </tr>
+      </thead>
+
+        <tbody >
+          <tr *ngFor="let routine of filteredroutines" >
+            <td><ngb-highlight class ="font-weight-bold" [result]="routine.routineId"></ngb-highlight></td>
+            <td><ngb-highlight [result]="routine.date | date"></ngb-highlight></td>
+            <td><a routerLink="/routine-page">{{routine.name}}</a></td>
+            <td>{{routine.description }}</td>
+          </tr>
+        </tbody>
+
+    </table>
+  </form>
+
+    <div class="d-flex justify-content-between p-2 " id="paging">
+      <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" ></ngb-pagination>
+    
+      <select class="custom-select" style="width: auto" [(ngModel)]="pageSize">
+        <option [ngValue]="2">2 items per page</option>
+        <option [ngValue]="4">4 items per page</option>
+        <option [ngValue]="6">6 items per page</option>
+      </select>
+    </div>
 </div>
+  {{collectionSize}}
+
+<!-- (sort)="onSort($event)"" -->
