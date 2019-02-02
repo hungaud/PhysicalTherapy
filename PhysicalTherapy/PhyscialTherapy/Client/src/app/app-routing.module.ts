@@ -6,6 +6,7 @@ import { TherapistHomeScreenComponent } from './therapist-home-screen/therapist-
 import { TherapistRosterComponent } from './therapist-roster/therapist-roster.component';
 import { AddPatientComponent } from './add-patient/add-patient.component';
 import { RoutinePageComponent } from './routine-page/routine-page.component';
+import { TherapistRoutineCreationScreenComponent } from './therapist-routine-creation-screen/therapist-routine-creation-screen.component';
 
 
 const routes: Routes = [
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path: 'routine-page', component: RoutinePageComponent},  
   {path: 'patient-home-screen', component: PatientHomeScreenComponent },
   {path: 'therapist-roster-screen', component: TherapistRosterComponent},
+  {path: 'therapist-routine-creation-screen', component: TherapistRoutineCreationScreenComponent}
 
 ];
 

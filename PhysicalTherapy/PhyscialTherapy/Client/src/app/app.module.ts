@@ -14,6 +14,7 @@ import { RouterModule } from '@angular/router';
 import { TherapistHomeScreenComponent } from './therapist-home-screen/therapist-home-screen.component';
 import { TherapistRosterComponent } from './therapist-roster/therapist-roster.component';
 import { AddPatientComponent } from './add-patient/add-patient.component';
+import { TherapistRoutineCreationScreenComponent } from './therapist-routine-creation-screen/therapist-routine-creation-screen.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,6 +26,7 @@ import { AddPatientComponent } from './add-patient/add-patient.component';
     PatientHomeScreenComponent,
     MessagesComponent,
     RoutinePageComponent,
+    TherapistRoutineCreationScreenComponent,
   ],
   imports: [
     BrowserModule,
