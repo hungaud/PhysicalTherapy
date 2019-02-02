@@ -17,7 +17,7 @@ import { TherapistRosterComponent } from './therapist-roster/therapist-roster.co
 import { AddPatientComponent } from './add-patient/add-patient.component';
 import { DecimalPipe } from '@angular/common';
 //import { NgbdTableFiltering } from './/table-filtering';
-
+import { TherapistService } from './services/therapist.service';
 
 @NgModule({
   declarations: [
@@ -44,7 +44,8 @@ import { DecimalPipe } from '@angular/common';
   providers: [
     RoutineService,
     PatientService,
-    DecimalPipe
+    DecimalPipe,
+    TherapistService
   ],
   bootstrap: [AppComponent]
 })

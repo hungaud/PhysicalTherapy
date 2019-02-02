@@ -5,6 +5,7 @@ import { MessageService } from '../services/message.service';
 import { RoutineService } from '../services/routine.service';
 import { Routine } from '../models/Routine';
 import { therapistId } from '../globals';
+import { TherapistService } from '../services/therapist.service';
 
 @Component({
   selector: 'app-therapist-home-screen',
@@ -15,12 +16,17 @@ export class TherapistHomeScreenComponent implements OnInit {
   feedback : Routine[] = [];
   late : Routine[] = [];
   
-  constructor(private patientService: PatientService, private routineService: RoutineService, private messageService : MessageService) { }
+  constructor(private patientService: PatientService, private routineService: RoutineService,
+    private messageService : MessageService, private therapistService: TherapistService) { }
 
   ngOnInit() {
-    this.messageService.add("Initiating Therapist Home Screen");
-    this.getFeedback(therapistId);
-    this.getLatePatients(therapistId);
+    const user = JSON.parse(sessionStorage.getItem('user'));
+    this.therapistService.getTherapistByUsername(user.username)
+      .subscribe((result) => {
+        this.messageService.add("Initiating Therapist Home Screen");
+        this.getFeedback(result.therapistId);
+        this.getLatePatients(result.therapistId);
+      });
   }
 
   getFeedback(therapistId : number) : void {
