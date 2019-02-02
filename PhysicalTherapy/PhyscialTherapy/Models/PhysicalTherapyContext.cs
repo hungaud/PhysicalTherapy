@@ -113,7 +113,12 @@ namespace PhysicalTherapy.Models
                 e.HasData(
                     new { Date = DateTime.Today, Description = "Routine number 1 not Active", IsComplete = true, IsNew = false, Name = "Routine number 1", PatientId = 1, RoutineId = 1 },
                     new { Date = DateTime.Today, Description = "Routine number 2 Active", IsComplete = false, IsNew = true, Name = "Routine number 2", PatientId = 1, RoutineId = 2 },
-                    new { Date = DateTime.Today, Description = "Routine number 3 Active", IsComplete = false, IsNew = true, Name = "Routine number 3", PatientId = 2, RoutineId = 3 }
+                    new { Date = DateTime.Today, Description = "Routine number 3 Active", IsComplete = false, IsNew = true, Name = "Routine number 3", PatientId = 2, RoutineId = 3 },
+
+                    new { Date = DateTime.Today, Description = "Routine number 9 Active", IsComplete = false, IsNew = true, Name = "Routine number 9", PatientId = 2, RoutineId = 9 },
+                    new { Date = DateTime.Today, Description = "Routine number 10 late", IsComplete = false, IsNew = false, Name = "Routine number 10", PatientId = 2, RoutineId = 10 },
+                    new { Date = DateTime.Today, Description = "Routine number 11 later", IsComplete = false, IsNew = false, Name = "Routine number 11", PatientId = 2, RoutineId = 11 }
+
                 );
             });
 
@@ -130,7 +135,19 @@ namespace PhysicalTherapy.Models
                    
                     new { ExerciseId = 1, HoldLength = (decimal?) 30, FrequencyPerDay = 1, Notes = "3rd routine holding for 30 seconds", RoutineExerciseId = 7, RoutineId = 3, Sets = 3 },
                     new { ExerciseId = 5, HoldLength = (decimal?) 45, FrequencyPerDay = 1, Notes = "3rd routine holding for 45 seconds", RoutineExerciseId = 8, RoutineId = 3, Sets = 3 },
-                    new { ExerciseId = 15, FrequencyPerDay = 1, Notes = "3rd routine holding for 30 seconds", Reps = 10, RoutineExerciseId = 9, RoutineId = 3, Sets = 3 }
+                    new { ExerciseId = 15, FrequencyPerDay = 1, Notes = "3rd routine holding for 30 seconds", Reps = 10, RoutineExerciseId = 9, RoutineId = 3, Sets = 3 },
+
+                    new { ExerciseId = 1, HoldLength = (decimal?)30, FrequencyPerDay = 1, Notes = "3rd routine holding for 30 seconds", RoutineExerciseId = 10, RoutineId = 9, Sets = 3 },
+                    new { ExerciseId = 5, HoldLength = (decimal?)45, FrequencyPerDay = 1, Notes = "3rd routine holding for 45 seconds", RoutineExerciseId = 11, RoutineId = 9, Sets = 3 },
+                    new { ExerciseId = 15, FrequencyPerDay = 1, Notes = "3rd routine holding for 30 seconds", Reps = 10, RoutineExerciseId = 12, RoutineId = 9, Sets = 3 },
+                    
+                    new { ExerciseId = 1, HoldLength = (decimal?)30, FrequencyPerDay = 1, Notes = "3rd routine holding for 30 seconds", RoutineExerciseId = 13, RoutineId = 10, Sets = 3 },
+                    new { ExerciseId = 5, HoldLength = (decimal?)45, FrequencyPerDay = 1, Notes = "3rd routine holding for 45 seconds", RoutineExerciseId = 14, RoutineId = 10, Sets = 3 },
+                    new { ExerciseId = 15, FrequencyPerDay = 1, Notes = "3rd routine holding for 30 seconds", Reps = 10, RoutineExerciseId = 15, RoutineId = 10, Sets = 3 },
+                    
+                    new { ExerciseId = 1, HoldLength = (decimal?)30, FrequencyPerDay = 1, Notes = "3rd routine holding for 30 seconds", RoutineExerciseId = 16, RoutineId = 11, Sets = 3 },
+                    new { ExerciseId = 5, HoldLength = (decimal?)45, FrequencyPerDay = 1, Notes = "3rd routine holding for 45 seconds", RoutineExerciseId = 17, RoutineId = 11, Sets = 3 },
+                    new { ExerciseId = 15, FrequencyPerDay = 1, Notes = "3rd routine holding for 30 seconds", Reps = 10, RoutineExerciseId = 18, RoutineId = 11, Sets = 3 }
 
                 );
             });
