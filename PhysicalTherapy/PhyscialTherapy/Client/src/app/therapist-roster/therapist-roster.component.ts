@@ -16,7 +16,8 @@ export class TherapistRosterComponent implements OnInit {
 
   ngOnInit() {
     this.allPatients = [];
-    this.setRosterByTherapistId(therapistId);
+    const user = JSON.parse(sessionStorage.getItem('user'));
+    this.setRosterByTherapistId(user.id);
     console.log("Finishing setRoster ngOnInit");
   }
 

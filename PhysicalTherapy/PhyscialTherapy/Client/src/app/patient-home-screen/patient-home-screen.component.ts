@@ -33,10 +33,14 @@ export class PatientHomeScreenComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.username = this.route.snapshot.paramMap.get('username');
-    this.patientService.getPatient(this.username).subscribe(res => this.patient = res);
-    this.routineService.get(this.username).subscribe(res =>  {this.routines = res, this.filteredRoutines = this.routines });
-    this.collectionSize = this.filteredRoutines.length;
+    const user = JSON.parse(sessionStorage.getItem('user'));
+    this.patientService.getPatientById(user.id)
+      .subscribe((response) => {
+        this.username = response.username;
+        this.patientService.getPatient(this.username).subscribe(res => this.patient = res);
+        this.routineService.get(this.username).subscribe(res =>  {this.routines = res, this.filteredRoutines = this.routines });
+        this.collectionSize = this.filteredRoutines.length;
+      });
   }
 
   get listFilter() : string {

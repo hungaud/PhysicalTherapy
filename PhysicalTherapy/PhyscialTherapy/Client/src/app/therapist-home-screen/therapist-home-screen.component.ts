@@ -21,12 +21,9 @@ export class TherapistHomeScreenComponent implements OnInit {
 
   ngOnInit() {
     const user = JSON.parse(sessionStorage.getItem('user'));
-    this.therapistService.getTherapistByUsername(user.username)
-      .subscribe((result) => {
-        this.messageService.add("Initiating Therapist Home Screen");
-        this.getFeedback(result.therapistId);
-        this.getLatePatients(result.therapistId);
-      });
+    this.messageService.add("Initiating Therapist Home Screen");
+    this.getFeedback(user.id);
+    this.getLatePatients(user.id);
   }
 
   getFeedback(therapistId : number) : void {
