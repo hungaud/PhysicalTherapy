@@ -16,7 +16,7 @@ import { TherapistHomeScreenComponent } from './therapist-home-screen/therapist-
 import { TherapistRosterComponent } from './therapist-roster/therapist-roster.component';
 import { AddPatientComponent } from './add-patient/add-patient.component';
 import { TherapistRoutineCreationScreenComponent } from './therapist-routine-creation-screen/therapist-routine-creation-screen.component';
-import { DecimalPipe } from '@angular/common';
+import { ExerciseService } from './services/exercise.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +42,7 @@ import { DecimalPipe } from '@angular/common';
   providers: [
     RoutineService,
     PatientService,
-    DecimalPipe
+    ExerciseService
   ],
   bootstrap: [AppComponent]
 })
