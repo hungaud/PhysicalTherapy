@@ -7,3 +7,19 @@
 <p>
   therapist-routine-creation-screen works!
 </p>
+<button (click)="addExerciseTemplate()">Add new Exercise!</button>
+<div [formGroup]="overallForm">
+  <div formArrayName="routineArray"
+  *ngFor="let item of routineArray.controls; let i = index;">
+    <div [formGroupName]="i">
+      {{i}}<input formControlName="exerciseName" placeholder="NAME">
+
+
+      
+    </div>
+    <button (click)="deleteExercise(i)">Delete</button>
+    <button (click)="shiftTowardsStart(i)">Up</button>
+    <button (click)="shiftTowardsEnd(i)">Down</button>
+  </div>
+</div>
+<button (click)="onSubmit()">BUTTON</button>
