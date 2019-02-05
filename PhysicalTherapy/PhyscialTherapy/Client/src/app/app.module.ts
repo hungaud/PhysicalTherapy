@@ -17,6 +17,10 @@ import { TherapistRosterComponent } from './therapist-roster/therapist-roster.co
 import { AddPatientComponent } from './add-patient/add-patient.component';
 import { TherapistRoutineCreationScreenComponent } from './therapist-routine-creation-screen/therapist-routine-creation-screen.component';
 import { ExerciseService } from './services/exercise.service';
+import { DecimalPipe } from '@angular/common';
+//import { NgbdTableFiltering } from './/table-filtering';
+import { TherapistService } from './services/therapist.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +46,8 @@ import { ExerciseService } from './services/exercise.service';
   providers: [
     RoutineService,
     PatientService,
-    ExerciseService
+    ExerciseService,
+    TherapistService
   ],
   bootstrap: [AppComponent]
 })
