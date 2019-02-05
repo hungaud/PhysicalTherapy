@@ -4,9 +4,45 @@
   <a routerLink="/add-patient-screen"> Add Patient</a>
   <a routerLink="/therapist-routine-creation-screen"> Create a Routine</a>
 </div>
-<h2>Patient Roster</h2>
-<ul>
-  <li *ngFor="let patient of allPatients">
-      <span class="badge">{{patient.patientId}}</span><span>{{patient.firstName}} {{patient.lastName}}</span> {{patient.therapistId}}
-  </li>
-</ul>
+
+<div class>
+  <div class="form-group form-inline">
+    <span id="patientsLabel" class="h3 monospace">Patients: </span>
+    <input type="text" id="patient" class="form-control font-italic"
+    placeholder="By Id # or Name" [(ngModel)]='patientsListFilter'/>
+  </div>
+
+  <form id="patientForm" >
+    <table class="table table-striped shadow border">
+      <thead class="h3">
+        <tr>
+          <th scope="col">Id #</th>
+          <th scope="col">First Name</th>
+          <th scope="col">Last Name</th>
+          <th scope="col">Therapist Id</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let patient of filteredpatients">
+          <td><ngb-highlight class="font-weight-bold" [result]="patient.patientId"></ngb-highlight></td>
+          <td><ngb-highlight [result]="patient.firstName"></ngb-highlight></td>
+          <td><ngb-highlight [result]="patient.lastName"></ngb-highlight></td>
+          <td>{{patient.therapistId}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+
+  <div class="d-flex justify-content-between p-2" id="pagination">
+    <ngb-pagination [collectionSize]="patientSize" [(page)]="page" [pageSize]="pageSize"
+      [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" >
+    </ngb-pagination>
+  
+    <select id="select" class="custom-select" style="width: auto" [(ngModel)]="pageSize">
+      <option [ngValue]="2">2 items per page</option>
+      <option [ngValue]="4">4 items per page</option>
+      <option [ngValue]="6">6 items per page</option>
+    </select>
+  </div>
+</div>

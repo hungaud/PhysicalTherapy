@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Patient } from '../models/patient';
 import { PatientService } from '../services/patient.service';
 import { MessageService } from '../services/message.service';
 import { RoutineService } from '../services/routine.service';
 import { Routine } from '../models/Routine';
-import { therapistId } from '../globals';
 import { TherapistService } from '../services/therapist.service';
 
 @Component({
@@ -25,25 +23,38 @@ export class TherapistHomeScreenComponent implements OnInit {
   pageSize = 4;
   
   constructor(private patientService: PatientService, private routineService: RoutineService,
-    private messageService : MessageService, private therapistService: TherapistService) { }
+    private messageService : MessageService, private therapistService: TherapistService) {
+    this.feedback = [];
+    this.late = [];
+    this.filteredFeedback = [];
+    this.filteredLate = [];
+    this.feedbackSize = this.filteredFeedback.length;
+    this.lateSize = this.filteredLate.length;
+  }
 
   ngOnInit() {
     const user = JSON.parse(sessionStorage.getItem('user'));
     this.messageService.add("Initiating Therapist Home Screen");
     this.getFeedback(user.id);
     this.getLatePatients(user.id);
-    console.log(JSON.stringify(this.feedback));
-    console.log(JSON.stringify(this.late));
     this.lateSize = this.filteredLate.length;
     this.feedbackSize = this.filteredFeedback.length;
   }
 
   getFeedback(therapistId : number) : void {
-    this.routineService.getRecentRoutineCompletionsByTherapistId(therapistId).subscribe(feedback => this.feedback = feedback);
+    this.routineService.getRecentRoutineCompletionsByTherapistId(therapistId)
+      .subscribe(feedback => {
+        this.feedback = feedback;
+        this.filteredFeedback = feedback;
+      });
   }
 
   getLatePatients(therapistId : number) : void {
-    this.routineService.getLateRoutinesByTherapistId(therapistId).subscribe(late => this.late = late);
+    this.routineService.getLateRoutinesByTherapistId(therapistId)
+      .subscribe(late => {
+        this.late = late;
+        this.filteredLate = late;
+      });
   }
 
   get feedbackListFilter() : string {

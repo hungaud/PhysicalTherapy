@@ -28,7 +28,7 @@ export class PatientHomeScreenComponent implements OnInit {
 
   constructor(private route : ActivatedRoute, private patientService : PatientService, private routineService : RoutineService) {
     this.routines = [];
-    this. filteredRoutines = [];
+    this.filteredRoutines = [];
     this.collectionSize = this.filteredRoutines.length;
   }
 

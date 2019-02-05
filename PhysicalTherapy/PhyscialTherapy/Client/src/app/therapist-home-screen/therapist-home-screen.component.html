@@ -1,17 +1,17 @@
-<div class>
-  <div>
-    <a routerLink="/therapist-home-screen">Home</a>
-    <a routerLink="/therapist-roster-screen"> Patient Roster</a>
-    <a routerLink="/add-patient-screen"> Add Patient</a>
-  </div>
+<div>
+  <a routerLink="/therapist-home-screen">Home</a>
+  <a routerLink="/therapist-roster-screen"> Patient Roster</a>
+  <a routerLink="/add-patient-screen"> Add Patient</a>
+</div>
 
+<div class>
   <div class="form-group form-inline">
     <span id="patientFeedbackLabel" class="h3 monospace">Patient Feedback: </span>
     <input type="text" id="patientFeedback" class="form-control font-italic" placeholder="By Id # or Name" [(ngModel)]='feedbackListFilter'/>
   </div>
 
   <form id="feedForm" >
-    <table class="table table-striped shadow border">
+    <table class="table table-striped shadow border" >
       <thead class="h3">
         <tr>
           <th scope="col">Id #</th>
@@ -32,19 +32,22 @@
     </table>
   </form>
 
-  <div class="d-flex justify-content-between p-2 " id="paging1">
-    <ngb-pagination [collectionSize]="feedbackSize" [(page)]="page" [pageSize]="pageSize" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" ></ngb-pagination>
+  <!---div class="d-flex justify-content-between p-2" id="paging1">
+    <ngb-pagination [collectionSize]="feedbackSize" [(page)]="page" [pageSize]="pageSize"
+      [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" >
+    </ngb-pagination>
   
-    <select class="custom-select" style="width: auto" [(ngModel)]="pageSize">
+    <select id="select1" class="custom-select" style="width: auto" [(ngModel)]="pageSize">
       <option [ngValue]="2">2 items per page</option>
       <option [ngValue]="4">4 items per page</option>
       <option [ngValue]="6">6 items per page</option>
     </select>
-  </div>
+  </div-->
 
   <div class="form-group form-inline">
     <span id="patientLateLabel" class="h3 monospace">Late Patient: </span>
-    <input type="text" id="patientLate" class="form-control font-italic" placeholder="By Id # or Name" [(ngModel)]='lateListFilter'/>
+    <input type="text" id="patientLate" class="form-control font-italic"
+    placeholder="By Id # or Name" [(ngModel)]='lateListFilter'/>
   </div>
   
   <form id="lateForm" >
@@ -69,13 +72,15 @@
     </table>
   </form>
 
-  <div class="d-flex justify-content-between p-2 " id="paging2">
-    <ngb-pagination [collectionSize]="lateSize" [(page)]="page" [pageSize]="pageSize" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" ></ngb-pagination>
+  <!--div class="d-flex justify-content-between p-2" id="paging2">
+    <ngb-pagination [collectionSize]="lateSize" [(page)]="page" [pageSize]="pageSize" 
+      [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" >
+    </ngb-pagination>
   
-    <select class="custom-select" style="width: auto" [(ngModel)]="pageSize">
+    <select id="select2" class="custom-select" style="width: auto" [(ngModel)]="pageSize">
       <option [ngValue]="2">2 items per page</option>
       <option [ngValue]="4">4 items per page</option>
       <option [ngValue]="6">6 items per page</option>
     </select>
-  </div>
+  </div-->
 </div>

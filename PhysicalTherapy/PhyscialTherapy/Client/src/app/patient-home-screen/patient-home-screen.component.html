@@ -37,8 +37,10 @@ patient name: {{patient?.firstName}}
     </table>
   </form>
 
-    <div class="d-flex justify-content-between p-2 " id="paging">
-      <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" ></ngb-pagination>
+    <div class="d-flex justify-content-between p-2" id="paging">
+      <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize"
+        [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" >
+      </ngb-pagination>
     
       <select class="custom-select" style="width: auto" [(ngModel)]="pageSize">
         <option [ngValue]="2">2 items per page</option>
