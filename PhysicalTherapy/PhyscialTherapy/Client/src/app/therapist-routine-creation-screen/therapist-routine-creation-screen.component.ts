@@ -58,8 +58,6 @@ export class TherapistRoutineCreationScreenComponent implements OnInit {
 
   triggerReorder() : void {
     //First block confirms that all exercises are ranked
-    let dummy = [''];
-    //fill in empty targetIndexes
     for(var i = 0; i < this.routineArray.length; i++) {
       let currentControl = this.routineArray.at(i);
       if( (currentControl.get('targetIndex').value as unknown as number) == null ) {
@@ -69,29 +67,22 @@ export class TherapistRoutineCreationScreenComponent implements OnInit {
 
     //This block performs a selection sort and an in-place swap.
     for(var i = 0; i < this.routineArray.length; i++) {
-      console.log("Entered first loop :" + i);
       let startControl = this.routineArray.at(i);
       let lowestIndex = i;
       for(var j = i + 1; j < this.routineArray.length; j++) {
-        console.log("Entered second loop :" + j);
         let currentControl = this.routineArray.at(j);
         let currentLowestControl = this.routineArray.at(lowestIndex);
         if(currentControl.get('targetIndex').value < currentLowestControl.get('targetIndex').value) {
-          console.log("Entered if");
           lowestIndex = j;
         }
-        console.log("Leaving inner loop");
+
       }
-      console.log("Starting swap : ");
-      console.log(this.routineArray.value);
       //Three-way swap
       let temp = startControl;
       this.routineArray.setControl(i, this.routineArray.at(lowestIndex));
       this.routineArray.setControl(lowestIndex, temp);
-
-      console.log("Ending swap : ");
-      console.log(this.routineArray.value);
     }
+    //TODO another block that resets the numbers to their indexes?
   }
 
   swapControlsAt(one : number, two : number) {
