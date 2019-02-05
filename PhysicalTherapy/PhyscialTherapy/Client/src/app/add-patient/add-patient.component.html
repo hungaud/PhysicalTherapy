@@ -4,18 +4,54 @@
     <a routerLink="/add-patient-screen"> Add Patient</a>
     <a routerLink="/therapist-routine-creation-screen"> Create a Routine</a>
 </div>
-<div>
-    <br>
-    <input id="search" type="text"
-        placeholder="Search for patient" #theSearch/>
-    <button id="searchButton"
-        (click)="search(theSearch)">
-        Search
-    </button>
-</div>
-<div id="patients">
 
-</div>
-<div>
-    <button id="addButton" (click)="addPatient()" #addButton>ADD</button>
+<div class>
+    <div class="form-group form-inline">
+        <span id="patientLabel" class="h3 monospace">Patient Feedback: </span>
+        <input type="text" id="patientSearch" class="form-control font-italic"
+        placeholder="By Id # or Name" [(ngModel)]='patientListFilter'/>
+    </div>
+
+    <form id="feedForm" >
+        <table class="table table-striped shadow border" >
+            <thead class="h3">
+                <tr>
+                    <th scope="col">Id #</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Bio</th>
+                    <th scope="col">Add?</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let patient of filteredpatients">
+                    <td><ngb-highlight class="font-weight-bold" [result]="patient.patientId"></ngb-highlight></td>
+                    <td><ngb-highlight [result]="patient.firstName + ' ' + patient.lastName"></ngb-highlight></td>
+                    <td><ngb-highlight [result]="patient.bio"></ngb-highlight></td>
+                    <td><input type="checkbox" id="patient.patientId"></td>
+                </tr>
+            </tbody>
+
+            <tfoot>
+                <tr>
+                    <td></td><td></td><td></td>
+                    <td valign="bottom" align="right">
+                        <button id="addPatients" (click)="addPatient()">ADD</button>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+
+    <div class="d-flex justify-content-between p-2" id="paging1">
+        <ngb-pagination [collectionSize]="patientSize" [(page)]="page" [pageSize]="pageSize"
+            [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" >
+        </ngb-pagination>
+
+        <select id="select1" class="custom-select" style="width: auto" [(ngModel)]="pageSize">
+            <option [ngValue]="2">2 items per page</option>
+            <option [ngValue]="4">4 items per page</option>
+            <option [ngValue]="6">6 items per page</option>
+        </select>
+    </div>
 </div>
