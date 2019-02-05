@@ -12,7 +12,9 @@
   <div formArrayName="routineArray"
   *ngFor="let item of routineArray.controls; let i = index;">
     <div [formGroupName]="i">
-      {{i}}<input formControlName="exerciseName" placeholder="NAME">
+      {{i}}
+      <input formControlName="targetIndex" placeholder="Change positions?" type="number">
+      <input formControlName="exerciseName" placeholder="NAME">
 
 
       
@@ -22,4 +24,5 @@
     <button (click)="shiftTowardsEnd(i)">Down</button>
   </div>
 </div>
-<button (click)="onSubmit()">BUTTON</button>
+<button (click)=triggerReorder()>Reorder</button>
+<button (click)="onSubmit()">Submit</button>
