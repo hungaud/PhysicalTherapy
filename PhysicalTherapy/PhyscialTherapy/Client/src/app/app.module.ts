@@ -15,6 +15,8 @@ import { RouterModule } from '@angular/router';
 import { TherapistHomeScreenComponent } from './therapist-home-screen/therapist-home-screen.component';
 import { TherapistRosterComponent } from './therapist-roster/therapist-roster.component';
 import { AddPatientComponent } from './add-patient/add-patient.component';
+import { TherapistRoutineCreationScreenComponent } from './therapist-routine-creation-screen/therapist-routine-creation-screen.component';
+import { ExerciseService } from './services/exercise.service';
 import { DecimalPipe } from '@angular/common';
 //import { NgbdTableFiltering } from './/table-filtering';
 import { TherapistService } from './services/therapist.service';
@@ -30,7 +32,7 @@ import { TherapistService } from './services/therapist.service';
     PatientHomeScreenComponent,
     MessagesComponent,
     RoutinePageComponent,
-    //NgbdTableFiltering,
+    TherapistRoutineCreationScreenComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,7 +46,7 @@ import { TherapistService } from './services/therapist.service';
   providers: [
     RoutineService,
     PatientService,
-    DecimalPipe,
+    ExerciseService,
     TherapistService
   ],
   bootstrap: [AppComponent]

@@ -1,0 +1,34 @@
+<div>
+  <a routerLink="/therapist-home-screen">Home</a>
+  <a routerLink="/therapist-roster-screen"> Patient Roster</a>
+  <a routerLink="/add-patient-screen"> Add Patient</a>
+  <a routerLink="/therapist-routine-creation-screen"> Create a Routine</a>
+</div>
+<button (click)="addExerciseTemplate()">Add new Exercise!</button>
+<div [formGroup]="overallForm" style="padding:20px">
+  <div formArrayName="routineArray"
+  *ngFor="let item of routineArray.controls; let i = index;">
+  <div style="padding:5px">
+    <div [formGroupName]="i">
+        <div>
+          {{i}}
+          <input formControlName="targetIndex" placeholder="Change positions?" type="number">
+          <input formControlName="exerciseName" placeholder="NAME">
+        </div>
+        <div>
+          <input formControlName="holdLength" placeholder="Hold Length">
+          <input formControlName="reps" placeholder="Number of reps">
+          <input formControlName="sets" placeholder="Number of sets">
+        </div>
+        <input formControlName="note" placeholder="Note">
+      </div>
+    <button (click)="deleteExercise(i)">Delete</button>
+    <button (click)="shiftTowardsStart(i)">Up</button>
+    <button (click)="shiftTowardsEnd(i)">Down</button>
+  </div>
+</div>
+</div>
+<div>
+<button (click)=triggerReorder()>Reorder</button>
+<button (click)="onSubmit()">Submit</button>
+</div>

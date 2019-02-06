@@ -45,7 +45,6 @@ export class PatientHomeScreenComponent implements OnInit {
 
   get listFilter() : string {
     return this._listfilter;
-    this.collectionSize = this.filteredRoutines.length;
   }
 
   set listFilter(value: string) {
