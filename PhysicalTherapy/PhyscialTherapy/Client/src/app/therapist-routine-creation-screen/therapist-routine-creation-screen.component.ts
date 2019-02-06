@@ -27,7 +27,10 @@ export class TherapistRoutineCreationScreenComponent implements OnInit {
       this.routineArray = this.overallForm.get('routineArray') as FormArray;
     this.patientService.getPatientsByTherapistId(therapist.id)
       .subscribe((result) => {
-        console.log(result);
+        this.therapistsPatients = result;
+        this.therapistsPatients.forEach((patient) => {
+          document.getElementById('patientList').innerHTML += `<option value="ID: ${patient.patientId} NAME: ${patient.firstName} ${patient.lastName}" />`;
+        })
       });
   }
 
