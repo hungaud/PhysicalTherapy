@@ -17,6 +17,7 @@
           <th scope="col">Id #</th>
           <th scope="col">Date</th>
           <th scope="col">Name</th>
+          <th scope="col">Patient</th>
           <th scope="col">Description</th>
         </tr>
       </thead>
@@ -26,6 +27,7 @@
           <td><ngb-highlight class="font-weight-bold" [result]="routine.routineId"></ngb-highlight></td>
           <td><ngb-highlight [result]="routine.date | date"></ngb-highlight></td>
           <td><a routerLink="/routine-page">{{routine.name}}</a></td>
+          <td>{{routine.patientId}}</td>
           <td>{{routine.description}}</td>
         </tr>
       </tbody>

@@ -7,13 +7,13 @@
 
 <div class>
     <div class="form-group form-inline">
-        <span id="patientLabel" class="h3 monospace">Patient Feedback: </span>
+        <span id="patientLabel" class="h3 monospace">Patient: </span>
         <input type="text" id="patientSearch" class="form-control font-italic"
         placeholder="By Id # or Name" [(ngModel)]='patientListFilter'/>
     </div>
 
     <form id="feedForm" >
-        <table class="table table-striped shadow border" >
+        <table id="table" class="table table-striped shadow border" >
             <thead class="h3">
                 <tr>
                     <th scope="col">Id #</th>
@@ -28,7 +28,7 @@
                     <td><ngb-highlight class="font-weight-bold" [result]="patient.patientId"></ngb-highlight></td>
                     <td><ngb-highlight [result]="patient.firstName + ' ' + patient.lastName"></ngb-highlight></td>
                     <td><ngb-highlight [result]="patient.bio"></ngb-highlight></td>
-                    <td><input type="checkbox" id="patient.patientId"></td>
+                    <td><input type="checkbox" id={{patient.patientId}}></td>
                 </tr>
             </tbody>
 

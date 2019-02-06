@@ -20,42 +20,15 @@ export class AddPatientComponent implements OnInit {
 
     constructor(private patientService: PatientService) { }
 
-    /* search(searchValue) {
-        this.patientList = [];
-        const names = searchValue.value.split(' ');
-        const matches = this.thePatients.filter((patient) => {
-            if (names.length === 1) {
-                return patient.firstName === names[0];
-            } else {
-                return patient.firstName === names[0]
-                    && patient.lastName === names[1];
-            }
-        });
-        matches.forEach((match) => {
-            this.patientList.push(match.patientId);
-        });
-        this.displayMatches(matches);
-    }
-
-    displayMatches(matches) {
-        const div = document.getElementById('patients');
-        div.innerHTML = '';
-        matches.forEach((match) => {
-            div.innerHTML += `FIRST NAME: ${match.firstName} 
-            LAST NAME: ${match.lastName} ID: ${match.patientId} 
-            BIO: ${match.bio} <input type="checkbox" id="${match.patientId}"><br>`;
-        });
-    } */
-
     addPatient() {
-        this.patientList.forEach((patient) => {
-            const checked = (<HTMLInputElement>document.getElementById(patient.toString())).checked;
-            if (checked) {
-                console.log('OOOO IT CHECKED');
-                this.patientService.getPatientById(patient)
+        this.filteredPatients.forEach((patient) => {
+            console.log(patient.patientId);
+            const row = (<HTMLInputElement>document.getElementById(patient.patientId.toString()));
+            if (row && row.checked) {
+                this.patientService.getPatientById(patient.patientId)
                     .subscribe((result) => {
                         result.therapistId = therapistId;
-                        this.patientService.putPatient(patient, result).subscribe();
+                        this.patientService.putPatient(patient.patientId, result).subscribe();
                     });
             }
         });
