@@ -24,13 +24,16 @@ export class TherapistRoutineCreationScreenComponent implements OnInit {
 
   addExerciseTemplate() : void {
     this.routineArray.push(this.newExerciseTemplate());
-    console.log("New length: " + this.routineArray.controls.length);
   }
 
   newExerciseTemplate() : FormGroup {
     return this.formBuilder.group({
       targetIndex: [],
-      exerciseName: ['']
+      exerciseName: [''],
+      holdLength: [''],
+      reps: [''],
+      sets: [''],
+      note: ['']
     });
   }
 
