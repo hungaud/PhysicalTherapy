@@ -2,17 +2,87 @@
   <a routerLink="/therapist-home-screen">Home</a>
   <a routerLink="/therapist-roster-screen"> Patient Roster</a>
   <a routerLink="/add-patient-screen"> Add Patient</a>
-  <a routerLink="/therapist-routine-creation-screen"> Create a Routine</a>
 </div>
-<h2>Patient Feedback</h2>
-<ul>
-  <li *ngFor="let response of feedback | slice:0:5;">
-    <span class="badge">{{response.patientId}}</span> {{response.patient.firstName}} <span>{{response.patient.lastName}}</span>
-  </li>
-</ul>
-<h2>Late Patients</h2>
-<ul>
-  <li *ngFor="let response of late | slice:0:5;">
-    <span class="badge">{{response.patientId}}</span> {{response.patient.firstName}} <span>{{response.patient.lastName}}</span>
-  </li>
-</ul>
+
+<div class>
+  <div class="form-group form-inline">
+    <span id="patientFeedbackLabel" class="h3 monospace">Patient Feedback: </span>
+    <input type="text" id="patientFeedback" class="form-control font-italic" placeholder="By Id # or Name" [(ngModel)]='feedbackListFilter'/>
+  </div>
+
+  <form id="feedForm" >
+    <table class="table table-striped shadow border" >
+      <thead class="h3">
+        <tr>
+          <th scope="col">Id #</th>
+          <th scope="col">Date</th>
+          <th scope="col">Name</th>
+          <th scope="col">Patient</th>
+          <th scope="col">Description</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let routine of filteredfeedback">
+          <td><ngb-highlight class="font-weight-bold" [result]="routine.routineId"></ngb-highlight></td>
+          <td><ngb-highlight [result]="routine.date | date"></ngb-highlight></td>
+          <td><a routerLink="/routine-page">{{routine.name}}</a></td>
+          <td>{{routine.patientId}}</td>
+          <td>{{routine.description}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+
+  <!---div class="d-flex justify-content-between p-2" id="paging1">
+    <ngb-pagination [collectionSize]="feedbackSize" [(page)]="page" [pageSize]="pageSize"
+      [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" >
+    </ngb-pagination>
+  
+    <select id="select1" class="custom-select" style="width: auto" [(ngModel)]="pageSize">
+      <option [ngValue]="2">2 items per page</option>
+      <option [ngValue]="4">4 items per page</option>
+      <option [ngValue]="6">6 items per page</option>
+    </select>
+  </div-->
+
+  <div class="form-group form-inline">
+    <span id="patientLateLabel" class="h3 monospace">Late Patient: </span>
+    <input type="text" id="patientLate" class="form-control font-italic"
+    placeholder="By Id # or Name" [(ngModel)]='lateListFilter'/>
+  </div>
+  
+  <form id="lateForm" >
+    <table class="table table-striped shadow border">
+      <thead class="h3">
+        <tr>
+          <th scope="col">Id #</th>
+          <th scope="col">Date</th>
+          <th scope="col">Name</th>
+          <th scope="col">Description</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let routine of filteredlate">
+          <td><ngb-highlight class="font-weight-bold" [result]="routine.routineId"></ngb-highlight></td>
+          <td><ngb-highlight [result]="routine.date | date"></ngb-highlight></td>
+          <td><a routerLink="/routine-page">{{routine.name}}</a></td>
+          <td>{{routine.description}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+
+  <!--div class="d-flex justify-content-between p-2" id="paging2">
+    <ngb-pagination [collectionSize]="lateSize" [(page)]="page" [pageSize]="pageSize" 
+      [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" >
+    </ngb-pagination>
+  
+    <select id="select2" class="custom-select" style="width: auto" [(ngModel)]="pageSize">
+      <option [ngValue]="2">2 items per page</option>
+      <option [ngValue]="4">4 items per page</option>
+      <option [ngValue]="6">6 items per page</option>
+    </select>
+  </div-->
+</div>
