@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ExerciseService } from '../services/exercise.service';
 import { Exercise } from '../models/Exercise';
-import { FormControl, FormGroup, FormArray, FormBuilder, AbstractControl } from '@angular/forms';
+import { FormControl, FormGroup, FormArray, FormBuilder, AbstractControl, Validators } from '@angular/forms';
 import { isUndefined } from 'util';
 
 @Component({
@@ -29,10 +29,10 @@ export class TherapistRoutineCreationScreenComponent implements OnInit {
   newExerciseTemplate() : FormGroup {
     return this.formBuilder.group({
       targetIndex: [],
-      exerciseName: [''],
-      holdLength: [''],
-      reps: [''],
-      sets: [''],
+      exerciseName: ['', Validators.required],
+      holdLength: ['', Validators.min(0)],
+      reps: ['', Validators.min(0)],
+      sets: ['',[Validators.min(1), Validators.required]],
       note: ['']
     });
   }
@@ -95,7 +95,11 @@ export class TherapistRoutineCreationScreenComponent implements OnInit {
   }
 
   onSubmit() : void {
-    console.log(this.routineArray.value);
+    if(!this.overallForm.invalid) {
+      console.log(this.routineArray.value);
+    } else {
+      console.log("Form is invalid: no submission accepted.");
+    }
   }
 
 }
