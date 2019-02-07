@@ -1,3 +1,4 @@
+<datalist id="exerciseList"></datalist>
 <div>
   <a routerLink="/therapist-home-screen">Home</a>
   <a routerLink="/therapist-roster-screen"> Patient Roster</a>
@@ -20,7 +21,7 @@
         <div>
           {{i}}
           <input formControlName="targetIndex" placeholder="Change positions?" type="number">
-          <input formControlName="exerciseName" placeholder="NAME">
+          <input formControlName="exerciseName" placeholder="NAME" list="exerciseList">
         </div>
         <div>
           <input formControlName="holdLength" placeholder="Hold Length">
