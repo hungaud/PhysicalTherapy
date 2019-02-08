@@ -4,6 +4,13 @@
   <a routerLink="/add-patient-screen"> Add Patient</a>
   <a routerLink="/therapist-routine-creation-screen"> Create a Routine</a>
 </div>
+<div>
+  <br>
+  <span id="patientLabel" class="h3 monospace">Patient: </span>
+  <datalist id="patientList"></datalist>
+  <input id="listInput" list="patientList">
+</div>
+<br>
 <button (click)="addExerciseTemplate()">Add new Exercise!</button>
 <div [formGroup]="overallForm" style="padding:20px">
   <div formArrayName="routineArray"

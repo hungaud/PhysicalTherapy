@@ -3,6 +3,8 @@ import { ExerciseService } from '../services/exercise.service';
 import { Exercise } from '../models/Exercise';
 import { FormControl, FormGroup, FormArray, FormBuilder, AbstractControl, Validators } from '@angular/forms';
 import { isUndefined } from 'util';
+import { Patient } from '../models/patient';
+import { PatientService } from '../services/patient.service';
 
 @Component({
   selector: 'app-therapist-routine-creation-screen',
@@ -11,15 +13,25 @@ import { isUndefined } from 'util';
 })
 export class TherapistRoutineCreationScreenComponent implements OnInit {
 
-  constructor(private exerciseService : ExerciseService, private formBuilder : FormBuilder) {}
+  constructor(private exerciseService : ExerciseService, private formBuilder : FormBuilder,
+    private patientService : PatientService) {}
   allExercises : Exercise[] = [];
   overallForm : FormGroup;
   routineArray : FormArray;
+  therapistsPatients : Patient[] = [];
 
   ngOnInit() {
+    const therapist = JSON.parse(sessionStorage.getItem('user'));
     this.overallForm = this.formBuilder.group({
       routineArray : this.formBuilder.array([this.newExerciseTemplate()])});
       this.routineArray = this.overallForm.get('routineArray') as FormArray;
+    this.patientService.getPatientsByTherapistId(therapist.id)
+      .subscribe((result) => {
+        this.therapistsPatients = result;
+        this.therapistsPatients.forEach((patient) => {
+          document.getElementById('patientList').innerHTML += `<option value="ID: ${patient.patientId} NAME: ${patient.firstName} ${patient.lastName}" />`;
+        })
+      });
   }
 
   addExerciseTemplate() : void {
@@ -61,7 +73,7 @@ export class TherapistRoutineCreationScreenComponent implements OnInit {
 
   triggerReorder() : void {
     //First block confirms that all exercises are ranked
-    for(var i = 0; i < this.routineArray.length; i++) {
+    for(let i = 0; i < this.routineArray.length; i++) {
       let currentControl = this.routineArray.at(i);
       if( (currentControl.get('targetIndex').value as unknown as number) == null ) {
         currentControl.get('targetIndex').setValue(i + 1);
@@ -69,10 +81,10 @@ export class TherapistRoutineCreationScreenComponent implements OnInit {
     }
 
     //This block performs a selection sort and an in-place swap.
-    for(var i = 0; i < this.routineArray.length; i++) {
+    for(let i = 0; i < this.routineArray.length; i++) {
       let startControl = this.routineArray.at(i);
       let lowestIndex = i;
-      for(var j = i + 1; j < this.routineArray.length; j++) {
+      for(let j = i + 1; j < this.routineArray.length; j++) {
         let currentControl = this.routineArray.at(j);
         let currentLowestControl = this.routineArray.at(lowestIndex);
         if(currentControl.get('targetIndex').value < currentLowestControl.get('targetIndex').value) {
