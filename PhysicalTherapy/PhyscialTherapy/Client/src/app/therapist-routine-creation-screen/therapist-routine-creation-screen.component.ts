@@ -25,7 +25,6 @@ export class TherapistRoutineCreationScreenComponent implements OnInit {
     this.overallForm = this.formBuilder.group({
       routineArray : this.formBuilder.array([this.newExerciseTemplate()])});
       this.routineArray = this.overallForm.get('routineArray') as FormArray;
-<<<<<<< HEAD
     this.patientService.getPatientsByTherapistId(therapist.id)
       .subscribe((result) => {
         this.therapistsPatients = result;
@@ -33,7 +32,6 @@ export class TherapistRoutineCreationScreenComponent implements OnInit {
           document.getElementById('patientList').innerHTML += `<option value="ID: ${patient.patientId} NAME: ${patient.firstName} ${patient.lastName}" />`;
         })
       });
-=======
     this.exerciseService.getAllExercises()
       .subscribe((result) =>  {
         this.allExercises = result;
@@ -46,7 +44,6 @@ export class TherapistRoutineCreationScreenComponent implements OnInit {
       document.getElementById('exerciseList').innerHTML +=
         `<option value="${exercise.name}" />`;
     });
->>>>>>> Pull exercises and show in input
   }
 
   addExerciseTemplate() : void {
