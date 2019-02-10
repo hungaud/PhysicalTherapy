@@ -1,4 +1,5 @@
 <datalist id="exerciseList"></datalist>
+<datalist id="patientList"></datalist>
 <div>
   <a routerLink="/therapist-home-screen">Home</a>
   <a routerLink="/therapist-roster-screen"> Patient Roster</a>
@@ -8,7 +9,6 @@
 <div>
   <br>
   <span id="patientLabel" class="h3 monospace">Patient: </span>
-  <datalist id="patientList"></datalist>
   <input id="listInput" list="patientList">
 </div>
 <br>
@@ -20,15 +20,15 @@
     <div [formGroupName]="i">
         <div>
           {{i}}
-          <input formControlName="targetIndex" placeholder="Change positions?" type="number">
-          <input formControlName="exerciseName" placeholder="NAME" list="exerciseList">
+          <input id="target{{i}}" formControlName="targetIndex" placeholder="Change positions?" type="number">
+          <input id="exName{{i}}" formControlName="exerciseName" placeholder="NAME" list="exerciseList">
         </div>
         <div>
-          <input formControlName="holdLength" placeholder="Hold Length">
-          <input formControlName="reps" placeholder="Number of reps">
-          <input formControlName="sets" placeholder="Number of sets">
+          <input id="hold{{i}}" formControlName="holdLength" placeholder="Hold Length">
+          <input id="reps{{i}}" formControlName="reps" placeholder="Number of reps">
+          <input id="sets{{i}}" formControlName="sets" placeholder="Number of sets">
         </div>
-        <input formControlName="note" placeholder="Note">
+        <input id="note{{i}}" formControlName="note" placeholder="Note">
       </div>
     <button (click)="deleteExercise(i)">Delete</button>
     <button (click)="shiftTowardsStart(i)">Up</button>

@@ -119,8 +119,13 @@ export class TherapistRoutineCreationScreenComponent implements OnInit {
   }
 
   onSubmit() : void {
-    if(!this.overallForm.invalid) {
+    const patient = (<HTMLInputElement>document.getElementById('listInput')).value;
+    console.log(patient);
+    if(!this.overallForm.invalid && patient) {
       console.log(this.routineArray.value);
+      this.routineArray.value.forEach((exer) => {
+        console.log('EXERCISE');
+      });
     } else {
       console.log("Form is invalid: no submission accepted.");
     }
