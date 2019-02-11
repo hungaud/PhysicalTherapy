@@ -15,6 +15,7 @@ namespace PhysicalTherapy.Repositories
         Task<IEnumerable<Routine>> Get(string patientUsername);
         Task<IEnumerable<Routine>> GetRecentRoutineCompletionsWithFeedback(int therapistId);
         Task<IEnumerable<Routine>> GetLateRoutinesByTherapistId(int therapistId);
+        Task<Routine> Add(Routine routine);
     }
 
     public class RoutineRepository : IRoutineRepository
@@ -79,6 +80,13 @@ namespace PhysicalTherapy.Repositories
                 .Include(r => r.RoutineExercises)
                 .ThenInclude(re => re.Exercise)
                 .Include(r => r.PostRoutineSurvey);
+        }
+
+        public async Task<Routine> Add(Routine routine)
+        {
+            _context.Routines.Add(routine);
+            await _context.SaveChangesAsync();
+            return routine;
         }
     }
 }

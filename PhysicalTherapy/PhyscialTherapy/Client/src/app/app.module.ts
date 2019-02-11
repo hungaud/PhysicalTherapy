@@ -20,6 +20,7 @@ import { ExerciseService } from './services/exercise.service';
 import { DecimalPipe } from '@angular/common';
 //import { NgbdTableFiltering } from './/table-filtering';
 import { TherapistService } from './services/therapist.service';
+import { RoutineExerciseService } from './services/routineExercise.service';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { TherapistService } from './services/therapist.service';
     RoutineService,
     PatientService,
     ExerciseService,
-    TherapistService
+    TherapistService,
+    RoutineExerciseService
   ],
   bootstrap: [AppComponent]
 })

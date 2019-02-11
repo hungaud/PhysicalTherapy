@@ -35,6 +35,10 @@ export class RoutineService {
     return this.http.get<Routine[]>(this.accessPointUrl + '/late_patients/' + therapistId);
   }
 
+  public postRoutine(body) {
+    return this.http.post<Routine>(this.accessPointUrl, body);
+  }
+
   // public add(payload) {
   //   return this.http.post(this.accessPointUrl, payload, {headers: this.headers});
   // }

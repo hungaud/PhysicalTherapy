@@ -44,6 +44,7 @@ namespace PhysicalTherapy
             services.AddScoped<IRoutineRepository, RoutineRepository>();
             services.AddScoped<IExerciseRepository, ExerciseRepository>();
             services.AddScoped<ITherapistRepository, TherapistRepository>();
+            services.AddScoped<IRoutineExerciseRepository, RoutineExerciseRepository>();
             //services.AddScoped<I>
 
 
