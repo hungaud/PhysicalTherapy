@@ -1,6 +1,6 @@
 export interface Exercise {
     area : string,
     description : string,
-    excerciseId : number,
+    exerciseId : number,
     name : string;
 }

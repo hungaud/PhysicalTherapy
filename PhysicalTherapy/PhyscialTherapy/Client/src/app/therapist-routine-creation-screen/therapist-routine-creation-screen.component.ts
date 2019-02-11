@@ -5,6 +5,9 @@ import { FormControl, FormGroup, FormArray, FormBuilder, AbstractControl, Valida
 import { isUndefined } from 'util';
 import { Patient } from '../models/patient';
 import { PatientService } from '../services/patient.service';
+import { RoutineExerciseService } from '../services/routineExercise.service';
+import { RoutineService } from '../services/routine.service';
+import { element } from '@angular/core/src/render3';
 
 @Component({
   selector: 'app-therapist-routine-creation-screen',
@@ -14,7 +17,8 @@ import { PatientService } from '../services/patient.service';
 export class TherapistRoutineCreationScreenComponent implements OnInit {
 
   constructor(private exerciseService : ExerciseService, private formBuilder : FormBuilder,
-    private patientService : PatientService) {}
+    private patientService : PatientService, private routineExerciseService : RoutineExerciseService,
+    private routineService : RoutineService) {}
   allExercises : Exercise[] = [];
   overallForm : FormGroup;
   routineArray : FormArray;
@@ -120,15 +124,58 @@ export class TherapistRoutineCreationScreenComponent implements OnInit {
 
   onSubmit() : void {
     const patient = (<HTMLInputElement>document.getElementById('listInput')).value;
-    console.log(patient);
     if(!this.overallForm.invalid && patient) {
-      console.log(this.routineArray.value);
-      this.routineArray.value.forEach((exer) => {
-        console.log('EXERCISE');
-      });
+      const routine = this.setRoutine(patient);
+      this.routineService.postRoutine(routine)
+        .subscribe((result) => {
+          this.handleExercises(result);
+          this.clearArray();
+        });
     } else {
       console.log("Form is invalid: no submission accepted.");
     }
+  }
+
+  setRoutine(patient) {
+    return {
+      Description: 'The new routine',
+      Date: new Date(),
+      IsComplete: false,
+      IsNew: true,
+      Name: 'New Routine',
+      PatientId: patient.replace(/\s/g, '').split(':')[1].charAt(0)
+    }
+  }
+
+  handleExercises(result) {
+    const routineExerId = result.routineId;
+    this.routineArray.value.forEach((exer, index) => {
+      const exerciseName = (<HTMLInputElement>document.getElementById(`exName${index}`)).value;
+      const exId = this.allExercises.find((element => element.name === exerciseName));
+      const holdLen = (<HTMLInputElement>document.getElementById(`hold${index}`)).value;
+      const notes = (<HTMLInputElement>document.getElementById(`note${index}`)).value;
+      const reps = (<HTMLInputElement>document.getElementById(`reps${index}`)).value;
+      const sets = (<HTMLInputElement>document.getElementById(`sets${index}`)).value;
+      const exercise = {
+        exerciseId: exId.exerciseId,
+        frequencyPerDay: 1,
+        holdLength: holdLen,
+        notes: notes,
+        rep: reps,
+        routineId: routineExerId,
+        sets: sets
+      };
+      this.routineExerciseService.postRoutineExercise(exercise).subscribe();
+    });
+  }
+
+  clearArray() {
+    this.routineArray.value.forEach((value, index) => {
+      if (index !== 0) {
+        this.routineArray.removeAt(1);
+      }
+    });
+    this.routineArray.reset();
   }
 
 }
