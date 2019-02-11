@@ -150,12 +150,12 @@ export class TherapistRoutineCreationScreenComponent implements OnInit {
   handleExercises(result) {
     const routineExerId = result.routineId;
     this.routineArray.value.forEach((exer, index) => {
-      const exerciseName = (<HTMLInputElement>document.getElementById(`exName${index}`)).value;
+      const exerciseName = exer.exerciseName;
       const exId = this.allExercises.find((element => element.name === exerciseName));
-      const holdLen = (<HTMLInputElement>document.getElementById(`hold${index}`)).value;
-      const notes = (<HTMLInputElement>document.getElementById(`note${index}`)).value;
-      const reps = (<HTMLInputElement>document.getElementById(`reps${index}`)).value;
-      const sets = (<HTMLInputElement>document.getElementById(`sets${index}`)).value;
+      const holdLen = exer.holdLength;
+      const notes = exer.note;
+      const reps = exer.reps;
+      const sets = exer.sets;
       const exercise = {
         exerciseId: exId.exerciseId,
         frequencyPerDay: 1,
