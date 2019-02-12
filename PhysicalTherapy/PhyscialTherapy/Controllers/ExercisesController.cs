@@ -84,20 +84,26 @@ namespace PhysicalTherapy.Controllers
         //    return NoContent();
         //}
 
-        //// POST: api/Exercises
-        //[HttpPost]
-        //public async Task<IActionResult> PostExercise([FromBody] Exercise exercise)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
+        [HttpPost]
+        [Produces(typeof(Exercise))]
+        public async Task<IActionResult> PostOrder([FromBody] Exercise exercise)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            //try
+            //{
+                await _exercises.Add(exercise);
+            //}
+            //catch (DbUpdateException)
+            //{
+            //    if (!await OrderExists(exercise.ExerciseId))
+            //        return NotFound();
+            //    else
+            //        return BadRequest();
+            //}
 
-        //    _context.Excercises.Add(exercise);
-        //    await _context.SaveChangesAsync();
-
-        //    return CreatedAtAction("GetExercise", new { id = exercise.ExerciseId }, exercise);
-        //}
+            return CreatedAtAction("GetOrder", new { id = exercise.ExerciseId }, exercise);
+        }
 
         //// DELETE: api/Exercises/5
         //[HttpDelete("{id}")]
