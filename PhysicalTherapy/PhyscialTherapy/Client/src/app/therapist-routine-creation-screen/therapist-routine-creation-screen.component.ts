@@ -20,7 +20,7 @@ export class TherapistRoutineCreationScreenComponent implements OnInit {
     private patientService : PatientService, private routineExerciseService : RoutineExerciseService,
     private routineService : RoutineService) {}
     
-  allExercises : Exercise[] = [];
+  public allExercises : Exercise[] = [];
   overallForm : FormGroup;
   routineArray : FormArray;
   therapistsPatients : Patient[] = [];

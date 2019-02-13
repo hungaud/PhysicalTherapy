@@ -8,10 +8,17 @@ import { apiEndpoint } from '../globals';
   providedIn: 'root'
 })
 export class ExerciseService {
+  //private accessPointUrl: string = `${apiEndpoint}/Exercises`;
+
 
   constructor(private http : HttpClient) { }
 
   getAllExercises() : Observable<Exercise[]> {
     return this.http.get<Exercise[]>(apiEndpoint + '/exercises');
   }
+
+  public postExercise(body) {
+    return this.http.post<Exercise>(apiEndpoint + '/exercises' , body);
+  }
+
 }

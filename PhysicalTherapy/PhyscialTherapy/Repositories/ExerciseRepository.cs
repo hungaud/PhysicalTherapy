@@ -34,7 +34,7 @@ namespace PhysicalTherapy.Repositories
 
         public IEnumerable<Exercise> GetAll()
         {
-            return _context.Exercises;
+            return _context.Exercises.OrderBy(e => e.Name);
         }
 
         public async Task<Exercise> Add(Exercise exercise)

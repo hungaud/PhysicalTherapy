@@ -25,7 +25,7 @@ namespace PhysicalTherapy.Controllers
         // GET: api/Exercises
         [HttpGet]
         [Produces(typeof(DbSet<Exercise>))]
-        public IActionResult GetExcercises()
+        public IActionResult GetExercise()
         {
             return new ObjectResult(_exercises.GetAll());
         }
@@ -85,8 +85,8 @@ namespace PhysicalTherapy.Controllers
         //}
 
         [HttpPost]
-        [Produces(typeof(Exercise))]
-        public async Task<IActionResult> PostOrder([FromBody] Exercise exercise)
+        [Produces(typeof(DbSet<RoutineExercise>))]
+        public async Task<IActionResult> PostExercise([FromBody] Exercise exercise)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -102,7 +102,7 @@ namespace PhysicalTherapy.Controllers
             //        return BadRequest();
             //}
 
-            return CreatedAtAction("GetOrder", new { id = exercise.ExerciseId }, exercise);
+            return CreatedAtAction("GetExercise", new { id = exercise.ExerciseId }, exercise);
         }
 
         //// DELETE: api/Exercises/5
