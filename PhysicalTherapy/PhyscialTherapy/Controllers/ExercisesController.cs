@@ -25,7 +25,7 @@ namespace PhysicalTherapy.Controllers
         // GET: api/Exercises
         [HttpGet]
         [Produces(typeof(DbSet<Exercise>))]
-        public IActionResult GetExcercises()
+        public IActionResult GetExercise()
         {
             return new ObjectResult(_exercises.GetAll());
         }
@@ -84,20 +84,26 @@ namespace PhysicalTherapy.Controllers
         //    return NoContent();
         //}
 
-        //// POST: api/Exercises
-        //[HttpPost]
-        //public async Task<IActionResult> PostExercise([FromBody] Exercise exercise)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
+        [HttpPost]
+        [Produces(typeof(DbSet<RoutineExercise>))]
+        public async Task<IActionResult> PostExercise([FromBody] Exercise exercise)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            //try
+            //{
+                await _exercises.Add(exercise);
+            //}
+            //catch (DbUpdateException)
+            //{
+            //    if (!await OrderExists(exercise.ExerciseId))
+            //        return NotFound();
+            //    else
+            //        return BadRequest();
+            //}
 
-        //    _context.Excercises.Add(exercise);
-        //    await _context.SaveChangesAsync();
-
-        //    return CreatedAtAction("GetExercise", new { id = exercise.ExerciseId }, exercise);
-        //}
+            return CreatedAtAction("GetExercise", new { id = exercise.ExerciseId }, exercise);
+        }
 
         //// DELETE: api/Exercises/5
         //[HttpDelete("{id}")]

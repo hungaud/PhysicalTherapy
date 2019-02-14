@@ -11,6 +11,8 @@ namespace PhysicalTherapy.Repositories
 {
     public interface IExerciseRepository
     {
+        Task<Exercise> Add(Exercise exercise);
+
         Task<Exercise> Find(string username);
 
         IEnumerable<Exercise> GetAll();
@@ -27,12 +29,19 @@ namespace PhysicalTherapy.Repositories
 
         public async Task<Exercise> Find(string name)
         {
-            return await _context.Excercises.SingleOrDefaultAsync(exercise => exercise.Name == name);
+            return await _context.Exercises.SingleOrDefaultAsync(exercise => exercise.Name == name);
         }
 
         public IEnumerable<Exercise> GetAll()
         {
-            return _context.Excercises;
+            return _context.Exercises.OrderBy(e => e.Name);
+        }
+
+        public async Task<Exercise> Add(Exercise exercise)
+        {
+            await _context.Exercises.AddAsync(exercise);
+            await _context.SaveChangesAsync();
+            return exercise;
         }
     }
 }

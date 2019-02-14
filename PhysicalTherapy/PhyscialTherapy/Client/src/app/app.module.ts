@@ -21,6 +21,7 @@ import { DecimalPipe } from '@angular/common';
 //import { NgbdTableFiltering } from './/table-filtering';
 import { TherapistService } from './services/therapist.service';
 import { RoutineExerciseService } from './services/routineExercise.service';
+import { CreateCustomExerciseComponent } from './create-custom-exercise/create-custom-exercise.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { RoutineExerciseService } from './services/routineExercise.service';
     MessagesComponent,
     RoutinePageComponent,
     TherapistRoutineCreationScreenComponent,
+    CreateCustomExerciseComponent,
   ],
   imports: [
     BrowserModule,
