@@ -25,7 +25,7 @@ namespace PhysicalTherapy.Controllers
         // GET: api/Exercises
         [HttpGet]
         [Produces(typeof(DbSet<Exercise>))]
-        public IActionResult GetExcercises()
+        public IActionResult GetExercises()
         {
             return new ObjectResult(_exercises.GetAll());
         }

@@ -35,6 +35,11 @@ export class RoutineService {
     return this.http.get<Routine[]>(this.accessPointUrl + '/late_patients/' + therapistId);
   }
 
+  public getSingleRoutineByRoutineId(routineId : number) : Observable<Routine[]> {
+    console.log("Entering getSingleRoutineByRoutineId in RoutineService");
+    return this.http.get<Routine[]>(this.accessPointUrl + '/routine_id/' + routineId);
+  }
+
   public postRoutine(body) {
     return this.http.post<Routine>(this.accessPointUrl, body);
   }

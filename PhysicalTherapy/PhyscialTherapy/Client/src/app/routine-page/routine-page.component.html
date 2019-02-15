@@ -1,3 +1,17 @@
-<p>
-  routine-page works!
-</p>
+<div [formGroup]="overallForm" style="padding:20px">
+  <div formArrayName="routineArray"
+  *ngFor="let item of routineArray.controls; let i = index;">
+  <div style="padding:5px">
+    <div [formGroupName]="i">
+        <div>
+          {{i}}
+          <label>{{item.get('exerciseName').value}}</label>
+          <div formArrayName="item.controls['sets']">
+            {{item.get('sets')}}
+          </div>
+          <input formControlName="exerciseName" placeholder="NAME" list="exerciseList">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
