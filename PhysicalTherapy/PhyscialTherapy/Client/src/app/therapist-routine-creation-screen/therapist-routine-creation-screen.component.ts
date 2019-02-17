@@ -19,7 +19,8 @@ export class TherapistRoutineCreationScreenComponent implements OnInit {
   constructor(private exerciseService : ExerciseService, private formBuilder : FormBuilder,
     private patientService : PatientService, private routineExerciseService : RoutineExerciseService,
     private routineService : RoutineService) {}
-  allExercises : Exercise[] = [];
+    
+  public allExercises : Exercise[] = [];
   overallForm : FormGroup;
   routineArray : FormArray;
   therapistsPatients : Patient[] = [];
