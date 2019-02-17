@@ -3,8 +3,10 @@ import { RoutineService } from '../services/routine.service';
 import { ActivatedRoute } from '@angular/router';
 import { Routine } from '../models/routine';
 import { RoutineExercise } from '../models/routineExercise';
-import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { isNullOrUndefined } from 'util';
+import { PostRoutineSurvey } from '../models/PostRoutineSurvey';
+import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from 'constants';
+
 
 @Component({
   selector: 'app-routine-page',
@@ -15,26 +17,40 @@ import { isNullOrUndefined } from 'util';
 export class RoutinePageComponent implements OnInit {
 
   constructor(private route : ActivatedRoute,
-    private routineService : RoutineService,
-    private formBuilder : FormBuilder) { }
+    private routineService : RoutineService) { }
 
   public routineId : number = 1012;
   public exerciseList : RoutineExercise[];
-  public overallForm : FormGroup;
-  public routineArray : FormArray;
+  //This holds the number of sets with the expected reps/time
+  public expectedKey : number[][];
+  //This holds their actual rep count/hold time
+  public actualKey : number[][];
+  //Holds the type of each exercise
+  public timeOrRep : number[];
+  //Timer object to handle time buttons;
+  public timer : Object;
+
+  /**
+   * Type: 1 == 'rep'
+   * Type: 2 == 'holdLength'
+   * Type: 0 == NOTHING
+   */
+
 
   ngOnInit() {
     const user = JSON.parse(sessionStorage.getItem('user'));
-    this.overallForm = this.formBuilder.group({
-      routineName : [''],
-      routineArray : this.formBuilder.array([])});
-    this.routineArray = this.overallForm.get('routineArray') as FormArray;
+    this.expectedKey = new Array();
+    this.actualKey = new Array();
+    this.timeOrRep = [];
 
-    //Gettingt the routine from the server
+
+    //Getting the routine from the server
     this.routineService.getSingleRoutineByRoutineId(this.routineId)
     .subscribe(routine => {
       this.exerciseList = this.getExerciseList(routine);
-      this.buildOverallForm();
+      this.createKeys();
+      console.log(this.expectedKey);
+      console.log(this.timeOrRep);
     });
   }
 
@@ -43,45 +59,96 @@ export class RoutinePageComponent implements OnInit {
     return list;
   }
 
-  private newExerciseTemplate() : FormGroup {
-    return this.formBuilder.group({
-      //From Exercise
-      exerciseName: [''],
-      //From RoutineExercise
-      holdLength: [],
-      reps: [],
-      sets : this.formBuilder.array([]),
-      note: ['']
-    });
-  }
-
-  private buildOverallForm() {
-    let routineArray = this.overallForm.get('routineArray') as FormArray;
-    this.exerciseList.forEach(routineExercise => {
-      routineArray.push(this.exerciseTemplateFromRoutineExercise(routineExercise));
-    });
-    console.log(routineArray.controls[0] + ", " + routineArray);
-  }
-
-  private exerciseTemplateFromRoutineExercise(exercise : RoutineExercise) : FormGroup {
-    let ret = this.newExerciseTemplate();
-    ret.get('exerciseName').setValue(exercise.exercise.name);
-
-    let setArray = ret.get('sets') as FormArray;
-    //Check to see if it is a hold or a rep exercise
-    if(!isNullOrUndefined(exercise.rep) && exercise.rep > 0) {
-      for(let i = 0; i < exercise.sets; i++) {
-        setArray.push(this.formBuilder.group({
-          value : [exercise.rep]
-        }));
+  private createKeys() : void {
+    this.exerciseList.forEach(element => {
+      let expectedTemp = [];
+      let actualTemp = [];
+      let type = this.findIfTimeOrReps(element);
+      
+      for(let i = 0; i < element.sets; i++) {
+        expectedTemp.push(this.getTimeOrReps(element));
+        actualTemp.push(this.getTimeOrReps(element));
       }
-    } else if (!isNullOrUndefined(exercise.holdLength) && exercise.holdLength > 0) {
-       for(let i = 0; i < exercise.sets; i++) {
-         setArray.push(this.formBuilder.group({
-           value: [exercise.holdLength]
-         }));
-        }
+
+      this.expectedKey.push(expectedTemp);
+      this.actualKey.push(actualTemp);
+      this.timeOrRep.push(type);
+    });
+  }
+
+  private findIfTimeOrReps(routineExercise : RoutineExercise) : number {
+    let reps = routineExercise.rep;
+    let time = routineExercise.holdLength;
+    if(!isNullOrUndefined(reps) && reps > 0) {
+      return 1;
+    } else if (!isNullOrUndefined(time) && time > 0) {
+      return 2;
+    } else {
+      return 0;
     }
-    return ret;
+  }
+
+  private getTimeOrReps(routineExercise : RoutineExercise) : number {
+    let type = this.findIfTimeOrReps(routineExercise);
+    if(type == 1) {
+      return routineExercise.rep;
+    } else if (type == 2) {
+      return routineExercise.holdLength;
+    } else {
+      return 0;
+    }
+  }
+
+  public exerciseClick(exercise : number, set : number) : void {
+    if(this.timeOrRep[exercise] == 1) {
+      this.repClick(exercise, set);
+    } else if (this.timeOrRep[exercise] == 2) {
+      this.timeClick(exercise, set);
+    } else {
+      console.log("Invalid exercise type");
+    }
+  }
+
+  private repClick(exercise : number, set : number) : void {
+    if(this.actualKey[exercise][set] == 0) {
+      console.log(this.actualKey + ", " + this.expectedKey)
+      this.actualKey[exercise][set] = this.expectedKey[exercise][set];
+    } else {
+      this.actualKey[exercise][set]--;
+    }
+  }
+
+  private timeClick(exercise : number, set : number) : void {
+    //disable all other buttons
+    //start this button's countdown
+    if( isNullOrUndefined(this.timer) ) {
+      let actualKey = this.actualKey;
+      let timer = setInterval(function decrementTimer() {
+        if(actualKey[exercise][set] == 0) {
+          clearInterval(timer);
+        } else {
+          actualKey[exercise][set]--;
+        }
+      }, 1000);
+      this.timer = timer;
+    } else {
+      clearInterval(this.timer as NodeJS.Timer);
+      this.timer = null;
+    }
+  }
+
+  public submitRoutine() {
+    let difficulty = parseInt(document.querySelector('input[name="radioDifficulty"]:checked').getAttribute("value"));
+    let pain = parseInt(document.querySelector('input[name="radioPain"]:checked').getAttribute("value"));
+    let tiredness = parseInt(document.querySelector('input[name="radioTired"]:checked').getAttribute("value"));
+    let note = document.getElementById("surveyNote").getAttribute("value");
+    console.log("Difficulty: " + difficulty + ", Pain: " + pain + ", Tiredness: " + tiredness + ", " + note );
+    let radios = document.getElementsByTagName("input");
+    let checked = [];
+    for(let i = 0; i < radios.length; i++) {
+      if(radios[i].type == 'radio' && radios[i].checked) {
+        radios[i].value;
+      }
+    }
   }
 }
