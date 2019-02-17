@@ -19,7 +19,7 @@ export class RoutinePageComponent implements OnInit {
   constructor(private route : ActivatedRoute,
     private routineService : RoutineService) { }
 
-  public routineId : number = 1012;
+  public routineId : number;
   public exerciseList : RoutineExercise[];
   //This holds the number of sets with the expected reps/time
   public expectedKey : number[][];
@@ -39,6 +39,7 @@ export class RoutinePageComponent implements OnInit {
 
   ngOnInit() {
     const user = JSON.parse(sessionStorage.getItem('user'));
+    this.routineId = JSON.parse(sessionStorage.getItem('routineRoute'));
     this.expectedKey = new Array();
     this.actualKey = new Array();
     this.timeOrRep = [];
@@ -137,18 +138,22 @@ export class RoutinePageComponent implements OnInit {
     }
   }
 
-  public submitRoutine() {
+  public submitRoutine() : void {
+    let postRoutineSurvey = this.collectSurveyInfo();
+  }
+
+  collectSurveyInfo() {
     let difficulty = parseInt(document.querySelector('input[name="radioDifficulty"]:checked').getAttribute("value"));
     let pain = parseInt(document.querySelector('input[name="radioPain"]:checked').getAttribute("value"));
     let tiredness = parseInt(document.querySelector('input[name="radioTired"]:checked').getAttribute("value"));
     let note = document.getElementById("surveyNote").getAttribute("value");
     console.log("Difficulty: " + difficulty + ", Pain: " + pain + ", Tiredness: " + tiredness + ", " + note );
-    let radios = document.getElementsByTagName("input");
-    let checked = [];
-    for(let i = 0; i < radios.length; i++) {
-      if(radios[i].type == 'radio' && radios[i].checked) {
-        radios[i].value;
-      }
-    }
+    return {
+      completed : true,
+    levelOfDifficulty : difficulty,
+    levelOfPain : pain,
+    levelOfTiredness : tiredness,
+    note : note,
+    postRoutineSurveyId : null }
   }
 }

@@ -67,4 +67,8 @@ export class PatientHomeScreenComponent implements OnInit {
       .map((r, i) => ({id: i + 1, ...r}))
       .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
   }
+
+  private storeRoutine(routine : Routine ) : void {
+    sessionStorage.setItem("routineRoute", routine.routineId.toString());
+  }
 }
