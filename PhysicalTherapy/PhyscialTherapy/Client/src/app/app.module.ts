@@ -22,6 +22,7 @@ import { DecimalPipe } from '@angular/common';
 import { TherapistService } from './services/therapist.service';
 import { RoutineExerciseService } from './services/routineExercise.service';
 import { CreateCustomExerciseComponent } from './create-custom-exercise/create-custom-exercise.component';
+import { SharedBackgroundComponent } from './shared/shared-background/shared-background.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { CreateCustomExerciseComponent } from './create-custom-exercise/create-c
     RoutinePageComponent,
     TherapistRoutineCreationScreenComponent,
     CreateCustomExerciseComponent,
+    SharedBackgroundComponent,
   ],
   imports: [
     BrowserModule,

@@ -34,6 +34,7 @@ export class PatientHomeScreenComponent implements OnInit {
 
   ngOnInit() {
     const user = JSON.parse(sessionStorage.getItem('user'));
+    console.log(JSON.stringify(user));
     this.patientService.getPatientById(user.id)
       .subscribe((response) => {
         this.username = response.username;
