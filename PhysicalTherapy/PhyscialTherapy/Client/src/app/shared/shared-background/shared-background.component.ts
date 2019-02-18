@@ -32,4 +32,9 @@ export class SharedBackgroundComponent implements OnInit {
     }
   }
 
+  logout() {
+    sessionStorage.clear();
+    this.router.navigate(['']);
+  }
+
 }
