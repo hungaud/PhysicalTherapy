@@ -1,3 +1,46 @@
-<p>
-  routine-page works!
-</p>
+<div style="padding:20px">
+  <div
+  *ngFor="let item of exerciseList; let i = index;">
+    <div style="padding:5px">
+      <label><h4>{{item.exercise.name}}</h4></label>
+      <div [ngSwitch]="timeOrRep[i]" style="vertical-align: auto">
+        <label *ngSwitchCase="1"> Perform {{item.sets}} sets of {{item.rep}} reps</label>
+        <label *ngSwitchCase="2"> Perform {{item.sets}} holds for {{item.holdLength}} seconds</label>
+      </div>
+      <div
+      *ngFor="let number of actualKey[i]; let j = index;">
+        <button (click)="exerciseClick(i,j)">{{number}}</button>
+      </div>
+      {{item.exercise.description}}
+      {{item.notes}}
+    </div>
+  </div>
+  <legend><h4>User survey!</h4></legend>
+  <h5>Level of Difficulty</h5>
+  <label>1</label>
+  <input type = "radio" name = "radioDifficulty" id = "diff1" value = "1" />
+  <input type = "radio" name = "radioDifficulty" id = "diff2" value = "2" />
+  <input type = "radio" name = "radioDifficulty" id = "diff3" value = "3" />
+  <input type = "radio" name = "radioDifficulty" id = "diff4" value = "4" />
+  <input type = "radio" name = "radioDifficulty" id = "diff5" value = "5" />
+  <label>5</label>
+  <h5>Level of Pain</h5>
+  <label>1</label>
+  <input type = "radio" name = "radioPain" id = "pain1" value = "1" />
+  <input type = "radio" name = "radioPain" id = "pain2" value = "2" />
+  <input type = "radio" name = "radioPain" id = "pain3" value = "3" />
+  <input type = "radio" name = "radioPain" id = "pain4" value = "4" />
+  <input type = "radio" name = "radioPain" id = "pain5" value = "5" />
+  <label>5</label>
+  <h5>Level of Tiredness</h5>
+  <label>1</label>
+  <input type = "radio" name = "radioTired" id = "tired1" value = "1" />
+  <input type = "radio" name = "radioTired" id = "tired2" value = "2" />
+  <input type = "radio" name = "radioTired" id = "tired3" value = "3" />
+  <input type = "radio" name = "radioTired" id = "tired4" value = "4" />
+  <input type = "radio" name = "radioTired" id = "tired5" value = "5" />
+  <label>5</label>
+  <h5>Note</h5>
+  <input type="text" id="surveyNote">
+  <button (click)="submitRoutine()">Submit!</button>
+</div>

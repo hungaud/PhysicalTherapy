@@ -29,7 +29,7 @@ patient name: {{patient?.firstName}}
           <tr *ngFor="let routine of filteredroutines" >
             <td><ngb-highlight class="font-weight-bold" [result]="routine.routineId"></ngb-highlight></td>
             <td><ngb-highlight [result]="routine.date | date"></ngb-highlight></td>
-            <td><a routerLink="/routine-page">{{routine.name}}</a></td>
+            <td><a routerLink="/routine-page/" (click)="storeRoutine(routine)">{{routine.name}}</a></td>
             <td>{{routine.description }}</td>
           </tr>
         </tbody>

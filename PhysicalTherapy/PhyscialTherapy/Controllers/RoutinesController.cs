@@ -91,6 +91,21 @@ namespace PhysicalTherapy.Controllers
             return Ok(routine);
         }
 
+        [HttpGet("routine_id/{id:int}")]
+        [Produces(typeof(DbSet<Routine>))]
+        public async Task<IActionResult> GetFullRoutineByRoutineId([FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var routine = await _routineRepository.GetFullRoutineByRoutineId(id);
+
+            if (routine == null)
+                return NotFound();
+
+            return Ok(routine);
+        }
+
         // POST: api/routines
         [HttpPost]
         [Produces(typeof(DbSet<Routine>))]
