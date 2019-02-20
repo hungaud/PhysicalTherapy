@@ -24,11 +24,13 @@ export class TherapistRoutineCreationScreenComponent implements OnInit {
   overallForm : FormGroup;
   routineArray : FormArray;
   therapistsPatients : Patient[] = [];
+  files : File[] = []
 
   ngOnInit() {
     const therapist = JSON.parse(sessionStorage.getItem('user'));
     this.overallForm = this.formBuilder.group({
-      routineArray : this.formBuilder.array([this.newExerciseTemplate()])});
+      routineArray : this.formBuilder.array([this.newExerciseTemplate()])
+    });
       this.routineArray = this.overallForm.get('routineArray') as FormArray;
     this.patientService.getPatientsByTherapistId(therapist.id)
       .subscribe((result) => {
@@ -62,7 +64,8 @@ export class TherapistRoutineCreationScreenComponent implements OnInit {
       holdLength: ['', Validators.min(0)],
       reps: ['', Validators.min(0)],
       sets: ['',[Validators.min(1), Validators.required]],
-      note: ['']
+      note: [''],
+      file: ['']
     });
   }
 
@@ -130,6 +133,7 @@ export class TherapistRoutineCreationScreenComponent implements OnInit {
       this.routineService.postRoutine(routine)
         .subscribe((result) => {
           this.handleExercises(result);
+          this.handleFiles();
           this.clearArray();
         });
     } else {
@@ -170,6 +174,19 @@ export class TherapistRoutineCreationScreenComponent implements OnInit {
     });
   }
 
+  handleFiles() {
+    this.files.forEach((file) => {
+      console.log(file);
+    });
+    console.log('DONE WITH FILES');
+    this.files = [];
+    console.log(this.files);
+  }
+
+  uploadFile() {
+    console.log('UPLOADING FILE');
+  }
+
   clearArray() {
     this.routineArray.value.forEach((value, index) => {
       if (index !== 0) {
@@ -177,6 +194,12 @@ export class TherapistRoutineCreationScreenComponent implements OnInit {
       }
     });
     this.routineArray.reset();
+  }
+
+  onFileSelected(event) {
+    console.log(event);
+    this.files.push(event.target.files[0]);
+    console.log(this.files);
   }
 
 }
