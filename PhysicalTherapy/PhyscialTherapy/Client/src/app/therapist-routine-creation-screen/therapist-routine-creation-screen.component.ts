@@ -8,6 +8,7 @@ import { PatientService } from '../services/patient.service';
 import { RoutineExerciseService } from '../services/routineExercise.service';
 import { RoutineService } from '../services/routine.service';
 import { element } from '@angular/core/src/render3';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-therapist-routine-creation-screen',
@@ -18,7 +19,7 @@ export class TherapistRoutineCreationScreenComponent implements OnInit {
 
   constructor(private exerciseService : ExerciseService, private formBuilder : FormBuilder,
     private patientService : PatientService, private routineExerciseService : RoutineExerciseService,
-    private routineService : RoutineService) {}
+    private routineService : RoutineService, private http : HttpClient) {}
     
   public allExercises : Exercise[] = [];
   overallForm : FormGroup;
@@ -176,15 +177,19 @@ export class TherapistRoutineCreationScreenComponent implements OnInit {
 
   handleFiles() {
     this.files.forEach((file) => {
-      console.log(file);
+      this.uploadFile(file);
     });
-    console.log('DONE WITH FILES');
     this.files = [];
-    console.log(this.files);
   }
 
-  uploadFile() {
-    console.log('UPLOADING FILE');
+  uploadFile(file) {
+    const fd = new FormData();
+    fd.append('uploadFile', file, file.name);
+    // We will need to have the upload URL location here
+    /* this.http.post('', fd)
+      .subscribe((response) => {
+        console.log(response);
+      }); */
   }
 
   clearArray() {
@@ -197,9 +202,9 @@ export class TherapistRoutineCreationScreenComponent implements OnInit {
   }
 
   onFileSelected(event) {
-    console.log(event);
-    this.files.push(event.target.files[0]);
-    console.log(this.files);
+    for (let i = 0; i < event.target.files.length; i++) {
+      this.files.push(event.target.files[i]);
+    }
   }
 
 }
