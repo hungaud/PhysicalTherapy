@@ -8,6 +8,7 @@ import { PatientService } from '../services/patient.service';
 import { RoutineExerciseService } from '../services/routineExercise.service';
 import { RoutineService } from '../services/routine.service';
 import { element } from '@angular/core/src/render3';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-therapist-routine-creation-screen',
@@ -18,17 +19,19 @@ export class TherapistRoutineCreationScreenComponent implements OnInit {
 
   constructor(private exerciseService : ExerciseService, private formBuilder : FormBuilder,
     private patientService : PatientService, private routineExerciseService : RoutineExerciseService,
-    private routineService : RoutineService) {}
+    private routineService : RoutineService, private http : HttpClient) {}
     
   public allExercises : Exercise[] = [];
   overallForm : FormGroup;
   routineArray : FormArray;
   therapistsPatients : Patient[] = [];
+  files : File[] = []
 
   ngOnInit() {
     const therapist = JSON.parse(sessionStorage.getItem('user'));
     this.overallForm = this.formBuilder.group({
-      routineArray : this.formBuilder.array([this.newExerciseTemplate()])});
+      routineArray : this.formBuilder.array([this.newExerciseTemplate()])
+    });
       this.routineArray = this.overallForm.get('routineArray') as FormArray;
     this.patientService.getPatientsByTherapistId(therapist.id)
       .subscribe((result) => {
@@ -62,7 +65,8 @@ export class TherapistRoutineCreationScreenComponent implements OnInit {
       holdLength: ['', Validators.min(0)],
       reps: ['', Validators.min(0)],
       sets: ['',[Validators.min(1), Validators.required]],
-      note: ['']
+      note: [''],
+      file: ['']
     });
   }
 
@@ -130,6 +134,7 @@ export class TherapistRoutineCreationScreenComponent implements OnInit {
       this.routineService.postRoutine(routine)
         .subscribe((result) => {
           this.handleExercises(result);
+          this.handleFiles();
           this.clearArray();
         });
     } else {
@@ -170,6 +175,23 @@ export class TherapistRoutineCreationScreenComponent implements OnInit {
     });
   }
 
+  handleFiles() {
+    this.files.forEach((file) => {
+      this.uploadFile(file);
+    });
+    this.files = [];
+  }
+
+  uploadFile(file) {
+    const fd = new FormData();
+    fd.append('uploadFile', file, file.name);
+    // We will need to have the upload URL location here
+    /* this.http.post('', fd)
+      .subscribe((response) => {
+        console.log(response);
+      }); */
+  }
+
   clearArray() {
     this.routineArray.value.forEach((value, index) => {
       if (index !== 0) {
@@ -177,6 +199,12 @@ export class TherapistRoutineCreationScreenComponent implements OnInit {
       }
     });
     this.routineArray.reset();
+  }
+
+  onFileSelected(event) {
+    for (let i = 0; i < event.target.files.length; i++) {
+      this.files.push(event.target.files[i]);
+    }
   }
 
 }

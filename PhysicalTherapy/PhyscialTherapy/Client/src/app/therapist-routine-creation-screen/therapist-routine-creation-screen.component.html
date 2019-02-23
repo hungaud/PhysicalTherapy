@@ -30,6 +30,7 @@
           <input formControlName="sets" placeholder="Number of sets">
         </div>
         <input formControlName="note" placeholder="Note">
+        <input formControlName="file" type="file" (change)="onFileSelected($event)" multiple="multiple">
       </div>
     <button (click)="deleteExercise(i)">Delete</button>
     <button (click)="shiftTowardsStart(i)">Up</button>

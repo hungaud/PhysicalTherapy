@@ -18,7 +18,8 @@ const routes: Routes = [
   {path: 'patient-home-screen', component: PatientHomeScreenComponent },
   {path: 'therapist-roster-screen', component: TherapistRosterComponent},
   {path: 'therapist-routine-creation-screen', component: TherapistRoutineCreationScreenComponent},
-  {path: 'create-custom-exercise', component: CreateCustomExerciseComponent}
+  {path: 'create-custom-exercise', component: CreateCustomExerciseComponent},
+  
 
 ];
 

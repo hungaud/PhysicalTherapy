@@ -37,11 +37,11 @@ export class Login {
                         this.patientService.getPatient(response['username'])
                             .subscribe((response) => {
                                 const key = {
-                                    accountType: 1,
+                                    accountType: 2,
                                     id: response.patientId
                                 };
                                 sessionStorage.setItem('user', JSON.stringify(key));
-                                this.router.navigate(['./patient-home-screen', {username : username.value}]);
+                                this.router.navigate(['./patient-home-screen']);
                             });
                     } else if (response['accountType'] === 0) {
                         // Navigate to admin homepage
