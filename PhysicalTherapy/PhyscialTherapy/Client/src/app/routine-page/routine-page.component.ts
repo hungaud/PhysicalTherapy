@@ -6,6 +6,7 @@ import { RoutineExercise } from '../models/routineExercise';
 import { isNullOrUndefined } from 'util';
 import { PostRoutineSurvey } from '../models/PostRoutineSurvey';
 import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from 'constants';
+import { timer } from 'rxjs';
 
 
 @Component({
@@ -28,7 +29,7 @@ export class RoutinePageComponent implements OnInit {
   //Holds the type of each exercise
   public timeOrRep : number[];
   //Timer object to handle time buttons;
-  public timer : Object;
+  public interval;
 
   /**
    * Type: 1 == 'rep'
@@ -112,7 +113,6 @@ export class RoutinePageComponent implements OnInit {
 
   private repClick(exercise : number, set : number) : void {
     if(this.actualKey[exercise][set] == 0) {
-      console.log(this.actualKey + ", " + this.expectedKey)
       this.actualKey[exercise][set] = this.expectedKey[exercise][set];
     } else {
       this.actualKey[exercise][set]--;
@@ -122,19 +122,19 @@ export class RoutinePageComponent implements OnInit {
   private timeClick(exercise : number, set : number) : void {
     //disable all other buttons
     //start this button's countdown
-    if( isNullOrUndefined(this.timer) ) {
+    if( isNullOrUndefined(this.interval) ) {
       let actualKey = this.actualKey;
-      let timer = setInterval(function decrementTimer() {
+      let interval = setInterval(function decrementTimer() {
         if(actualKey[exercise][set] == 0) {
-          clearInterval(timer);
+          clearInterval(interval);
         } else {
           actualKey[exercise][set]--;
         }
       }, 1000);
-      this.timer = timer;
+      this.interval = timer;
     } else {
-      clearInterval(this.timer as NodeJS.Timer);
-      this.timer = null;
+      clearInterval(this.interval);
+      this.interval = null;
     }
   }
 

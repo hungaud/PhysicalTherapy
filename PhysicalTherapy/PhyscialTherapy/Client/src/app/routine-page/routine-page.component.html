@@ -9,7 +9,7 @@
       </div>
       <div
       *ngFor="let number of actualKey[i]; let j = index;">
-        <button (click)="exerciseClick(i,j)">{{number}}</button>
+        <button id="exerciseButton{{i}}{{j}}" (click)="exerciseClick(i,j)">{{number}}</button>
       </div>
       {{item.exercise.description}}
       {{item.notes}}
