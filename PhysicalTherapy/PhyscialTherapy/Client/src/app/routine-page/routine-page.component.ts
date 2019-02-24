@@ -6,7 +6,7 @@ import { RoutineExercise } from '../models/routineExercise';
 import { isNullOrUndefined } from 'util';
 import { PostRoutineSurvey } from '../models/PostRoutineSurvey';
 import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from 'constants';
-import { timer } from 'rxjs';
+import { timer, Subscription } from 'rxjs';
 
 
 @Component({
@@ -25,11 +25,12 @@ export class RoutinePageComponent implements OnInit {
   //This holds the number of sets with the expected reps/time
   public expectedKey : number[][];
   //This holds their actual rep count/hold time
-  public actualKey : number[][];
+  public actualKey : string[][];
   //Holds the type of each exercise
   public timeOrRep : number[];
   //Timer object to handle time buttons;
-  public interval;
+  public subscription : Subscription;
+  public counting: boolean = false;
 
   /**
    * Type: 1 == 'rep'
@@ -51,8 +52,7 @@ export class RoutinePageComponent implements OnInit {
     .subscribe(routine => {
       this.exerciseList = this.getExerciseList(routine);
       this.createKeys();
-      console.log(this.expectedKey);
-      console.log(this.timeOrRep);
+      console.log(this.actualKey);
     });
   }
 
@@ -102,6 +102,7 @@ export class RoutinePageComponent implements OnInit {
   }
 
   public exerciseClick(exercise : number, set : number) : void {
+    console.log("Entering Exercise Click");
     if(this.timeOrRep[exercise] == 1) {
       this.repClick(exercise, set);
     } else if (this.timeOrRep[exercise] == 2) {
@@ -112,29 +113,55 @@ export class RoutinePageComponent implements OnInit {
   }
 
   private repClick(exercise : number, set : number) : void {
-    if(this.actualKey[exercise][set] == 0) {
-      this.actualKey[exercise][set] = this.expectedKey[exercise][set];
-    } else {
-      this.actualKey[exercise][set]--;
+    console.log("Entering rep click");
+    if(parseInt(this.actualKey[exercise][set]) == this.expectedKey[exercise][set]) {
+      console.log("Entering complete!");
+      this.actualKey[exercise][set] = "Complete!";
     }
+    else if (this.actualKey[exercise][set] == "Complete!") {
+      console.log("Entering the Reset from complete")
+      this.actualKey[exercise][set] = (this.expectedKey[exercise][set] - 1).toString();
+    }
+    else if(parseInt(this.actualKey[exercise][set]) == 0) {
+      this.actualKey[exercise][set] = this.expectedKey[exercise][set].toString();
+    }
+    else {
+      console.log("Entering the else");
+      let value = parseInt(this.actualKey[exercise][set]);
+      value--;
+      this.actualKey[exercise][set] = value.toString();
+    }
+    console.log(this.actualKey)
   }
 
   private timeClick(exercise : number, set : number) : void {
-    //disable all other buttons
-    //start this button's countdown
-    if( isNullOrUndefined(this.interval) ) {
-      let actualKey = this.actualKey;
-      let interval = setInterval(function decrementTimer() {
-        if(actualKey[exercise][set] == 0) {
-          clearInterval(interval);
-        } else {
-          actualKey[exercise][set]--;
+    if(!isNullOrUndefined(this.subscription)) {
+      console.log("Wipe Timer Block");
+      this.subscription.unsubscribe();
+      this.subscription = null;
+    }
+    else if(this.actualKey[exercise][set] == 'Complete!') {
+      console.log("Complete Reset block");
+      this.actualKey[exercise][set] = this.expectedKey[exercise][set].toString();
+    }
+    else if( isNullOrUndefined(this.subscription) ) {
+      console.log("No timer found block");
+      let time = timer(0,1000);
+      //Subscription runs the timer
+      this.subscription = time.subscribe(x => {
+        if(parseInt(this.actualKey[exercise][set]) == 0) {
+          //This case is for a completed set
+          console.log("Exercise complete!");
+          this.actualKey[exercise][set] = 'Complete!';
+          this.subscription.unsubscribe();
+          this.subscription = null;
         }
-      }, 1000);
-      this.interval = timer;
-    } else {
-      clearInterval(this.interval);
-      this.interval = null;
+        else {
+          let value = parseInt(this.actualKey[exercise][set]);
+          value--;
+          this.actualKey[exercise][set] = value.toString();
+        }
+      });
     }
   }
 
