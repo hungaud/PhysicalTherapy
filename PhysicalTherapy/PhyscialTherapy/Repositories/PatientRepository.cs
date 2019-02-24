@@ -46,13 +46,15 @@ namespace PhysicalTherapy.Repositories
 
         public IEnumerable<Patient> GetAll()
         {
-            return _context.Patients;
+            return _context.Patients
+                .Include(p => p.Therapist);
         }
 
         public IEnumerable<Patient> GetByTherapistId(int id)
         {
             return _context.Patients
-                .Where(b => b.TherapistId.Equals(id));
+                .Where(b => b.TherapistId.Equals(id))
+                .Include(p => p.Therapist);
         }
 
         public IEnumerable<Patient> GetLatePatientsByTherapistId(int id)
