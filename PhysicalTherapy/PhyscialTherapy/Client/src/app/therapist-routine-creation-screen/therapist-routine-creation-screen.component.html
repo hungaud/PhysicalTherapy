@@ -1,44 +1,56 @@
 <datalist id="exerciseList"></datalist>
 <datalist id="patientList"></datalist>
-<div>
-  <a routerLink="/therapist-home-screen">Home</a>
-  <a routerLink="/therapist-roster-screen"> Patient Roster</a>
-  <a routerLink="/add-patient-screen"> Add Patient</a>
-  <a routerLink="/therapist-routine-creation-screen"> Create a Routine</a>
+
+<div class="form-group form-inline">
+  <a class="nav-link" routerLink="/therapist-home-screen">Home</a>
+  <a class="nav-link" routerLink="/therapist-roster-screen"> Patient Roster</a>
+  <a class="nav-link" routerLink="/add-patient-screen"> Add Patient</a>
+  <a class="nav-link" routerLink="/therapist-routine-creation-screen"> Create a Routine</a>
 </div>
-<div>
-  <br>
-  <span id="patientLabel" class="h3 monospace">Patient: </span>
-  <input id="listInput" list="patientList">
-</div>
-<br>
-<button (click)="addExerciseTemplate()">Add new Exercise!</button>
-<div [formGroup]="overallForm" style="padding:20px">
-  <div formArrayName="routineArray"
-  *ngFor="let item of routineArray.controls; let i = index;">
-  <div style="padding:5px">
-    <div [formGroupName]="i">
-        <div>
-          {{i}}
-          <input formControlName="targetIndex" placeholder="Change positions?" type="number">
-          <input formControlName="exerciseName" placeholder="NAME" list="exerciseList">
-          <app-create-custom-exercise></app-create-custom-exercise>
-        </div>
-        <div>
-          <input formControlName="holdLength" placeholder="Hold Length">
-          <input formControlName="reps" placeholder="Number of reps">
-          <input formControlName="sets" placeholder="Number of sets">
-        </div>
-        <input formControlName="note" placeholder="Note">
-        <input formControlName="file" type="file" (change)="onFileSelected($event)" multiple="multiple">
-      </div>
-    <button (click)="deleteExercise(i)">Delete</button>
-    <button (click)="shiftTowardsStart(i)">Up</button>
-    <button (click)="shiftTowardsEnd(i)">Down</button>
+
+<div class>
+  <div class="form-group form-inline">
+    <br>
+    <span id="patientLabel" class="h3 monospace">Patient: </span>
+    <input id="listInput" list="patientList">
   </div>
-</div>
-</div>
-<div>
-<button (click)=triggerReorder()>Reorder</button>
-<button (click)="onSubmit()">Submit</button>
+  <button (click)="addExerciseTemplate()" class="btn btn-outline-primary mr-2">
+    Add new Exercise!
+  </button>
+  <div [formGroup]="overallForm" style="padding:20px" class="form-group form-inline">
+    <div formArrayName="routineArray"
+    *ngFor="let item of routineArray.controls; let i = index;">
+      <div style="padding:5px">
+        <div [formGroupName]="i">
+          <table class="table table-striped shadow border">
+            <tr>
+              <th></th>
+              <th><input formControlName="exerciseName" placeholder="NAME" list="exerciseList"></th>
+            </tr>
+            <tr>
+              <th>{{i}}</th>
+              <th><input formControlName="targetIndex" placeholder="Change positions?" type="number"></th>
+              <th><app-create-custom-exercise></app-create-custom-exercise></th>
+            </tr>
+            <tr>
+              <th></th>
+              <th><input formControlName="holdLength" placeholder="Hold Length" ></th>
+              <th><input formControlName="reps" placeholder="Number of reps"></th>
+              <th><input formControlName="sets" placeholder="Number of sets"></th>
+            </tr>
+            <tr>
+              <th></th>
+              <th><input formControlName="note" placeholder="Note"></th>
+              <th><input formControlName="file" type="file" (change)="onFileSelected($event)" multiple="multiple"></th>
+            </tr>
+          </table>
+        <button style="float: right" (click)="deleteExercise(i)" class="btn btn-outline-primary mr-1">Delete</button>
+        <button style="float: right" (click)="shiftTowardsStart(i)" class="btn btn-outline-primary mr-1">Up</button>
+        <button style="float: right" (click)="shiftTowardsEnd(i)" class="btn btn-outline-primary mr-1">Down</button>
+      </div>
+      </div>
+    </div> 
+  </div>
+  <button (click)=triggerReorder() class="btn btn-outline-primary mr-1">Reorder</button>
+  <button (click)="onSubmit()" class="btn btn-outline-primary mr-1">Submit</button>
 </div>
