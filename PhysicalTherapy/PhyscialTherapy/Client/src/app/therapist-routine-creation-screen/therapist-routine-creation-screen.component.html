@@ -12,7 +12,7 @@
   <div class="form-group form-inline">
     <br>
     <span id="patientLabel" class="h3 monospace">Patient: </span>
-    <input id="listInput" list="patientList">
+    <input class="form-control" id="listInput" list="patientList">
   </div>
   <button (click)="addExerciseTemplate()" class="btn btn-outline-primary mr-2">
     Add new Exercise!
@@ -22,26 +22,29 @@
     *ngFor="let item of routineArray.controls; let i = index;">
       <div style="padding:5px">
         <div [formGroupName]="i">
-          <table class="table table-striped shadow border">
+          <table class=" table table-striped table-responsive shadow border">
             <tr>
-              <th></th>
-              <th><input formControlName="exerciseName" placeholder="NAME" list="exerciseList"></th>
+              <th style="padding: 4px"></th>
+              <th style="padding: 4px"><input class="form-control" formControlName="exerciseName" placeholder="NAME" list="exerciseList"></th>
+              <th style="padding: 4px"></th><th style="padding: 4px"></th>
             </tr>
             <tr>
-              <th>{{i}}</th>
-              <th><input formControlName="targetIndex" placeholder="Change positions?" type="number"></th>
-              <th><app-create-custom-exercise></app-create-custom-exercise></th>
+              <th style="padding: 4px">{{i}}</th>
+              <th style="padding: 4px"><input class="form-control" formControlName="targetIndex" placeholder="Position" type="number"></th>
+              <th style="padding: 4px"><app-create-custom-exercise></app-create-custom-exercise></th>
+              <th style="padding: 4px"></th>
             </tr>
             <tr>
-              <th></th>
-              <th><input formControlName="holdLength" placeholder="Hold Length" ></th>
-              <th><input formControlName="reps" placeholder="Number of reps"></th>
-              <th><input formControlName="sets" placeholder="Number of sets"></th>
+              <th style="padding: 4px"></th>
+              <th style="padding: 4px"><input class="form-control" formControlName="holdLength" placeholder="Hold Length" ></th>
+              <th style="padding: 4px"><input class="form-control" formControlName="reps" placeholder="# Reps"></th>
+              <th style="padding: 4px"><input class="form-control" formControlName="sets" placeholder="# Sets"></th>
             </tr>
             <tr>
-              <th></th>
-              <th><input formControlName="note" placeholder="Note"></th>
-              <th><input formControlName="file" type="file" (change)="onFileSelected($event)" multiple="multiple"></th>
+              <th style="padding: 4px"></th>
+              <th style="padding: 4px"><input class="form-control" formControlName="note" placeholder="Note"></th>
+              <th style="padding: 4px"><input class="form-control-file" formControlName="file" type="file" (change)="onFileSelected($event)" multiple="multiple"></th>
+              <th style="padding: 4px"></th>
             </tr>
           </table>
         <button style="float: right" (click)="deleteExercise(i)" class="btn btn-outline-primary mr-1">Delete</button>
