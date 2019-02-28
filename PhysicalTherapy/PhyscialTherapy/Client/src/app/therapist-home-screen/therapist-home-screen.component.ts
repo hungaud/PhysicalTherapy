@@ -79,7 +79,7 @@ export class TherapistHomeScreenComponent implements OnInit {
     this.feedbackSize = this.filteredFeedback.length;
     return this.filteredFeedback
       .map((r, i) => ({id: i + 1, ...r}))
-      .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
+      //.slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
   }
 
   get lateListFilter() : string {
@@ -104,7 +104,7 @@ export class TherapistHomeScreenComponent implements OnInit {
     this.lateSize = this.filteredLate.length;
     return this.filteredLate
       .map((r, i) => ({id: i + 1, ...r}))
-      .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
+      //.slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
   }
 
 }
