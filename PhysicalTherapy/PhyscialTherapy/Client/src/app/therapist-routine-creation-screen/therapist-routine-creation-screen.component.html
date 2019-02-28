@@ -1,6 +1,3 @@
-<datalist id="exerciseList"></datalist>
-<datalist id="patientList"></datalist>
-
 <div class="form-group form-inline">
   <a class="nav-link" routerLink="/therapist-home-screen">Home</a>
   <a class="nav-link" routerLink="/therapist-roster-screen"> Patient Roster</a>
@@ -12,7 +9,11 @@
   <div class="form-group form-inline">
     <br>
     <span id="patientLabel" class="h3 monospace">Patient: </span>
-    <input class="form-control" id="listInput" list="patientList">
+    <select class="form-control" id="nameSelect" ng-model="therapistsPatients">
+      <option *ngFor="let item of therapistsPatients">
+        ID: {{item.patientId}}  NAME: {{item.firstName}} {{item.lastName}}
+      </option>
+    </select>
   </div>
   <button (click)="addExerciseTemplate()" class="btn btn-outline-primary mr-2">
     Add new Exercise!
@@ -22,10 +23,16 @@
     *ngFor="let item of routineArray.controls; let i = index;">
       <div style="padding:5px">
         <div [formGroupName]="i">
-          <table class=" table table-striped table-responsive shadow border">
+          <table class="table table-striped table-responsive shadow border">
             <tr>
               <th style="padding: 4px"></th>
-              <th style="padding: 4px"><input class="form-control" formControlName="exerciseName" placeholder="NAME" list="exerciseList"></th>
+              <th style="padding: 4px">
+                <select class="form-control" id="nameSelect" ng-model="therapistsPatients">
+                  <option *ngFor="let item of allExercises">
+                    {{item.name}}
+                  </option>
+                </select>
+              </th>
               <th style="padding: 4px"></th><th style="padding: 4px"></th>
             </tr>
             <tr>
