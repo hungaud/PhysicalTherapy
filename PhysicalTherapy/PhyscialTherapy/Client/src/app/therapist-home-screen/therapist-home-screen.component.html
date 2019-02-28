@@ -12,27 +12,29 @@
   </div>
 
   <form id="feedForm" >
-    <table class="table table-striped shadow border" >
-      <thead class="h3">
-        <tr>
-          <th scope="col">ID #</th>
-          <th scope="col">Date</th>
-          <th scope="col">Name</th>
-          <th scope="col">Patient</th>
-          <th scope="col">Description</th>
-        </tr>
-      </thead>
+    <div style="overflow: scroll; height: 250px">
+      <table class="table table-striped shadow border" >
+        <thead class="h3">
+          <tr>
+            <th scope="col">ID #</th>
+            <th scope="col">Date</th>
+            <th scope="col">Name</th>
+            <th scope="col">Patient</th>
+            <th scope="col">Description</th>
+          </tr>
+        </thead>
 
-      <tbody>
-        <tr *ngFor="let routine of filteredfeedback">
-          <td><ngb-highlight class="font-weight-bold" [result]="routine.routineId"></ngb-highlight></td>
-          <td><ngb-highlight [result]="routine.date | date"></ngb-highlight></td>
-          <td><a routerLink="/routine-page">{{routine.name}}</a></td>
-          <td>{{routine.patient.firstName}} {{routine.patient.lastName}}</td>
-          <td>{{routine.description}}</td>
-        </tr>
-      </tbody>
-    </table>
+        <tbody>
+          <tr *ngFor="let routine of filteredfeedback">
+            <td><ngb-highlight class="font-weight-bold" [result]="routine.routineId"></ngb-highlight></td>
+            <td><ngb-highlight [result]="routine.date | date"></ngb-highlight></td>
+            <td><a routerLink="/routine-page">{{routine.name}}</a></td>
+            <td>{{routine.patient.firstName}} {{routine.patient.lastName}}</td>
+            <td>{{routine.description}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </form>
 
   <!---div class="d-flex justify-content-between p-2" id="paging1">
@@ -54,27 +56,29 @@
   </div>
   
   <form id="lateForm" >
-    <table class="table table-striped shadow border">
-      <thead class="h3">
-        <tr>
-          <th scope="col">ID #</th>
-          <th scope="col">Date</th>
-          <th scope="col">Name</th>
-          <th scope="col">Patient</th>
-          <th scope="col">Description</th>
-        </tr>
-      </thead>
+    <div style="overflow: scroll; height: 250px">
+      <table class="table table-striped shadow border">
+        <thead class="h3">
+          <tr>
+            <th scope="col">ID #</th>
+            <th scope="col">Date</th>
+            <th scope="col">Name</th>
+            <th scope="col">Patient</th>
+            <th scope="col">Description</th>
+          </tr>
+        </thead>
 
-      <tbody>
-        <tr *ngFor="let routine of filteredlate">
-          <td><ngb-highlight class="font-weight-bold" [result]="routine.routineId"></ngb-highlight></td>
-          <td><ngb-highlight [result]="routine.date | date"></ngb-highlight></td>
-          <td><a routerLink="/routine-page">{{routine.name}}</a></td>
-          <td>{{routine.patient.firstName}} {{routine.patient.lastName}}</td>
-          <td>{{routine.description}}</td>
-        </tr>
-      </tbody>
-    </table>
+        <tbody>
+          <tr *ngFor="let routine of filteredlate">
+            <td><ngb-highlight class="font-weight-bold" [result]="routine.routineId"></ngb-highlight></td>
+            <td><ngb-highlight [result]="routine.date | date"></ngb-highlight></td>
+            <td><a routerLink="/routine-page">{{routine.name}}</a></td>
+            <td>{{routine.patient.firstName}} {{routine.patient.lastName}}</td>
+            <td>{{routine.description}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </form>
 
   <!--div class="d-flex justify-content-between p-2" id="paging2">
