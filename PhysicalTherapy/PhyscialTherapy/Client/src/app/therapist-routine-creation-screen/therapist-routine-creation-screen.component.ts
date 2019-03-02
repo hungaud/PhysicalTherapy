@@ -134,7 +134,7 @@ export class TherapistRoutineCreationScreenComponent implements OnInit {
       this.routineService.postRoutine(routine)
         .subscribe((result) => {
           this.handleExercises(result);
-          this.handleFiles();
+          this.handleFiles(result.routineId);
           this.clearArray();
         });
     } else {
@@ -175,21 +175,21 @@ export class TherapistRoutineCreationScreenComponent implements OnInit {
     });
   }
 
-  handleFiles() {
+  handleFiles(routineId) {
     this.files.forEach((file) => {
-      this.uploadFile(file);
+      this.uploadFile(file, routineId);
     });
     this.files = [];
   }
 
-  uploadFile(file) {
+  uploadFile(file, routineId) {
     const fd = new FormData();
     fd.append('uploadFile', file, file.name);
     // We will need to have the upload URL location here
-    /* this.http.post('', fd)
+    this.http.post(`https://capstone-pt.azurewebsites.net`, fd)
       .subscribe((response) => {
         console.log(response);
-      }); */
+      });
   }
 
   clearArray() {
