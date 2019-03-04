@@ -36,22 +36,11 @@ export class TherapistRoutineCreationScreenComponent implements OnInit {
     this.patientService.getPatientsByTherapistId(therapist.id)
       .subscribe((result) => {
         this.therapistsPatients = result;
-        this.therapistsPatients.forEach((patient) => {
-          document.getElementById('patientList').innerHTML += `<option value="ID: ${patient.patientId} NAME: ${patient.firstName} ${patient.lastName}" />`;
-        })
       });
     this.exerciseService.getAllExercises()
       .subscribe((result) =>  {
         this.allExercises = result;
-        this.loadExerciseDataList();
       });
-  }
-
-  loadExerciseDataList() {
-    this.allExercises.forEach((exercise) => {
-      document.getElementById('exerciseList').innerHTML +=
-        `<option value="${exercise.name}" />`;
-    });
   }
 
   addExerciseTemplate() : void {
