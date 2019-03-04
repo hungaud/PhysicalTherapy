@@ -21,7 +21,7 @@ export class TherapistRoutineCreationScreenComponent implements OnInit {
     private patientService : PatientService, private routineExerciseService : RoutineExerciseService,
     private routineService : RoutineService, private http : HttpClient) {}
     
-  public allExercises : Exercise[] = [];
+  allExercises : Exercise[] = [];
   overallForm : FormGroup;
   routineArray : FormArray;
   therapistsPatients : Patient[] = [];
@@ -117,7 +117,7 @@ export class TherapistRoutineCreationScreenComponent implements OnInit {
   }
 
   onSubmit() : void {
-    const patient = (<HTMLInputElement>document.getElementById('listInput')).value;
+    const patient = (<HTMLInputElement>document.getElementById('nameSelect')).value;
     if(!this.overallForm.invalid && patient) {
       const routine = this.setRoutine(patient);
       this.routineService.postRoutine(routine)
