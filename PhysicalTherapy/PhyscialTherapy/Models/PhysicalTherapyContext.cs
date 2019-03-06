@@ -55,6 +55,9 @@ namespace PhysicalTherapy.Models
             modelBuilder.Entity<Routine>(entity =>
             {
                 entity.HasOne(p => p.Patient);
+                entity.HasOne(prs => prs.PostRoutineSurvey)
+                    .WithOne()
+                    .HasForeignKey<Routine>(fk => fk.PostRoutineSurveyId);
                 entity.HasMany(re => re.RoutineExercises)
                     .WithOne(r => r.Routine);
                 entity.HasMany(ml => ml.ListOfMessageLogs);
@@ -71,21 +74,6 @@ namespace PhysicalTherapy.Models
             modelBuilder.Entity<Therapist>(entity =>
             {
                 entity.HasIndex(e => e.Username).IsUnique();
-            });
-
-            modelBuilder.Entity<PostRoutineSurvey>(entity =>
-            {
-                entity.HasOne(r => r.Routine)
-                    .WithMany()
-                    .HasForeignKey(fk => fk.RoutineId);
-                entity.HasMany<SetRepLog>(srl => srl.SetRepLogs)
-                    .WithOne(prs => prs.PostRoutineSurvey)
-                    .HasForeignKey(prs => prs.PostRoutineSurveyId);
-            });
-
-            modelBuilder.Entity<SetRepLog>(entity =>
-            {
-
             });
 
             SeedExercise(modelBuilder);

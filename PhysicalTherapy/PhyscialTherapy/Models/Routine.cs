@@ -28,6 +28,9 @@ namespace PhysicalTherapy.Models
 
         public int RoutineId { get; set; }
 
-        public ICollection<PostRoutineSurvey> postRoutineSurveys { get; set; }
+        [ForeignKey("PostRoutineSurveyId")]
+        public PostRoutineSurvey PostRoutineSurvey { get; set; }
+
+        public int? PostRoutineSurveyId { get; set; }
     }
 }

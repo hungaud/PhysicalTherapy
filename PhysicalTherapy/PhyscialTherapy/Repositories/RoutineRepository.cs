@@ -35,32 +35,31 @@ namespace PhysicalTherapy.Repositories
                 .Include(r => r.Patient.Therapist)
                 .Include(r => r.RoutineExercises)
                 .ThenInclude(re => re.Exercise)
+                .Include(r => r.PostRoutineSurvey)
                 .ToListAsync();
         }
-        //Change these to PostRoutineSurveyRepo
+
         public async Task<IEnumerable<Routine>> GetRecentRoutineCompletionsWithFeedback(int therapistId)
         {
-            //    DateTime cutoff = DateTime.Now;
-            //    return await _context.Routines.Where(r => r.Patient.Therapist.TherapistId == therapistId
-            //        && r.PostRoutineSurveys.Date.AddYears(1).CompareTo(cutoff) > 0)
-            //        .Include(r => r.Patient.Therapist)
-            //        .Include(r => r.PostRoutineSurvey)
-            //        .OrderByDescending(r => r.Date)
-            //        .ToListAsync();
-            return null;
+            DateTime cutoff = DateTime.Now;
+            return await _context.Routines.Where(r => r.Patient.Therapist.TherapistId == therapistId
+                && r.PostRoutineSurvey.Date.AddYears(1).CompareTo(cutoff) > 0)
+                .Include(r => r.Patient.Therapist)
+                .Include(r => r.PostRoutineSurvey)
+                .OrderByDescending(r => r.Date)
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<Routine>> GetLateRoutinesByTherapistId(int therapistId)
         {
-            //    DateTime cutoff = DateTime.Now;
-            //    return await _context.Routines.Where(r => r.Patient.Therapist.TherapistId == therapistId
-            //        && !r.IsComplete
-            //        && r.Date.AddYears(1).CompareTo(cutoff) < 0)
-            //        .Include(r => r.Patient.Therapist)
-            //        .Include(r => r.PostRoutineSurvey)
-            //        .OrderByDescending(r => r.Date)
-            //        .ToListAsync();
-            return null;
+            DateTime cutoff = DateTime.Now;
+            return await _context.Routines.Where(r => r.Patient.Therapist.TherapistId == therapistId
+                && !r.IsComplete
+                && r.Date.AddYears(1).CompareTo(cutoff) < 0)
+                .Include(r => r.Patient.Therapist)
+                .Include(r => r.PostRoutineSurvey)
+                .OrderByDescending(r => r.Date)
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<Routine>> Get(string patientUsername)
@@ -70,6 +69,7 @@ namespace PhysicalTherapy.Repositories
                 .Include(r => r.Patient.Therapist)
                 .Include(r => r.RoutineExercises)
                 .ThenInclude(re => re.Exercise)
+                .Include(r => r.PostRoutineSurvey)
                 .ToListAsync();
         }
 
@@ -87,7 +87,8 @@ namespace PhysicalTherapy.Repositories
                 .Include(r => r.ListOfMessageLogs)
                 .Include(r => r.Patient.Therapist)
                 .Include(r => r.RoutineExercises)
-                .ThenInclude(re => re.Exercise);
+                .ThenInclude(re => re.Exercise)
+                .Include(r => r.PostRoutineSurvey);
         }
 
         public async Task<Routine> Add(Routine routine)
