@@ -29,5 +29,7 @@ namespace PhysicalTherapy.Models
 
         public int? Sets { get; set; }
 
+        public string CompleteReps { get; set; } // 0,0,0,12
+
     }
 }
