@@ -43,5 +43,20 @@ namespace PhysicalTherapy.Controllers
 
             return CreatedAtAction("GetRoutineExercises", new { id = routineExercise.RoutineId }, routineExercise);
         }
+
+        // POST: api/RoutineExercises
+        [HttpPut]
+        [Produces(typeof(DbSet<RoutineExercise>))]
+        public async Task<IActionResult> PutRoutineExercise([FromBody] RoutineExercise routineExercise)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            await _routineExerciseRepository.UpdateWithSets(routineExercise);
+
+            return CreatedAtAction("GetRoutineExercises", new { id = routineExercise.RoutineId }, routineExercise);
+        }
     }
 }

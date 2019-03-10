@@ -2,11 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { RoutineService } from '../services/routine.service';
 import { ActivatedRoute } from '@angular/router';
 import { Routine } from '../models/routine';
+import { Exercise } from '../models/Exercise';
 import { RoutineExercise } from '../models/routineExercise';
 import { isNullOrUndefined } from 'util';
 import { PostRoutineSurvey } from '../models/PostRoutineSurvey';
 import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from 'constants';
 import { timer, Subscription } from 'rxjs';
+import { RoutineExerciseService } from '../services/routineExercise.service';
+import { ExerciseService } from '../services/exercise.service';
+import { PostRoutineSurveyService } from '../services/post-routine-survey.service';
 
 
 @Component({
@@ -18,10 +22,15 @@ import { timer, Subscription } from 'rxjs';
 export class RoutinePageComponent implements OnInit {
 
   constructor(private route : ActivatedRoute,
-    private routineService : RoutineService) { }
+    private routineService : RoutineService,
+    private routineExerciseService : RoutineExerciseService,
+    private exerciseService : ExerciseService,
+    private postRoutineSurveyService : PostRoutineSurveyService) { }
 
+  public allExercises : Exercise[] = [];
   public routineId : number;
   public exerciseList : RoutineExercise[];
+  public originalRoutine : Routine;
   //This holds the number of sets with the expected reps/time
   public expectedKey : number[][];
   //This holds their actual rep count/hold time
@@ -50,6 +59,7 @@ export class RoutinePageComponent implements OnInit {
     //Getting the routine from the server
     this.routineService.getSingleRoutineByRoutineId(this.routineId)
     .subscribe(routine => {
+      this.originalRoutine = routine[0];
       this.exerciseList = this.getExerciseList(routine);
       this.createKeys();
       console.log(this.actualKey);
@@ -166,7 +176,128 @@ export class RoutinePageComponent implements OnInit {
   }
 
   public submitRoutine() : void {
-    let postRoutineSurvey = this.collectSurveyInfo();
+    let repostRoutine = JSON.parse(JSON.stringify(this.originalRoutine)) as Routine;
+    repostRoutine.date = null;
+    repostRoutine.routineId = null;
+    console.log(repostRoutine);
+    this.repeatRoutineEntry(this.originalRoutine);
+    this.updateRoutineEntry(this.originalRoutine);
+  }
+
+  private repeatRoutineEntry(routine : Routine) {
+    const routineEntry = this.freshRoutineEntry(routine);
+    this.routineService.postRoutine(routineEntry)
+    .subscribe((rout) => {
+      this.handleFreshExercises(this.originalRoutine, rout.routineId);
+    });
+  }
+
+  private updateRoutineEntry(routine : Routine) {
+    const postRoutineSurvey = this.collectSurveyInfo();
+    //Post the survey
+    this.postRoutineSurveyService.postPostRoutineSurvey(postRoutineSurvey)
+    .subscribe((prs) => {
+      //Grab the survey ID, then put the routine with the survey ID
+      const updatedRoutineInfo = this.finishedRoutineEntry(routine, prs.postRoutineSurveyId);
+      this.routineService.putRoutine(updatedRoutineInfo).subscribe((rout) => {
+        //Update CompleteReps in each RoutineExercise
+        this.handleUpdatedExercises(this.originalRoutine, this.originalRoutine.routineId);
+      })
+    });
+    //Post the survey
+    //get the survey ID, then put the Routine
+    //Update CompleteReps in each RoutineExercise
+
+  }
+
+  freshRoutineEntry(routine : Routine) {
+    return {
+      Description: routine.description,
+      Date: new Date(),
+      IsComplete: false,
+      IsNew: true,
+      Name: routine.name,
+      PatientId: routine.patientId
+    }
+  }
+
+  handleFreshExercises(routine : Routine, routineId : number) {
+    const routineExerId = routineId;
+    routine.routineExercises.forEach((exer) => {
+      const exercise = {
+        ExerciseId: exer.exercise.exerciseId,
+        FrequencyPerDay: 1,
+        HoldLength: exer.holdLength,
+        Notes: exer.notes,
+        Rep: exer.rep,
+        RoutineId: routineExerId,
+        Sets: exer.sets,
+        CompleteReps: null
+      };
+      console.log("Posting fresh routineExercise");
+      this.routineExerciseService.postRoutineExercise(exercise).subscribe();
+    });
+  }
+
+  finishedRoutineEntry(routine : Routine, postRoutineSurveyId : number) {
+    return {
+      RoutineId : routine.routineId,
+      Description: routine.description,
+      Date: routine.date,
+      IsComplete: true,
+      IsNew: false,
+      Name: routine.name,
+      PatientId: routine.patientId,
+      PostRoutineSurveyId : postRoutineSurveyId
+    }
+  }
+
+  handleUpdatedExercises(routine : Routine, routineId : number) {
+    const routineExerId = routineId;
+    let index = 0;
+    routine.routineExercises.forEach((exer) => {
+      const repString = this.collectCompleteReps(index);
+      const exercise = {
+        exercise : null,
+        exerciseId: exer.exercise.exerciseId,
+        frequencyPerDay: 1,
+        holdLength: exer.holdLength,
+        notes: exer.notes,
+        rep: exer.rep,
+        routineId: routineExerId,
+        routine: null,
+        routineExerciseId: exer.routineExerciseId,
+        sets: exer.sets,
+        completeReps: repString
+      };
+      console.log("Updated exercise");
+      this.routineExerciseService.putRoutineExercise(exercise).subscribe(re => {
+        console.log(re);
+      });
+      index++;
+    });
+  }
+
+  collectCompleteReps(setIndex : number) {
+    let reps = "";
+    let repIndex = 0;
+    this.actualKey[setIndex].forEach((rep) => {
+      if( reps != "") {
+        reps = reps + ",";
+      }
+
+      if(rep == 'Complete!') {
+        reps = reps + this.expectedKey[setIndex][repIndex].toString();
+      } else if (rep == this.expectedKey[setIndex][repIndex].toString()) {
+        reps = reps + '0';
+      } else {
+        reps = reps + this.actualKey[setIndex][repIndex].toString();
+      }
+
+      repIndex++;
+    });
+
+    return reps;
   }
 
   collectSurveyInfo() {
@@ -176,11 +307,12 @@ export class RoutinePageComponent implements OnInit {
     let note = document.getElementById("surveyNote").getAttribute("value");
     console.log("Difficulty: " + difficulty + ", Pain: " + pain + ", Tiredness: " + tiredness + ", " + note );
     return {
-      completed : true,
-    levelOfDifficulty : difficulty,
-    levelOfPain : pain,
-    levelOfTiredness : tiredness,
-    note : note,
-    postRoutineSurveyId : null }
+      Completed : true,
+      Date : new Date(),
+      LevelOfDifficulty : difficulty,
+      LevelOfPain : pain,
+      LevelOfTiredness : tiredness,
+      Note : note
+    }
   }
 }

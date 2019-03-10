@@ -12,6 +12,7 @@ namespace PhysicalTherapy.Repositories
     {
         IEnumerable<RoutineExercise> GetAll();
         Task<RoutineExercise> Add(RoutineExercise routineExercise);
+        Task<RoutineExercise> UpdateWithSets(RoutineExercise routineExercise);
     }
 
     public class RoutineExerciseRepository : IRoutineExerciseRepository
@@ -31,6 +32,17 @@ namespace PhysicalTherapy.Repositories
         public async Task<RoutineExercise> Add(RoutineExercise routineExercise)
         {
             _context.RoutineExercises.Add(routineExercise);
+            await _context.SaveChangesAsync();
+            return routineExercise;
+        }
+
+        public async Task<RoutineExercise> UpdateWithSets(RoutineExercise routineExercise)
+        {
+            RoutineExercise temp = _context.RoutineExercises
+                .Where(re => routineExercise.RoutineExerciseId == re.RoutineExerciseId)
+                .FirstOrDefault<RoutineExercise>();
+
+            temp.CompleteReps = routineExercise.CompleteReps;
             await _context.SaveChangesAsync();
             return routineExercise;
         }

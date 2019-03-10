@@ -44,15 +44,7 @@ export class RoutineService {
     return this.http.post<Routine>(this.accessPointUrl, body);
   }
 
-  // public add(payload) {
-  //   return this.http.post(this.accessPointUrl, payload, {headers: this.headers});
-  // }
-
-  // public remove(payload) {
-  //   return this.http.delete(this.accessPointUrl + '/' + payload.id, {headers: this.headers});
-  // }
-
-  // public update(payload) {
-  //   return this.http.put(this.accessPointUrl + '/' + payload.id, payload, {headers: this.headers});
-  // }
+  public putRoutine(body) {
+    return this.http.put<Routine>(this.accessPointUrl, body);
+  }
 }
