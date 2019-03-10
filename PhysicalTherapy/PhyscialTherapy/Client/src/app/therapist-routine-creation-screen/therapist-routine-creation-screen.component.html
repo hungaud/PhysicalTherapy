@@ -10,7 +10,8 @@
     <br>
     <span id="patientLabel" class="h3 monospace">Patient: </span>
     <select class="form-control" id="nameSelect" ng-model="therapistsPatients">
-      <option *ngFor="let item of therapistsPatients">
+      <option>Please select a patient...</option>
+      <option *ngFor="let item of therapistsPatients" id="item.patientId">
         ID: {{item.patientId}}  NAME: {{item.firstName}} {{item.lastName}}
       </option>
     </select>
@@ -27,7 +28,8 @@
             <tr>
               <th style="padding: 4px"></th>
               <th style="padding: 4px">
-                <select class="form-control" id="nameSelect" ng-model="therapistsPatients">
+                <select class="form-control" formControlName="exerciseName" ng-model="allExercises">
+                  <option>Please select an exercise...</option>
                   <option *ngFor="let item of allExercises">
                     {{item.name}}
                   </option>
