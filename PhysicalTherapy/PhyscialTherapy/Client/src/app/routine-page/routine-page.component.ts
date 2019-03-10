@@ -179,9 +179,9 @@ export class RoutinePageComponent implements OnInit {
     let repostRoutine = JSON.parse(JSON.stringify(this.originalRoutine)) as Routine;
     repostRoutine.date = null;
     repostRoutine.routineId = null;
-    console.log(repostRoutine);
-    this.repeatRoutineEntry(this.originalRoutine);
-    this.updateRoutineEntry(this.originalRoutine);
+    console.log(this.collectSurveyInfo());
+    //this.repeatRoutineEntry(this.originalRoutine);
+    //this.updateRoutineEntry(this.originalRoutine);
   }
 
   private repeatRoutineEntry(routine : Routine) {
@@ -270,9 +270,7 @@ export class RoutinePageComponent implements OnInit {
         sets: exer.sets,
         completeReps: repString
       };
-      console.log("Updated exercise");
       this.routineExerciseService.putRoutineExercise(exercise).subscribe(re => {
-        console.log(re);
       });
       index++;
     });
@@ -304,8 +302,8 @@ export class RoutinePageComponent implements OnInit {
     let difficulty = parseInt(document.querySelector('input[name="radioDifficulty"]:checked').getAttribute("value"));
     let pain = parseInt(document.querySelector('input[name="radioPain"]:checked').getAttribute("value"));
     let tiredness = parseInt(document.querySelector('input[name="radioTired"]:checked').getAttribute("value"));
-    let note = document.getElementById("surveyNote").getAttribute("value");
-    console.log("Difficulty: " + difficulty + ", Pain: " + pain + ", Tiredness: " + tiredness + ", " + note );
+    let note = document.querySelector('input[name="surveyNote"]').getAttribute("value");
+    console.log(note);
     return {
       Completed : true,
       Date : new Date(),
