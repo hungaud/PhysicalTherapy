@@ -39,7 +39,8 @@ export class RoutinePageComponent implements OnInit {
   public timeOrRep : number[];
   //Timer object to handle time buttons;
   public subscription : Subscription;
-  public counting: boolean = false;
+  public counting : boolean = false;
+  private notes : string = '';
 
   /**
    * Type: 1 == 'rep'
@@ -302,15 +303,19 @@ export class RoutinePageComponent implements OnInit {
     let difficulty = parseInt(document.querySelector('input[name="radioDifficulty"]:checked').getAttribute("value"));
     let pain = parseInt(document.querySelector('input[name="radioPain"]:checked').getAttribute("value"));
     let tiredness = parseInt(document.querySelector('input[name="radioTired"]:checked').getAttribute("value"));
-    let note = document.querySelector('input[name="surveyNote"]').getAttribute("value");
-    console.log(note);
+    //let note = document.querySelector('input[name="surveyNote"]').getAttribute("value");
+    console.log(this.notes);
     return {
       Completed : true,
       Date : new Date(),
       LevelOfDifficulty : difficulty,
       LevelOfPain : pain,
       LevelOfTiredness : tiredness,
-      Note : note
+      Note : this.notes
     }
+  }
+
+  set listFilter(value: string) {
+    this.notes = value;
   }
 }
