@@ -40,7 +40,7 @@ export class RoutinePageComponent implements OnInit {
   //Timer object to handle time buttons;
   public subscription : Subscription;
   public counting : boolean = false;
-  private notes : string = '';
+  public notes : string = '';
 
   /**
    * Type: 1 == 'rep'
@@ -63,7 +63,6 @@ export class RoutinePageComponent implements OnInit {
       this.originalRoutine = routine[0];
       this.exerciseList = this.getExerciseList(routine);
       this.createKeys();
-      console.log(this.actualKey);
     });
   }
 
@@ -113,7 +112,6 @@ export class RoutinePageComponent implements OnInit {
   }
 
   public exerciseClick(exercise : number, set : number) : void {
-    console.log("Entering Exercise Click");
     if(this.timeOrRep[exercise] == 1) {
       this.repClick(exercise, set);
     } else if (this.timeOrRep[exercise] == 2) {
@@ -124,45 +122,36 @@ export class RoutinePageComponent implements OnInit {
   }
 
   private repClick(exercise : number, set : number) : void {
-    console.log("Entering rep click");
     if(parseInt(this.actualKey[exercise][set]) == this.expectedKey[exercise][set]) {
-      console.log("Entering complete!");
       this.actualKey[exercise][set] = "Complete!";
     }
     else if (this.actualKey[exercise][set] == "Complete!") {
-      console.log("Entering the Reset from complete")
       this.actualKey[exercise][set] = (this.expectedKey[exercise][set] - 1).toString();
     }
     else if(parseInt(this.actualKey[exercise][set]) == 0) {
       this.actualKey[exercise][set] = this.expectedKey[exercise][set].toString();
     }
     else {
-      console.log("Entering the else");
       let value = parseInt(this.actualKey[exercise][set]);
       value--;
       this.actualKey[exercise][set] = value.toString();
     }
-    console.log(this.actualKey)
   }
 
   private timeClick(exercise : number, set : number) : void {
     if(!isNullOrUndefined(this.subscription)) {
-      console.log("Wipe Timer Block");
       this.subscription.unsubscribe();
       this.subscription = null;
     }
     else if(this.actualKey[exercise][set] == 'Complete!') {
-      console.log("Complete Reset block");
       this.actualKey[exercise][set] = this.expectedKey[exercise][set].toString();
     }
     else if( isNullOrUndefined(this.subscription) ) {
-      console.log("No timer found block");
       let time = timer(0,1000);
       //Subscription runs the timer
       this.subscription = time.subscribe(x => {
         if(parseInt(this.actualKey[exercise][set]) == 0) {
           //This case is for a completed set
-          console.log("Exercise complete!");
           this.actualKey[exercise][set] = 'Complete!';
           this.subscription.unsubscribe();
           this.subscription = null;
@@ -180,9 +169,8 @@ export class RoutinePageComponent implements OnInit {
     let repostRoutine = JSON.parse(JSON.stringify(this.originalRoutine)) as Routine;
     repostRoutine.date = null;
     repostRoutine.routineId = null;
-    console.log(this.collectSurveyInfo());
-    //this.repeatRoutineEntry(this.originalRoutine);
-    //this.updateRoutineEntry(this.originalRoutine);
+    this.repeatRoutineEntry(this.originalRoutine);
+    this.updateRoutineEntry(this.originalRoutine);
   }
 
   private repeatRoutineEntry(routine : Routine) {
@@ -205,10 +193,6 @@ export class RoutinePageComponent implements OnInit {
         this.handleUpdatedExercises(this.originalRoutine, this.originalRoutine.routineId);
       })
     });
-    //Post the survey
-    //get the survey ID, then put the Routine
-    //Update CompleteReps in each RoutineExercise
-
   }
 
   freshRoutineEntry(routine : Routine) {
@@ -235,7 +219,6 @@ export class RoutinePageComponent implements OnInit {
         Sets: exer.sets,
         CompleteReps: null
       };
-      console.log("Posting fresh routineExercise");
       this.routineExerciseService.postRoutineExercise(exercise).subscribe();
     });
   }
@@ -304,7 +287,6 @@ export class RoutinePageComponent implements OnInit {
     let pain = parseInt(document.querySelector('input[name="radioPain"]:checked').getAttribute("value"));
     let tiredness = parseInt(document.querySelector('input[name="radioTired"]:checked').getAttribute("value"));
     //let note = document.querySelector('input[name="surveyNote"]').getAttribute("value");
-    console.log(this.notes);
     return {
       Completed : true,
       Date : new Date(),
