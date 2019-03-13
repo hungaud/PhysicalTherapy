@@ -20,4 +20,8 @@ export class RoutineExerciseService {
     public postRoutineExercise(body) {
         return this.http.post<RoutineExercise>(`${this.accessPointUrl}`, body);
     }
+
+    public putRoutineExercise(body : RoutineExercise) {
+        return this.http.put<RoutineExercise>(`${this.accessPointUrl}`, body);
+    }
 }

@@ -120,25 +120,20 @@ namespace PhysicalTherapy.Controllers
 
             return CreatedAtAction("GetRoutines", new { id = routine.RoutineId }, routine);
         }
+
+        // PUT: api/routines/??
+        [HttpPut]
+        [Produces(typeof(DbSet<Routine>))]
+        public async Task<IActionResult> PutRoutine([FromBody] Routine routine)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            await _routineRepository.Put(routine);
+
+            return CreatedAtAction("GetRoutines", new { id = routine.RoutineId }, routine);
+        }
     }
 }
-
-
-// test method
-//[HttpGet("Routines2/{id}")]
-//[Produces(typeof(DbSet<Credential>))]
-//public async Task<IActionResult> GetRoutines2([FromRoute] int id)
-//{
-//    if (!ModelState.IsValid)
-//    {
-//        return BadRequest(ModelState);
-//    }
-
-//    var credential = await _routineRepository.TestGet(id);
-
-//    if (credential == null)
-//    {
-//        return NotFound();
-//    }
-//    return Ok(credential);
-//}

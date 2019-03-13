@@ -12,4 +12,5 @@ export interface RoutineExercise {
     routine : Routine,
     routineId : number,
     sets : number
+    completeReps : string;
 }

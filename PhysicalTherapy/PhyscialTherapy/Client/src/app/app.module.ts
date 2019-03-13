@@ -23,6 +23,7 @@ import { TherapistService } from './services/therapist.service';
 import { RoutineExerciseService } from './services/routineExercise.service';
 import { CreateCustomExerciseComponent } from './create-custom-exercise/create-custom-exercise.component';
 import { SharedBackgroundComponent } from './shared/shared-background/shared-background.component';
+import { PostRoutineSurveyService } from './services/post-routine-survey.service';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { SharedBackgroundComponent } from './shared/shared-background/shared-bac
     PatientService,
     ExerciseService,
     TherapistService,
-    RoutineExerciseService
+    RoutineExerciseService,
+    PostRoutineSurveyService
   ],
   bootstrap: [AppComponent]
 })
