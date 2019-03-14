@@ -19,7 +19,7 @@
           <th scope="col">Id #</th>
           <th scope="col">First Name</th>
           <th scope="col">Last Name</th>
-          <th scope="col">Therapist Id</th>
+          <th scope="col">Therapist</th>
         </tr>
       </thead>
 
@@ -28,7 +28,7 @@
           <td><ngb-highlight class="font-weight-bold" [result]="patient.patientId"></ngb-highlight></td>
           <td><ngb-highlight [result]="patient.firstName"></ngb-highlight></td>
           <td><ngb-highlight [result]="patient.lastName"></ngb-highlight></td>
-          <td>{{patient.therapistId}}</td>
+          <td>{{patient.therapist.firstName}} {{patient.therapist.lastName}}</td>
         </tr>
       </tbody>
     </table>

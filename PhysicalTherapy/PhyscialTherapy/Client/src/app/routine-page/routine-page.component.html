@@ -9,7 +9,7 @@
       </div>
       <div
       *ngFor="let number of actualKey[i]; let j = index;">
-        <button (click)="exerciseClick(i,j)">{{number}}</button>
+        <button class="btn btn-outline-primary mr-2" id="exerciseButton{{i}}{{j}}" (click)="exerciseClick(i,j)">{{number}}</button>
       </div>
       {{item.exercise.description}}
       {{item.notes}}
@@ -42,5 +42,5 @@
   <label>5</label>
   <h5>Note</h5>
   <input type="text" id="surveyNote">
-  <button (click)="submitRoutine()">Submit!</button>
+  <button class="btn btn-outline-primary mr-2" (click)="submitRoutine()">Submit!</button>
 </div>

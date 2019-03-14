@@ -21,7 +21,7 @@ export class TherapistRoutineCreationScreenComponent implements OnInit {
     private patientService : PatientService, private routineExerciseService : RoutineExerciseService,
     private routineService : RoutineService, private http : HttpClient) {}
     
-  public allExercises : Exercise[] = [];
+  allExercises : Exercise[] = [];
   overallForm : FormGroup;
   routineArray : FormArray;
   therapistsPatients : Patient[] = [];
@@ -36,22 +36,11 @@ export class TherapistRoutineCreationScreenComponent implements OnInit {
     this.patientService.getPatientsByTherapistId(therapist.id)
       .subscribe((result) => {
         this.therapistsPatients = result;
-        this.therapistsPatients.forEach((patient) => {
-          document.getElementById('patientList').innerHTML += `<option value="ID: ${patient.patientId} NAME: ${patient.firstName} ${patient.lastName}" />`;
-        })
       });
     this.exerciseService.getAllExercises()
       .subscribe((result) =>  {
         this.allExercises = result;
-        this.loadExerciseDataList();
       });
-  }
-
-  loadExerciseDataList() {
-    this.allExercises.forEach((exercise) => {
-      document.getElementById('exerciseList').innerHTML +=
-        `<option value="${exercise.name}" />`;
-    });
   }
 
   addExerciseTemplate() : void {
@@ -128,13 +117,13 @@ export class TherapistRoutineCreationScreenComponent implements OnInit {
   }
 
   onSubmit() : void {
-    const patient = (<HTMLInputElement>document.getElementById('listInput')).value;
+    const patient = (<HTMLInputElement>document.getElementById('nameSelect')).value;
     if(!this.overallForm.invalid && patient) {
       const routine = this.setRoutine(patient);
       this.routineService.postRoutine(routine)
         .subscribe((result) => {
           this.handleExercises(result);
-          this.handleFiles();
+          this.handleFiles(result.routineId);
           this.clearArray();
         });
     } else {
@@ -175,21 +164,21 @@ export class TherapistRoutineCreationScreenComponent implements OnInit {
     });
   }
 
-  handleFiles() {
+  handleFiles(routineId) {
     this.files.forEach((file) => {
-      this.uploadFile(file);
+      this.uploadFile(file, routineId);
     });
     this.files = [];
   }
 
-  uploadFile(file) {
+  uploadFile(file, routineId) {
     const fd = new FormData();
     fd.append('uploadFile', file, file.name);
     // We will need to have the upload URL location here
-    /* this.http.post('', fd)
+    this.http.post(`https://capstone-pt.azurewebsites.net`, fd)
       .subscribe((response) => {
         console.log(response);
-      }); */
+      });
   }
 
   clearArray() {
