@@ -260,4 +260,4 @@ paket-files/
 __pycache__/
 *.pyc
 /PhysicalTherapy/PhyscialTherapy/Properties/launchSettings.json
-/PhysicalTherapy/PhyscialTherapy/appsettings.json
+/PhysicalTherapy/PhysicalTherapy/appsettings.json
