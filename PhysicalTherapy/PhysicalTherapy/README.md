@@ -27,7 +27,7 @@ Postman
 <br>
 https://www.getpostman.com/
 
-### Installing
+### Installations and Setup
 
 Step by Step Installation to set up development environment.
 
@@ -106,7 +106,7 @@ npm install bootstrap
 npm install --save @ng-bootstrap/ng-bootstrap
 ```
 
-### Run Locally
+## Run Locally
 To test this locally, run the IIS Express backend on Visual Studio. In visual Studio Code run the following command:
 <br>
 ```npm start```
@@ -114,7 +114,7 @@ To test this locally, run the IIS Express backend on Visual Studio. In visual St
 This will run the ```ng serve -o```
 
 
-### Deployment
+## Deployment
 
 Deployment will be different per team. For us, we used Azure. Azure we deployed the backend api by pubishing it to Azure.
 Front end will be a little bit different. You will need the Azure extension in Visual Studio Code. First build the production by running the following command:
@@ -123,3 +123,16 @@ Front end will be a little bit different. You will need the Azure extension in V
 ng build --prod
 ```
 Locate the dist/Client. right click Client under the dist folder and click publish to Azure. (If not using Azure, FTP this directory, **NOT** the development Client).
+
+## Built With
+
+* [.NET Core](https://docs.microsoft.com/en-us/dotnet/core/) - The web framework used
+* [Angular](https://angular.io/) - The web framework used
+* [Get Bootstrap](https://getbootstrap.com/) - Bootstrap UI
+* [Ng-Bootstrap](https://ng-bootstrap.github.io/#/getting-started) - Bootstrap UI
+
+## Authors
+
+* **Hung Auduong**
+* **Tyger Hugh**
+* **Alex Leathers**
