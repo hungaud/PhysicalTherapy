@@ -12,7 +12,7 @@ These instructions will get you a copy of the project up and running on your loc
 Things you will need installed and how to install them.
 
 ```
-First you will need .NET CORE SDK installed. You can install it here:
-https://docs.microsoft.com/en-us/dotnet/core/
+First you will need .NET CORE SDK installed. You can get the latest version here:
+[https://docs.microsoft.com/en-us/dotnet/core/](https://docs.microsoft.com/en-us/dotnet/core/)
 
 ```
