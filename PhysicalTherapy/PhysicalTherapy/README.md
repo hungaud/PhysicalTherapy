@@ -11,12 +11,12 @@ These instructions will get you a copy of the project up and running on your loc
 
 Things you will need installed and how to install them.
 
-1.)		Microsoft Visual Studio and Visual Studio Code
+**1.)**		Microsoft Visual Studio and Visual Studio Code
 		Both can be found at:
 		<br>
 		https://visualstudio.microsoft.com/
 
-2.)		Microsoft SQL Server Management Studio
+**2.)**		Microsoft SQL Server Management Studio
 		<br>
 		https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-2017
 
