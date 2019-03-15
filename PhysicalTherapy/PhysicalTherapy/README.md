@@ -72,6 +72,7 @@ Make sure there is a class called appsettings.json in the project. The content s
 }
 ```
 Replace {{Connection_String_Here}} inide the quotation with your database connection string.
+For any reason, if you need to quickly delete all the tables and recreate the tables in the database, under wwwroot, there is a sql file with the sql script to drop all tables.
 
 **6.)**
 This project is was develop using Code First Migrations with Entity Framework Core
@@ -79,6 +80,7 @@ This project is was develop using Code First Migrations with Entity Framework Co
 https://docs.microsoft.com/en-us/ef/core/managing-schemas/migrations/
 <br>
 https://docs.microsoft.com/en-us/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/migrations-and-deployment-with-the-entity-framework-in-an-asp-net-mvc-application
+<br>
 To scaffold the project open up Package Manger Console (under Views -> Other Windows). Since there's already migrations set you'll just have to update the database. But if Migrations directory is not there, enter the following Commands:
 <br>
 ```
@@ -95,3 +97,29 @@ in the global.ts class on the front end, uncomment the localhost and comment the
 //export const apiEndpoint = 'http://localhost:50000/api';
 export const apiEndpoint = 'https://webapipt.azurewebsites.net/api';
 ```
+
+**8.)**
+This project also uses different Bootstraps UI. Including Ng-Bootstrap. If there are issues displaying the bootstrap UI, enter the following command:
+<br>
+```
+npm install bootstrap
+npm install --save @ng-bootstrap/ng-bootstrap
+```
+
+### Run Locally
+To test this locally, run the IIS Express backend on Visual Studio. In visual Studio Code run the following command:
+<br>
+```npm start```
+<br>
+This will run the ```ng serve -o```
+
+
+### Deployment
+
+Deployment will be different per team. For us, we used Azure. Azure we deployed the backend api by pubishing it to Azure.
+Front end will be a little bit different. You will need the Azure extension in Visual Studio Code. First build the production by running the following command:
+<br>
+```
+ng build --prod
+```
+Locate the dist/Client. right click Client under the dist folder and click publish to Azure. (If not using Azure, FTP this directory, **NOT** the development Client).
