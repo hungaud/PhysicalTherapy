@@ -13,6 +13,6 @@ Things you will need installed and how to install them.
 
 ```
 First you will need .NET CORE SDK installed. You can get the latest version here:
-[https://docs.microsoft.com/en-us/dotnet/core/](https://docs.microsoft.com/en-us/dotnet/core/)
+<a href="https://docs.microsoft.com/en-us/dotnet/core/" value="https://docs.microsoft.com/en-us/dotnet/core/"/a>
 
 ```
