@@ -13,7 +13,8 @@ Things you will need installed and how to install them.
 
 
 
-First you will need .NET CORE SDK installed. You can get the latest version here:
+First you will need .NET CORE SDK installed. You can find the latest version here:
+<br>
 https://docs.microsoft.com/en-us/dotnet/core/
 
 
